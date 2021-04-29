@@ -17,7 +17,7 @@ int main(){
 	int n;
 	printf("Introduir 1 si es vol calcular la grafica per a sons simples.\nIntroduir 2 si es vol calcular la grafica per a sons complexos.\nIntroduir 3 si es vol calcular el valor de la dissonancia entre 2 sons.\n");
 	scanf("%i",&n);
-	int harmonics,harmonics_F2,harmonics_F1,punts=500; //harmonics=nombre d'harmonics, punts=punts del grafic.
+	int harmonics,harmonics_F2,harmonics_F1,punts=500; //harmonics=nombre d'harmonics,punts=punts del grafic.
 	double r_max=2,r=1,potencia,f1,f2; //r_max=maxim ratio entre les dues frequencies i potencia es el valor k tal que l'harmonic i-essim te amplitud 1/i^k
 	switch(n){
 		case 1://So simple (taula per graficar).
@@ -33,7 +33,7 @@ int main(){
 			fclose(fitxer);
 			break;
 		case 2:{//So complex (taula per graficar).
-			harmonics=10;
+			harmonics=7;
 			double F1[harmonics][2],F2[harmonics][2];//llista d'harmonics. A la primera columna la freqüència; a la segona, l'amplitud.
 			printf("Introduir una frequencia base:\n");
 			scanf("%lf",&f1);
@@ -42,7 +42,7 @@ int main(){
 				return 1;
 			}
 			for(harmonics_F1=1;(harmonics_F1+1)*f1<=MAX_FREQ && harmonics_F1<harmonics;harmonics_F1++){}
-			printf("Introduir el valor k tal que l'harmoni i-essim te amplitud 1/i^k:\n");
+			printf("Introduir el valor k tal que l'harmonic i-essim te amplitud 1/i^k:\n");
 			scanf("%lf",&potencia);
 			nota_musical(f1,harmonics,potencia,F1);
 			fitxer=fopen("diss.txt","w");
@@ -121,7 +121,7 @@ double disso_complexa(int harmonics_F1,int harmonics_F2,double F1[][2],double F2
 			dissoF2+=disso_simple(F2[i][0],F2[j][0],F2[i][1],F2[j][1]);
 	}
 	for(int i=0;i<harmonics_F1;i++){
-		for(int j=0;j<harmonics_F2;j++)//nomes hem de comptar els termes (i,j) una vegada.
+		for(int j=0;j<harmonics_F2;j++)
 			dissoF1_F2+=disso_simple(F1[i][0],F2[j][0],F1[i][1],F2[j][1]);
 	}
 	return dissoF1+dissoF2+dissoF1_F2; 
