@@ -28,7 +28,7 @@ int main() {
         printf("No s'ha pogut crear el fitxer.");
         return 1;
       }
-      for (int k = 0; k < punts; k++, r += (r_max - 1)/punts)
+      for (int k = 0; k <= punts; k++, r += (r_max - 1)/punts)
         fprintf(fitxer, "%.16G %.16G\n", r, disso_simple(f1, r * f1, 1, 1));
       fclose(fitxer);
       break;
@@ -46,7 +46,7 @@ int main() {
         printf("No s'ha pogut crear el fitxer.");
         return 1;
       }
-      for (int k = 0; k < punts; k++, r += (r_max - 1)/punts) {
+      for (int k = 0; k <= punts; k++, r += (r_max - 1)/punts) {
         for (harmonics_F2 = 1; (harmonics_F2 + 1) * f1 <= MAX_FREQ && harmonics_F2 < harmonics; harmonics_F2++) {}
         nota_musical(r*f1, harmonics_F2, potencia, F2);
         fprintf(fitxer, "%.16G %.16G\n", r, disso_complexa(harmonics_F1, harmonics_F2, F1, F2));
