@@ -72,7 +72,7 @@ int main() {
   return 0;
 }
 
-void nota_musical(double freq_fonamental, int harmonics, double potencia, double F[harmonics][2]) { //potencia es el valor k tal que l'harmonic i-essim te amplitud 1/i^k
+void nota_musical(double freq_fonamental, int harmonics, double potencia, double F[harmonics][2]) { //potencia es el valor k tal que l'harmonic i-essim te amplitud 1/i^k.
   for (int i = 1; i <= harmonics; i++) {
     F[i-1][0] = i * freq_fonamental;
     F[i-1][1] = 1./pow(i, potencia);
