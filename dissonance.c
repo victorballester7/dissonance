@@ -68,6 +68,7 @@ int main() {
       return 1;
     default:
       printf("No s'ha introduit un valor correcte.\n");
+      return 1;
   }
   return 0;
 }
