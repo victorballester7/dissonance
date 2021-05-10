@@ -39,7 +39,7 @@ int main() {
         printf("Error! La frequencia es menor a 20 Hz o major a 20000 Hz.\n");
         return 1;
       }
-      for (harmonics_F1 = 1; (harmonics_F1 + 1) * f1 <= MAX_FREQ && harmonics_F1 < harmonics; harmonics_F1++) {}
+      for (harmonics_F1 = 1; (harmonics_F1 + 1) * f1 <= MAX_FREQ && harmonics_F1 < harmonics; harmonics_F1++) {} //afegeix tants harmonics com sigui possible de f1 (sense superar "harmonics" a "harmonics_F1")
       nota_musical(f1, harmonics, potencia, F1);
       fitxer = fopen("diss.txt", "w");
       if (fitxer == NULL) {
@@ -47,7 +47,7 @@ int main() {
         return 1;
       }
       for (int k = 0; k <= punts; k++, r += (r_max - 1)/punts) {
-        for (harmonics_F2 = 1; (harmonics_F2 + 1) * f1 <= MAX_FREQ && harmonics_F2 < harmonics; harmonics_F2++) {}
+        for (harmonics_F2 = 1; (harmonics_F2 + 1) * f1 <= MAX_FREQ && harmonics_F2 < harmonics; harmonics_F2++) {} //afegeix tants harmonics com sigui possible de f2 (sense superar "harmonics" a "harmonics_F2")
         nota_musical(r*f1, harmonics_F2, potencia, F2);
         fprintf(fitxer, "%.16G %.16G\n", r, disso_complexa(harmonics_F1, harmonics_F2, F1, F2));
       }
@@ -58,12 +58,14 @@ int main() {
       scanf("%lf", &f1);
       printf("Introduir la frequencia fonamental del so 2: ");
       scanf("%lf", &f2);
-      if (f1 < MIN_FREQ || harmonics * f1 > MAX_FREQ || harmonics * f2 > MAX_FREQ) {
-        printf("Error! Hi ha un harmonic amb una frequencia menor a 20 Hz o major a 20000 Hz.");
+      if (f1 < MIN_FREQ || f1 > MAX_FREQ || f2 < MIN_FREQ || f2 > MAX_FREQ) {
+        printf("Error! Hi ha una frequencia menor a 20 Hz o major a 20000 Hz.");
         return 1;
       }
-      nota_musical(f1, harmonics, potencia, F1);
-      nota_musical(f2, harmonics, potencia, F2);
+      for (harmonics_F1 = 1; (harmonics_F1 + 1) * f1 <= MAX_FREQ && harmonics_F1 < harmonics; harmonics_F1++) {} //afegeix tants harmonics com sigui possible de f2 (sense superar "harmonics" a "harmonics_F1")
+      for (harmonics_F2 = 1; (harmonics_F2 + 1) * f2 <= MAX_FREQ && harmonics_F2 < harmonics; harmonics_F2++) {}//afegeix tants harmonics com sigui possible de f1 (sense superar "harmonics" a "harmonics_F2")
+      nota_musical(f1, harmonics_F1, potencia, F1);
+      nota_musical(f2, harmonics_F2, potencia, F2);
       printf("\nDissonancia: %.16G\n", disso_complexa(harmonics, harmonics, F1, F2));
       return 1;
     default:
