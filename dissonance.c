@@ -20,7 +20,7 @@ int main() {
   int harmonics = 7, harmonics_F1 = 1, harmonics_F2 = 1, punts = 500; //harmonics = nombre d'harmonics, punts = punts del grafic.
   double r_max = 2, r = 1, potencia = 0.4, f1, f2; //r_max = maxim ratio entre les dues frequencies i potencia es el valor k tal que l'harmonic i-essim te amplitud 1/i^k. F1[harmonics][2] = llista d'harmonics. A la primera columna la freqüència; a la segona, l'amplitud.
   switch (n) {
-    case 1://So simple (taula per graficar).
+    case 1: {//So simple (taula per graficar).
       printf("Introduir una frequencia base:\n");
       scanf("%lf", &f1);
       fitxer = fopen("diss.txt", "w");
@@ -32,7 +32,8 @@ int main() {
         fprintf(fitxer, "%.16G %.16G\n", r, disso_simple(f1, r * f1, 1, 1));
       fclose(fitxer);
       break;
-    case 2:{ //So complex (taula per graficar).
+    }
+    case 2: { //So complex (taula per graficar).
       printf("Introduir una frequencia base:\n");
       scanf("%lf", &f1);
       if (f1 < MIN_FREQ || f1 > MAX_FREQ) {
@@ -54,8 +55,9 @@ int main() {
         fprintf(fitxer, "%.16G %.16G\n", r, disso_complexa(harmonics_F1, harmonics_F2, F1, F2));
       }
       fclose(fitxer);
-      break;}
-    case 3:{ //Valor de dissonacia entre dos sons introduits manualment.
+      break;
+    }
+    case 3: { //Valor de dissonacia entre dos sons introduits manualment.
       printf("Introduir la frequencia fonamental del so 1: ");
       scanf("%lf", &f1);
       printf("Introduir la frequencia fonamental del so 2: ");
