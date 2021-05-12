@@ -17,7 +17,7 @@ int main() {
   int n;
   printf("Introduir 1 si es vol calcular la grafica per a sons simples.\nIntroduir 2 si es vol calcular la grafica per a sons complexos.\nIntroduir 3 si es vol calcular el valor de la dissonancia entre 2 sons.\n");
   scanf("%i", &n);
-  int harmonics = 7, harmonics_F1, harmonics_F2, punts = 500; //harmonics = nombre d'harmonics, punts = punts del grafic.
+  int harmonics = 7, harmonics_F1 = 1, harmonics_F2 = 1, punts = 500; //harmonics = nombre d'harmonics, punts = punts del grafic.
   double r_max = 2, r = 1, potencia = 0.4, f1, f2, F1[harmonics][2], F2[harmonics][2]; //r_max = maxim ratio entre les dues frequencies i potencia es el valor k tal que l'harmonic i-essim te amplitud 1/i^k. F1[harmonics][2] = llista d'harmonics. A la primera columna la freqüència; a la segona, l'amplitud.
   switch (n) {
     case 1://So simple (taula per graficar).
