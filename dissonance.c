@@ -39,7 +39,7 @@ int main() {
         printf("Error! La frequencia es menor a 20 Hz o major a 20000 Hz.\n");
         return 1;
       }
-      while ((harmonics_F1 + 1) * f1 <= MAX_FREQ) harmonics_F1++; //afegeix tants harmonics com sigui possible de f1 (sense superar "harmonics") a "harmonics_F1"
+      while ((harmonics_F1 + 1) * f1 <= MAX_FREQ && harmonics_F1 < harmonics) harmonics_F1++; //afegeix tants harmonics com sigui possible de f1 (sense superar "harmonics") a "harmonics_F1"
       double F1[harmonics_F1][2];
       nota_musical(f1, harmonics_F1, potencia, F1);
       fitxer = fopen("diss.txt", "w");
@@ -48,7 +48,7 @@ int main() {
         return 1;
       }
       for (int k = 0; k <= punts; k++, r += (r_max - 1)/punts) {
-        while ((harmonics_F2 + 1) * r * f1 <= MAX_FREQ) harmonics_F2++; //afegeix tants harmonics com sigui possible de f1 (sense superar "harmonics") a "harmonics_F2"
+        while ((harmonics_F2 + 1) * r * f1 <= MAX_FREQ && harmonics_F2 < harmonics) harmonics_F2++; //afegeix tants harmonics com sigui possible de f1 (sense superar "harmonics") a "harmonics_F2"
         double F2[harmonics_F2][2];
         nota_musical(r * f1, harmonics_F2, potencia, F2);
         fprintf(fitxer, "%.16G %.16G\n", r, disso_complexa(harmonics_F1, harmonics_F2, F1, F2));
@@ -64,8 +64,8 @@ int main() {
         printf("Error! Hi ha una frequencia menor a 20 Hz o major a 20000 Hz.\n");
         return 1;
       }
-      while ((harmonics_F1 + 1) * f1 <= MAX_FREQ) harmonics_F1++; //afegeix tants harmonics com sigui possible de f1 (sense superar "harmonics") a "harmonics_F1"
-      while ((harmonics_F2 + 1) * f2 <= MAX_FREQ) harmonics_F2++; //afegeix tants harmonics com sigui possible de f2 (sense superar "harmonics") a "harmonics_F2"
+      while ((harmonics_F1 + 1) * f1 <= MAX_FREQ && harmonics_F1 < harmonics) harmonics_F1++; //afegeix tants harmonics com sigui possible de f1 (sense superar "harmonics") a "harmonics_F1"
+      while ((harmonics_F2 + 1) * f2 <= MAX_FREQ && harmonics_F2 < harmonics) harmonics_F2++; //afegeix tants harmonics com sigui possible de f2 (sense superar "harmonics") a "harmonics_F2"
       double F1[harmonics_F1][2], F2[harmonics_F2][2];
       nota_musical(f1, harmonics_F1, potencia, F1);
       nota_musical(f2, harmonics_F2, potencia, F2);
