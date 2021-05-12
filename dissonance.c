@@ -59,7 +59,7 @@ int main() {
       printf("Introduir la frequencia fonamental del so 2: ");
       scanf("%lf", &f2);
       if (f1 < MIN_FREQ || f1 > MAX_FREQ || f2 < MIN_FREQ || f2 > MAX_FREQ) {
-        printf("Error! Hi ha una frequencia menor a 20 Hz o major a 20000 Hz.");
+        printf("Error! Hi ha una frequencia menor a 20 Hz o major a 20000 Hz.\n");
         return 1;
       }
       while ((harmonics_F1 + 1) * f1 <= MAX_FREQ) harmonics_F1++; //afegeix tants harmonics com sigui possible de f1 (sense superar "harmonics") a "harmonics_F1"
