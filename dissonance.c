@@ -108,6 +108,8 @@ double disso_complexa(int harmonics_F1, int harmonics_F2, double F1[harmonics_F1
     for (int j = i; j < harmonics_F2; j++) //nomes hem de comptar els termes (i, j) una vegada.
       dissoF2 += disso_simple(F2[i][0], F2[j][0], F2[i][1], F2[j][1]);
   }
+  if (fabs(F1[0][0] - F2[0][0]) <= TOL)
+     return dissoF1+dissoF2;
   for (int i = 0; i < harmonics_F1; i++) {
     for (int j = 0; j < harmonics_F2; j++)
       dissoF1_F2 += disso_simple(F1[i][0], F2[j][0], F1[i][1], F2[j][1]);
