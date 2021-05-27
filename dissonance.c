@@ -46,11 +46,11 @@ int main() {
         printf("No s'ha pogut crear el fitxer.");
         return 1;
       }
-      fprintf(fitxer, "%.16G %.16G\n", r, dissonancia(2,S));
+      fprintf(fitxer, "%.16G %.16G\n", 1., dissonancia(2,S));
       f1 = S[0].frequencies[0][0];
       for (int k = 0; k < punts; k++, r += (r_max - 1) / punts) {
         S[1].numHarmonics = 1;
-        while ((S[1].numHarmonics + 1) * r * f1 <= MAX_FREQ && S[1].numHarmonics < harmonics) (S[1].numHarmonics)++; //afegeix tants harmonics com sigui possible de f1 (sense superar "harmonics") a "harmonics_F2"
+        while ((S[1].numHarmonics + 1) * r * f1 <= MAX_FREQ && S[1].numHarmonics < harmonics) (S[1].numHarmonics)++; //afegeix tants harmonics  a "S[1].numHarmonics" com sigui possible de r * f1 (sense superar "MaxHarmonics")
         nota_musical(r * f1, S[1], potencia);
         fprintf(fitxer, "%.16G %.16G\n", r, dissonancia(2,S));
       }
@@ -95,7 +95,7 @@ socomplex *construccio_sons(int n, int MaxHarmonics, double potencia){
       printf("Error! Hi ha una frequencia menor a 20 Hz o major a 20000 Hz.\n");
       return NULL;
     }
-    while ((S[i].numHarmonics + 1) * f <= MAX_FREQ && S[i].numHarmonics < MaxHarmonics) (S[i].numHarmonics)++; //afegeix tants MaxHarmonics com sigui possible de f (sense superar "MaxHarmonics") a "harmonics_F1"
+    while ((S[i].numHarmonics + 1) * f <= MAX_FREQ && S[i].numHarmonics < MaxHarmonics) (S[i].numHarmonics)++; //afegeix tants harmonics  a "S[i].numHarmonics" com sigui possible de f (sense superar "MaxHarmonics")
     S[i].frequencies = (double (*) [2]) malloc(S[i].numHarmonics * 2 * sizeof(double));
     if (S[i].frequencies == NULL) {
       printf("Error en l'assignacio de memoria.\n");
