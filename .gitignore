@@ -2,3 +2,19 @@
 *.ipynb
 dissonance
 second_derivative_check
+*.pdf
+
+# Tex files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.xml

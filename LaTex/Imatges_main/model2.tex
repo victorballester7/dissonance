@@ -1,0 +1,34 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{pgfplots, pgfplotstable}
+
+\pgfplotsset{compat = newest}
+
+\definecolor{color1}{RGB}{255,158,1}
+\definecolor{color2}{RGB}{255,74,1}
+\definecolor{color3}{RGB}{220,0,0}
+
+\begin{document}
+    \begin{tikzpicture}
+        \begin{axis}[
+            xmin = 1, xmax = 2, %
+            ymin = 0, ymax = 1, %
+            xtick distance = 0.1, %Is the distance between major ticks in the x-axis.
+            ytick distance = 0.1, %Is the distance between major ticks in the y-axis.
+            grid = major, %When this options is set to both the minor and major grid are plotted.
+            minor tick num = 1, %Is the number of ticks between major ticks.
+            major grid style = {lightgray}, %Changes the color and stroke of the major grid.
+            width = 10cm, %sets the width of the figure
+            height = 9cm,  %sets the height of the figure
+            xlabel = {$f_2/f_1$}, %
+            ylabel = {$\delta(f_1,f_2,1,1)$}, %
+            legend cell align = {left}, %
+        ]
+            \addplot [thick,smooth,no markers,color1] table {./../Dades_i_codi/model2-100.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            \addplot [thick,smooth,no markers,color2] table {./../Dades_i_codi/model2-500.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            \addplot [thick,smooth,no markers,color3] table {./../Dades_i_codi/model2-3000.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            \legend{$f_1=100\text{ Hz}$,$f_1=500\text{ Hz}$,$f_1=3000\text{ Hz}$}
+        \end{axis}
+    \end{tikzpicture}
+\end{document}

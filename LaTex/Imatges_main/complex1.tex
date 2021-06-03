@@ -1,0 +1,49 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{pgfplots, pgfplotstable}
+
+\pgfplotsset{compat = newest}
+\definecolor{darkblue}{RGB}{86, 40, 240}
+
+\begin{document}
+    \begin{tikzpicture}
+        \begin{axis}[
+            xmin = 1, xmax = 2, %
+            ymin = 0, ymax = 4, %
+            xtick distance = 0.1, %Is the distance between major ticks in the x-axis.
+            ytick distance = 0.5, %Is the distance between major ticks in the y-axis.
+            grid = major, %When this options is set to both the minor and major grid are plotted.
+            minor tick num = 1, %Is the number of ticks between major ticks.
+            major grid style = {lightgray}, %Changes the color and stroke of the major grid.
+            width = 10cm, %sets the width of the figure
+            height = 8cm,  %sets the height of the figure
+            xlabel = {$f_2/f_1$}, %
+            ylabel = {$\mathcal{D}(\mathcal{S}_1,\mathcal{S}_2)$}, %
+            legend cell align = {left}, %
+        ]
+            \addplot [thick,smooth,no markers,red] table {./Dades_i_codi/complex110.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1,0.394)};
+            \node[color=darkblue] at (1 + 0.03,0.394) {$\frac{1}{1}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.167,2.876)};
+            \node[color=darkblue] at (1.167,2.876 - 0.23) {$\frac{7}{6}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.2,2.603)};
+            \node[color=darkblue] at (1.2,2.603 - 0.23) {$\frac{6}{5}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.25,2.364)};
+            \node[color=darkblue] at (1.25,2.364 - 0.23) {$\frac{5}{4}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.333,2.088)};
+            \node[color=darkblue] at (1.333,2.127 - 0.23) {$\frac{4}{3}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.4,2.116)};
+            \node[color=darkblue] at (1.4,2.116 - 0.23) {$\frac{7}{5}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.5,1.403)};
+            \node[color=darkblue] at (1.5,1.403 - 0.23) {$\frac{3}{2}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.667,1.810)};
+            \node[color=darkblue] at (1.667,1.810 - 0.23) {$\frac{5}{3}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.75,1.929)};
+            \node[color=darkblue] at (1.75,1.929 - 0.23) {$\frac{7}{4}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(2,0.628)};
+            \node[color=darkblue] at (2 - 0.03,0.628) {$\frac{2}{1}$};
+            \legend{$f_1=110\text{ Hz}$}
+        \end{axis}
+    \end{tikzpicture}
+\end{document}
