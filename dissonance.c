@@ -87,7 +87,7 @@ int main() {
         }
         fprintf(fitxer, "%.16G %.16G\n", f1, dissonancia(2,S));
       }
-      break;
+      return 4;
     }
     default:
       printf("No s'ha introduit un valor correcte.\n");
