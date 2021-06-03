@@ -67,10 +67,16 @@ int main() {
     }
     case 4:{
       int p, q;
-      double f1_max = 2000;
-      socomplex *S = construccio_sons(-1, harmonics, potencia);
-      f1 = S[0].frequencies_amplituds[0][0];
-      double f = f1;
+      double f1_min = 60, f1_max = 1000;
+      socomplex *S = (socomplex *) malloc(2 * sizeof(socomplex));
+      for (int i = 0; i < 2; i++) {
+        while ((S[i].numHarmonics + 1) * f1_min <= MAX_FREQ && S[i].numHarmonics < harmonics) (S[i].numHarmonics)++; //afegeix tants harmonics  a "S[i].numHarmonics" com sigui possible de f (sense superar "MaxHarmonics"). S[i].numHarmonics per defecte es 0.
+        S[i].frequencies_amplituds = (double (*) [2]) malloc(S[i].numHarmonics * 2 * sizeof(double));
+        if (S[i].frequencies_amplituds == NULL) {
+          printf("Error en l'assignacio de memoria.\n");
+          return 1;
+        }
+      }
       printf("Introduir dos nombres p i q, tals que p > q: ");
       scanf("%i%i", &p, &q);
       fitxer = fopen("diss.txt", "w");
@@ -78,7 +84,8 @@ int main() {
         printf("No s'ha pogut crear el fitxer.");
         return 1;
       }
-      for (int k = 0; k <= punts; k++, f1 += (f1_max - f) / punts) {
+      f1 = f1_min;
+      for (int k = 0; k <= punts; k++, f1 += (f1_max - f1_min) / punts) {
         for (int i = 0; i < 2; i++) {
           double f2 = pow(p * 1. / q, i) * f1;
           S[i].numHarmonics = 1;
