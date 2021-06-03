@@ -70,6 +70,7 @@ int main() {
       double f1_max = 2000;
       socomplex *S = construccio_sons(-1, harmonics, potencia);
       f1 = S[0].frequencies_amplituds[0][0];
+      double f = f1;
       printf("Introduir dos nombres p i q, tals que p > q: ");
       scanf("%i%i", &p, &q);
       fitxer = fopen("diss.txt", "w");
@@ -77,7 +78,7 @@ int main() {
         printf("No s'ha pogut crear el fitxer.");
         return 1;
       }
-      for (int k = 0; k <= punts; k++, f1 += (f1_max - 1) / punts) {
+      for (int k = 0; k <= punts; k++, f1 += (f1_max - f) / punts) {
         for (int i = 0; i < 2; i++) {
           double f2 = pow(p * 1. / q, i) * f1;
           S[i].numHarmonics = 1;
