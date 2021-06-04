@@ -3,7 +3,7 @@
 dissonance
 second_derivative_check
 *.pdf
-!LaTex/*.txt
+!LaTex/Dades_i_codi/**
 
 # Tex files
 *.aux
