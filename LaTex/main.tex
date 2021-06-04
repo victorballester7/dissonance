@@ -79,7 +79,7 @@
 \newtheorem{theorem}[definition]{Teorema}
 \newtheorem{prop}[definition]{Proposició}
 
-
+\newcommand{\RR}{\ensuremath{\mathbb{R}}} % set of real numbers
 \newcommand\Hz{\text{ Hz}}
 \DeclareMathOperator{\arccosh}{arccosh}
 
@@ -194,6 +194,63 @@ A la figura \ref{main:fig2} es mostra una representació d'aquesta fórmula.
     \label{main:fig2}
 \end{center}
 És clar que el model descrit no diferencia si estem comparant dues freqüències prop dels 200 Hz o dues freqüències prop dels 2000 Hz. Només té en compte la diferència entre ambdues. Aquest és un primer inconvenient que podem trobar al model. Un segon problema podria ser que la corba té un punt on no és diferenciable (el màxim de la funció), cosa que ens porta a pensar si realment percebem els sons d'aquesta manera o d'una manera més suau, més \textit{diferenciable}. Aquests dos problemes ens porten a reconsiderar el problema inicial de calcular la dissonància entre dos sons purs i enfocar-ho des d'un altre punt de vista, com veurem a la secció següent.
+
+\section{Model}
+Com hem comentat anteriorment, distingirem dos tipus de sons: els sons simples i els sons complexos. Per això, ens anirà bé definir els següents conjunts:
+\begin{definition}
+    Definim el conjunt $\mathcal{S}$ de sons simples com: $$\mathcal{S}=\{s=(f,a,\varphi)^\mathrm{T}\in\RR^3:s\text{ és el so d'equació }x(t)=a\sin(2\pi ft+\varphi)\}.$$
+\end{definition}
+\begin{definition}
+    Definim el conjunt $\mathcal{C}$ de sons complexos com: $$\mathcal{C}=\left\{M=
+    \begin{pmatrix}
+        f_1 & f_2 & \cdots & f_n\\
+        a_1 & a_2 & \cdots & a_n\\
+        \varphi_1 & \varphi_2 & \cdots & \varphi_n
+    \end{pmatrix}\in\mathcal{M}_{3\times n}(\RR):M\text{ és el so d'equació }x(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)\right\}.$$
+\end{definition}
+A partir d'aquestes dues definicions observem que $\mathcal{S}\subset\mathcal{C}$. L'objectiu ara és definir operacions que d'una banda ens permetin combinar dos (o més) sons complexos en un de sol i d'altra banda ens permetin calibrar la intensitat d'un so.
+\begin{definition}
+    Siguin $M_1,M_2\in\mathcal{C}$ tals que $$M_1=
+    \begin{pmatrix}
+        f_1 & f_2 & \cdots & f_n\\
+        a_1 & a_2 & \cdots & a_n\\
+        \varphi_1 & \varphi_2 & \cdots & \varphi_n
+    \end{pmatrix}\quad\text{i}\quad M_2=
+    \begin{pmatrix}
+        f_{n+1} & f_{n+2} & \cdots & f_m\\
+        a_{n+1} & a_{n+2} & \cdots & a_m\\
+        \varphi_{n+1} & \varphi_{n+2} & \cdots & \varphi_m
+    \end{pmatrix}.$$ Definim la \textit{suma $+$ de $M_1$ i $M_2$} com: $$M_1+M_2:=
+    \begin{pmatrix}
+        f_1 & f_2 & \cdots & f_n & f_{n+1} & f_{n+2} & \cdots & f_m\\
+        a_1 & a_2 & \cdots & a_n & a_{n+1} & a_{n+2} & \cdots & a_m\\
+        \varphi_1 & \varphi_2 & \cdots & \varphi_n & \phi_{n+1} & \phi_{n+2} & \cdots & \phi_m
+    \end{pmatrix}.$$
+\end{definition}
+\begin{definition}
+    Sigui $\lambda\in\RR$ i $M\in\mathcal{C}$ tal que $$M=
+    \begin{pmatrix}
+        f_1 & f_2 & \cdots & f_n\\
+        a_1 & a_2 & \cdots & a_n\\
+        \varphi_1 & \varphi_2 & \cdots & \varphi_n
+    \end{pmatrix}.$$ Definim el \textit{producte $\cdot$ de $M$ per l'escalar $\lambda$} com: $$\lambda\cdot M:=
+    \begin{pmatrix}
+        f_1 & f_2 & \cdots & f_n\\
+        \lambda a_1 & \lambda a_2 & \cdots & \lambda a_n\\
+        \varphi_1 & \varphi_2 & \cdots & \varphi_n
+    \end{pmatrix}$$
+\end{definition}
+Vegem ara una propietat important que es compleix a $\mathcal{C}$ quan implementem aquestes operacions:
+\begin{theorem}
+    $(\mathcal{C},+,\cdot)$ és un $\RR$-espai vectorial.
+\end{theorem}
+\begin{proof}
+    Cal comprovar totes els axiomes d'espai vectorial.
+    \begin{enumerate}
+        \item d
+    \end{enumerate}
+\end{proof}
+
 \section{Model per a sons simples basat en la banda crítica}
 Aquest segon model l'enfocarem des d'un punt més adequat per aquest context: la banda crítica. A més ens basarem en dades experimentals fetes per Plomp i Levelt \cite{plomp}, cosa que donarà una major credibilitat a la nostra fórmula. Com s'ha explicat a la secció \ref{teoria_auditiva}, quan dues freqüències sonen al mateix instant i s'activen els mateixos nervis de la membrana basilar, diem que les dues freqüències estan en la mateixa banda crítica i, per tant, es produeix interferència, que es tradueix a dissonància. Això en certa manera corresponia als batiments, estudiats a la secció anterior. Si les dues freqüències estan suficientment separades de manera que s'activen nervis diferents de la membrana basilar, les percebrem com a diferents i gairebé no hi haurà dissonància entre elles.\par 
 Com hem dit per calcular una funció adequada ens hem basat en els estudis empírics de Plomp i Levelt \cite{plomp}. Plomp i Levelt van modelitzar empíricament la dissonància entre dos sons purs. Algunes equacions funcionals que aproximen bé els seus resultats són les següents: $$\delta_1(x)=e^{-\alpha x}-e^{-\beta x}\qquad\delta_2(x)=e^{-\left(\log(\beta x)\right)^2}\quad\delta_3(x)=\beta xe^{-\beta x}$$
