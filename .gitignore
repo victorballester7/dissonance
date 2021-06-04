@@ -3,8 +3,7 @@
 dissonance
 second_derivative_check
 *.pdf
-*.png
-*.jpg
+!LaTex/*.txt
 
 # Tex files
 *.aux

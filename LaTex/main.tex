@@ -171,7 +171,7 @@ Per començar, farem un model per a sons purs o simples, és a dir, sons compost
 Si fem la superposició dels dos sons obtenim: $$y(t)=y_1(t)+y_2(t)=2A\cos\left(2\pi\frac{f_1-f_2}{2}t\right)\sin\left(2\pi\frac{f_1+f_2}{2}t\right).$$
 D'aquesta expressió podem observar dos freqüències diferents: $\frac{f_1-f_2}{2}$ i $\frac{f_1+f_2}{2}$. El sentit físic de la segona és la freqüència en què osci\lgem a l'amplitud de l'ona resultant. Aquesta ona ve modulada per una altra la qual vibra amb una freqüència igual a $\frac{f_1-f_2}{2}$ (vegeu figura \ref{main:fig1}). Si les dues freqüències estan suficientment a prop perquè la diferència $f_p:=|f_1-f_2|$ sigui petita, es creen els batiments: sons polsants (a freqüència $f_p$) interpretats a una sola freqüència corresponent a la mitjana de les dues inicials, és a dir, a $\frac{f_1+f_2}{2}$. A aquesta freqüència $f_p$ se la coneix com freqüència de pulsació. Si les dues freqüències estan molt separades, $f_p$ serà gran i, per tant, no es percebran els batiments i es podran distingir les dues freqüències amb claredat. Finalment, si les dues freqüències estan massa a prop per distingir-se amb claredat, però massa lluny per interpretar-se com una de sola es produirà el fenomen de dissonància.
 \begin{center}
-    \includestandalone[mode=image,width=0.5\linewidth]{Imatges_main/sin}
+    \includestandalone[mode=image|tex,width=0.5\linewidth]{Imatges_main/sin}
     \captionof{figure}{Superposició de dues ones sinusoïdals amb equacions $y_1(t)=\sin(2\pi f_1 t)$ i $y_2(t)=\sin(2\pi f_2 t)$}
     \label{main:fig1}
 \end{center}
@@ -189,7 +189,7 @@ $$\cosh\left[a\left(\frac{38}{f_1}\right)^2\right]-1=1.$$ Aquesta equació té s
     \end{array}\right.$$ on $\beta=0.15$.
 A la figura \ref{main:fig2} es mostra una representació d'aquesta fórmula.
 \begin{center}
-    \includestandalone[mode=image,width=0.5\linewidth]{Imatges_main/model1}
+    \includestandalone[mode=image|tex,width=0.5\linewidth]{Imatges_main/model1}
     \captionof{figure}{Representació de la funció $\delta(f_1,f_2)$ a partir de varies freqüències base $f_1$ i fent variar $f_2$ o, més ben dit, fent variar $\frac{f_2}{f_1}$ suposant $f_2>f_1$.}
     \label{main:fig2}
 \end{center}
@@ -210,7 +210,7 @@ O, equivalentment, si simplifiquem l'expressió i l'escalem de tal forma que la 
 \end{equation}
 A la figura \ref{main:fig3} es mostra un exemple gràfic d'aquesta fórmula.
 \begin{center}
-    \includestandalone[mode=image,width=0.5\linewidth]{Imatges_main/model2}
+    \includestandalone[mode=image|tex,width=0.5\linewidth]{Imatges_main/model2}
     \captionof{figure}{Representació de la funció $\delta(f_1,f_2,1,1)$ a partir de varies freqüències base $f_1$ i fent variar $f_2$ o, més ben dit, fent variar $\frac{f_2}{f_1}$ suposant $f_2>f_1$.}
     \label{main:fig3}
 \end{center}
@@ -240,9 +240,9 @@ La fórmula \eqref{eq:diss_tot} es pot simplificar considerant el tipus de sons 
 \end{equation}
 Construïm ara un exemple d'aplicació d'aquesta fórmula. Suposem que estem treballant amb sons complexos, és a dir, amb freqüències compostes per diferents harmònics. Suposem a més que l'amplitud de l'harmònic $i$-èssim és $1/i^\alpha$, on $\alpha\in\mathbb{R}$ és un paràmetre fixat arbitrari. És a dir, la freqüència fonamental té amplitud 1, el segon harmònic té amplitud $1/2^\alpha$; el tercer, $1/3^\alpha$... Si fixem un so $\mathcal{S}_1$ i fem variar $\mathcal{S}_2$ a partir d'un índex $r\in[1,2]$ tal que $F_2=rF_1$, obtenim els resultats que es mostren a les figures següents. Cal mencionar que en el nostre treball hem agafat $\alpha=0,4$...\textcolor{green}{POSAR FOTO DE FREQÜÈNCIES AMB LA FUNCIÓ $1/x^\alpha$}.
 \begin{center}
-    \includestandalone[mode=image,width=0.49\linewidth]{Imatges_main/complex1}
-    \includestandalone[mode=image,width=0.49\linewidth]{Imatges_main/complex2}\\
-    \includestandalone[mode=image,width=0.49\linewidth]{Imatges_main/complex3}
+    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex1}
+    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex2}\\
+    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex3}
     \captionof{figure}{Dissonància entre dos sons $\mathcal{S}_1$ i $\mathcal{S}_2$. Aquí hem fixat la freqüència fonamental de $\mathcal{S}_1$ a 100 Hz, 440 Hz i 1760 Hz, respectivament i hem fet variar la relació $f_2/f_1$, essent $f_2$ la freqüència fonamental de $\mathcal{S}_2$.}
     \label{fig:complex}
 \end{center}
@@ -288,16 +288,16 @@ Analitzem ara, amb més detall els sons que vam incloure. Al test únicament vam
 \end{table}
 Els següents gràfics mostren de manera més clara on se situen les combinacions de notes escollides pel que fa a la dissonància entre elles:
 \begin{center}
-    \includestandalone[mode=image,width=0.49\linewidth]{Imatges_main/complex1_marcat}
-    \includestandalone[mode=image,width=0.49\linewidth]{Imatges_main/complex2_marcat}\\
-    \includestandalone[mode=image,width=0.49\linewidth]{Imatges_main/complex3_marcat}
+    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex1_marcat}
+    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex2_marcat}\\
+    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex3_marcat}
     \captionof{figure}{Dissonància dels sons escollits pel test}
 \end{center}
 Els següents gràfics mostren els resultats obtinguts en el test.
 \begin{center}
-    \includestandalone[mode=image,width=0.49\linewidth]{Imatges_main/mitjana}
-    \includestandalone[mode=image,width=0.49\linewidth]{Imatges_main/mediana}\\
-    \includestandalone[mode=image,width=0.49\linewidth]{Imatges_main/moda}
+    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/mitjana}
+    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/mediana}\\
+    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/moda}
     \captionof{figure}{Resultats del test}
 \end{center}
 Per l'anàlisi dels resultats hem utilitzat la mediana. Això ha sigut perquè la mitjana està condicionada per les opcions polaritzades, per tant no mostra un resultat real. I la moda [ALGUNA COSA] \par
