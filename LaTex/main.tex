@@ -3,12 +3,13 @@
 \usepackage[catalan,english]{babel}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[sorting=none,maxnames=10]{biblatex}
-\usepackage[left=2.8cm,right=2.8cm,top=3cm,bottom=3cm]{geometry}
+\usepackage[left=2.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
 \usepackage[colorlinks,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{stmaryrd,csquotes}
 \usepackage[affil-it]{authblk}
 \usepackage{multirow}
 \usepackage{physics}
+\usepackage{enumitem}
 %%%%%%%%% more colors %%%%%%%%%%%%
 \usepackage{xcolor}
 \definecolor{darkblue}{RGB}{86, 40, 240}
@@ -117,6 +118,7 @@
 %%Atenció salts de línia manuals:
     %1-Secció: Model per a sons simples basat en la banda crítica; Frase: A l’hora d’incorporar les amplituds a la fórmula vam pensar diverses implementacions,...
 
+\setlength{\parindent}{0pt} % Indentation disabled
 
 \title{\bfseries\large MESURES DE DISSONÀNCIA}
 
@@ -226,128 +228,100 @@ Com hem comentat anteriorment, distingirem dos tipus de sons: els sons simples i
         \mathcal{C}=\Bigg\{\X=\{s_1,s_2,\ldots,s_3\}:s_i=(f_i,a_i,\varphi_i)\in\mathcal{S}\text{ per } i=1,\ldots,n\text{ i $\X$ és el so d'equació}\\y_{\X}(t)=\sum_{i=1}^ny_{s_i}(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)\Bigg\}.
     \end{multline*}
 \end{definition}
-És a dir, el conjunt $\mathcal{C}$ està format per un conjunt de tuples de 3 elements (correponent a sons simples).\par
-% A partir d'aquestes dues definicions observem que $\mathcal{S}\subset\mathcal{C}$. Definim ara la següent relació:
-% \begin{definition}
-%     Considerem el conjunt $\mathcal{C}$ i dos sons $\X,\Y\in\mathcal{C}$ definits per:
-%     \begin{gather*}
-%         \X=
-%         \begin{pmatrix}
-%             f_1 & \cdots & f_1 & f_2 & \cdots & f_2 & \cdots & f_n & \cdots & f_n\\
-%             a_1 & \cdots & a_{r_1} & a_{r_1+1} & \cdots & a_{r_2} & \cdots & a_{r_{n-1}+1} & \cdots & a_{r_n}\\
-%             \varphi_1 & \cdots & \varphi_1 & \varphi_2 & \cdots & \varphi_2 & \cdots & \varphi_n & \cdots & \varphi_n
-%         \end{pmatrix},\\ \Y=
-%         \begin{pmatrix}
-%             g_1 & \cdots & g_1 & g_2 & \cdots & g_2 & \cdots & g_m & \cdots & g_m\\
-%             b_1 & \cdots & b_{s_1} & b_{s_1+1} & \cdots & b_{s_2} & \cdots & b_{s_{m-1}+1} & \cdots & g_{s_m}\\
-%             \phi_1 & \cdots & \phi_1 & \phi_2 & \cdots & \phi_2 & \cdots & \phi_m & \cdots & \phi_m
-%         \end{pmatrix},
-%     \end{gather*}
-%     tals que $(f_i,\varphi_i)=(f_j,\varphi_j)\text{ i }(g_i,\phi_i)=(g_j,\phi_j)\iff i=j$; $f_i<f_j$ i $g_i<g_j$ si $i<j$, i $r_0=s_0:=0$. Observem que per la definició de sons complexos això ho podem suposar. Definim la relació $\sim$ com: $$\X\sim \Y\iff n=m\text{ i } \sum_{j=1}^{r_i}a_{r_{i-1}+j}=\sum_{j=1}^{s_i}b_{s_{i-1}+j}\quad\forall i=1,\ldots,n.$$
-% \end{definition}
-% \begin{lemma}
-%     La relació $\sim$ és una relació d'equivalència.
-% \end{lemma}
-% \begin{proof}
-%     Hem de veure comprovar les tres propietats que tenen les relacions d'equivalència. Per a tot $\X,\Y,\Z\in\mathcal{C}$ de la forma:
-%     \begin{gather*}
-%         \X=
-%         \begin{pmatrix}
-%             f_1 & \cdots & f_1 & f_2 & \cdots & f_2 & \cdots & f_n & \cdots & f_n\\
-%             a_1 & \cdots & a_{r_1} & a_{r_1+1} & \cdots & a_{r_2} & \cdots & a_{r_{n-1}+1} & \cdots & a_{r_n}\\
-%             \varphi_1 & \cdots & \varphi_1 & \varphi_2 & \cdots & \varphi_2 & \cdots & \varphi_n & \cdots & \varphi_n
-%         \end{pmatrix},\\ \Y=
-%         \begin{pmatrix}
-%             g_1 & \cdots & g_1 & g_2 & \cdots & g_2 & \cdots & g_m & \cdots & g_m\\
-%             b_1 & \cdots & b_{s_1} & b_{s_1+1} & \cdots & b_{s_2} & \cdots & b_{s_{m-1}+1} & \cdots & g_{s_m}\\
-%             \phi_1 & \cdots & \phi_1 & \phi_2 & \cdots & \phi_2 & \cdots & \phi_m & \cdots & \phi_m
-%         \end{pmatrix},\\\Z=
-%         \begin{pmatrix}
-%             h_1 & \cdots & h_1 & h_2 & \cdots & h_2 & \cdots & h_p & \cdots & h_p\\
-%             c_1 & \cdots & c_{t_1} & c_{t_1+1} & \cdots & c_{t_2} & \cdots & c_{t_{p-1}+1} & \cdots & c_{t_p}\\
-%             \psi_1 & \cdots & \psi_1 & \psi_2 & \cdots & \psi_2 & \cdots & \psi_p & \cdots & \psi_p
-%         \end{pmatrix},
-%     \end{gather*}
-%     tals que $(f_i,\varphi_i)=(f_j,\varphi_j),(g_i,\phi_i)=(g_j,\phi_j)\text{ i }(h_i,\psi_i)=(h_j,\psi_j)\iff i=j$; $f_i<f_j$, $g_i<g_j$ i $h_i<h_j$ si $i<j$, i $r_0=s_0=t_0:=0$. Llavors es compleix:
-%     \begin{enumerate}
-%         \item Reflexivitat: $\X\sim \X$.\par És clar que es compleix.
-%         \item Simetria: $\X\sim \Y\implies \Y\sim \X$.\par
-%         \begin{multline*}
-%             \X\sim \Y\implies n=m\text{ i } \sum_{j=1}^{r_i}a_{r_{i-1}+j}=\sum_{j=1}^{s_i}b_{s_{i-1}+j}\quad\forall i=1,\ldots,n\implies\\\implies m=n\text{ i }\sum_{j=1}^{s_i}b_{s_{i-1}+j}=\sum_{j=1}^{r_i}a_{r_{i-1}+j}\quad\forall i=1,\ldots,m\implies \Y\sim \X.
-%         \end{multline*}
-%         \item Transitivitat: $\X\sim \Y\text{ i }\Y\sim \Z\implies \X\sim \Z$:
-%         \begin{multline*}
-%             \left.
-%             \begin{array}{l}
-%                 \X\sim \Y\implies n=m\text{ i } \sum_{j=1}^{r_i}a_{r_{i-1}+j}=\sum_{j=1}^{s_i}b_{s_{i-1}+j}\quad\forall i=1,\ldots,n\\
-%                 \Y\sim \Z\implies m=p\text{ i } \sum_{j=1}^{s_i}b_{s_{i-1}+j}=\sum_{j=1}^{t_i}a_{t_{i-1}+j}\quad\forall i=1,\ldots,m
-%             \end{array}\right\}\implies\\\implies n=p\text{ i } \sum_{j=1}^{r_i}a_{r_{i-1}+j}=\sum_{j=1}^{t_i}b_{t_{i-1}+j}\quad\forall i=1,\ldots,n\implies \X\sim \Z.
-%         \end{multline*}
-%     \end{enumerate}
-% \end{proof}
-% \begin{definition}
-%     Considerem el conjunt $\mathcal{C}$ amb la relació d'equivalència $\sim$. Definim la classe d'equivalència de $\X\in\mathcal{C}$ sota la relació $\sim$ com: $$\overline{\X}=\{\Y\in\mathcal{M}:\X\sim \Y\}.$$
-% \end{definition}
-% Observem que un representant natural de $\overline{\X}$ és $$
-% \begin{pmatrix}
-%     f_1 & \cdots & f_n\\
-%     a_1 & \cdots & a_n\\
-%     \varphi_1 & \cdots &\varphi_n
-% \end{pmatrix}$$ on $(f_i,\varphi_i)=(f_)$
-% \begin{definition}
-%     Considerem el conjunt $\mathcal{C}$ amb la relació d'equivalència $\sim$. Definim el conjunt $\overline{\mathcal{C}}$ com el conjunt de les classes d'equivalència, és a dir: $$\overline{\mathcal{C}}:=\quot{\mathcal{C}}{\sim}:=\{\}$$
-% \end{definition}
-L'objectiu ara és definir operacions que d'una banda ens permetin combinar dos (o més) sons complexos en un de sol i d'altra banda ens permetin calibrar la intensitat d'un so.
+És a dir, el conjunt $\mathcal{C}$ està format per un conjunt de tuples de 3 elements (correponents a sons simples). D'altra banda, tot i que hem definit els elements del conjunt $\mathcal{C}$ com sumes finites de sons simples, és natural pensar que els elements de $\mathcal{C}$ podrien tenir també cardinal infinit. Efectivament això és possible però no ho hem considerat degut al poc interès pràctic que té en relació amb aquest treball.\par Finalment cal tenir en compte que donada una equació de la forma $$y(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)$$ hi ha més d'un element a $\mathcal{C}$ que la satisfà. En efecte, considerem l'equació $y(t)=0$. Siguin $\X,\Y,\Z\in\mathcal{C}$ tals que $\X=\emptyset$, $\Y=\{(f,a,\varphi),(f,a,\varphi+\pi)\}$ i $\Z=\{(g,0,\phi)\}$. Llavors, tenim que:
+\begin{gather*}
+    y_{\X}(t)=0=y(t)\\
+    y_{\Y}(t)=a\sin(2\pi ft+\varphi)+a\sin(2\pi ft+\varphi+\pi)=2a\sin\left(2\pi ft+\varphi +\frac{\pi}{2}\right)\cos\frac{\pi}{2}=0=y(t)\\
+    y_{\Z}(t)=0\sin(2\pi gt+\phi)=0=y(t)
+\end{gather*}
+on en el segon cas hem utilitzat la relació trigonomètrica $\sin\alpha+\sin\beta=2\sin\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}$. Això mostra que en general hi ha més d'un element a $\mathcal{C}$ satisfent l'equació $y(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)$. Aquesta petita inconsistència podria ser un problema de cara a l'estudi dels sons complexos. És per això que cal definir la següent relació per tal de corregir aquest \textit{error}.
 \begin{definition}
-    Siguin $\X,\Y\in\mathcal{C}$. Definim la operació \textit{suma $+$} com l'aplicació
+    Considerem el conjunt $\mathcal{C}$ i dos sons $\X,\Y\in\mathcal{C}$. Definim la relació $\sim$ com: $$\X\sim \Y\iff y_{\X}(t)=y_{\Y}(t).$$
+\end{definition}
+\begin{lemma}
+    La relació $\sim$ és una relació d'equivalència.
+\end{lemma}
+\begin{proof}
+    Hem de comprovar les tres propietats que tenen les relacions d'equivalència. Per a tot $\X,\Y,\Z\in\mathcal{C}$, tenim que:
+    \begin{enumerate}
+        \item Propietat reflexiva: $\X\sim \X$.\par És clar que es compleix.
+        \item Propietat simètrica: $\X\sim \Y\iff \Y\sim \X$.
+        $$\X\sim \Y\iff y_{\X}(t)=y_{\Y}(t)\iff y_{\Y}(t)=y_{\X}(t)\iff \Y\sim \X.$$
+        \item Propietat transitiva: Si $\X\sim \Y$ i $\Y\sim \Z$, llavors $\X\sim \Z$.
+            $$\left.
+            \begin{array}{l}
+                \X\sim \Y\implies y_{\X}(t)=y_{\Y}(t)\\
+                \Y\sim \Z\implies y_{\Y}(t)=y_{\Z}(t)
+            \end{array}\right\}\implies y_{\X}(t)=y_{\Y}(t)=y_{\Z}(t)\implies \X\sim \Z.$$
+    \end{enumerate}
+\end{proof}
+Definim ara les classes d'equivalència de $\mathcal{C}$ sota aquesta relació juntament amb el conjunt de les classes d'equivalència.
+\begin{definition}
+    Considerem el conjunt $\mathcal{C}$ amb la relació d'equivalència $\sim$. Definim la classe d'equivalència de $X\in\mathcal{C}$ sota la relació $\sim$ com: $$\overline{\X}=\{\Y\in\mathcal{C}:\X\sim \Y\}.$$
+\end{definition}
+\begin{definition}
+    Considerem el conjunt $\mathcal{C}$ amb la relació d'equivalència $\sim$. Definim el conjunt $\mathfrak{C}$ com el conjunt de les classes d'equivalència de $\mathcal{C}$ sota la relació $\sim$.
+\end{definition}
+D'aquesta manera solucionem el problema comentat anteriorment, de manera que donada una equació de la forma $y(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)$ $\exists!\overline{\X}\in\mathfrak{C}$ tal que $y_\{\overline{\X}\}=y(t)$.\par
+L'objectiu ara és definir operacions que ens permetin combinar dos (o més) sons complexos en un de sol i modificar la intensitat d'un so complex.
+\begin{definition}
+    Siguin $\overline{\X},\overline{\Y}\in\mathfrak{C}$. Definim la operació \textit{suma $\oplus$} entre sons complexos com l'aplicació:
     \begin{align*}
-        \oplus:\mathcal{C}\times\mathcal{C}&\longrightarrow\mathcal{C}\\
-        (\X,\Y)&\longmapsto \X\oplus \Y:=\X\cup \Y
+        \oplus:\mathfrak{C}\times\mathfrak{C}&\longrightarrow\mathfrak{C}\\
+        (\overline{\X},\overline{\Y})&\longmapsto \overline{\X}\oplus \overline{\Y}:=\overline{\X\cup\Y}
     \end{align*}
 \end{definition}
 \begin{definition}
-    Sigui $\lambda\in\RR$ i $\X=\{(f_1,a_1,\varphi_1),(f_2,a_2,\varphi_2),\ldots,(f_n,a_n,\varphi_n)\}\in\mathcal{C}$. Definim la operació \textit{producte per escalar $\cdot$} com l'aplicació
+    Sigui $\lambda\in\RR$ i $\overline{\X}=\{(f_1,a_1,\varphi_1),(f_2,a_2,\varphi_2),\ldots,(f_n,a_n,\varphi_n)\}\in\mathfrak{C}$. Definim la operació \textit{producte per escalar $\cdot$} entre un so complex i un escalar com l'aplicació:
     \begin{align*}
-        \cdot:\RR\times\mathcal{C}&\longrightarrow\mathcal{C}\\
-        (\lambda,\X)&\longmapsto \lambda\cdot \X:=\{(f_1,\lambda a_1,\varphi_1),(f_2,\lambda a_2,\varphi_2),\ldots,(f_n,\lambda a_n,\varphi_n)\}
+        \cdot:\mathfrak{C}\times\RR&\longrightarrow\mathfrak{C}\\
+        (\overline{\X},\lambda)&\longmapsto \lambda\cdot \overline{\X}:=\overline{\Y}
     \end{align*}
-    %on: $$\lambda\cdot \X:=\{(f_1,\lambda a_1,\varphi_1),(f_2,\lambda a_2,\varphi_2),\ldots,(f_n,\lambda a_n,\varphi_n)\}$$
+    on $\Y=\{(f_1,\lambda a_1,\varphi_1),(f_2,\lambda a_2,\varphi_2),\ldots,(f_n,\lambda a_n,\varphi_n)\}\in\mathcal{C}$.
 \end{definition}
-
-Vegem ara una propietat important que es compleix a $\mathcal{C}$ quan implementem aquestes operacions:
+\begin{prop}
+    Les operacions $\oplus$ i $\cdot$ sobre el conjunt $\mathfrak{C}$ estan ben definides.
+\end{prop}
+\begin{proof}
+    Comencem primer veient que la suma està ben definida. Siguin $\X,\X',\Y,\Y'\in\mathcal{C}$ tals que $\overline{\X}=\overline{\X'}$ i $\overline{\Y}=\overline{\Y'}$, és a dir, tals que $y_{\X}(t)=y_{\X'}(t)$ i $y_{\Y}(t)=y_{\Y'}(t)$. Hem de veure que el valor $\overline{\X}\oplus\overline{\Y}$ no depèn del representant, és a dir, que $\overline{\X}\oplus\overline{\Y}=\overline{\X'}\oplus\overline{\Y'}$. Sabem que: $$\overline{\X}\oplus\overline{\Y}=\overline{\X'}\oplus\overline{\Y'}\iff\overline{\X\cup\Y}=\overline{\X'\cup\Y'}\iff y_{\X\cup\Y}(t)=y_{\X'\cup\Y'}(t).$$ I aquesta darrera igualtat és certa tenint en compte que $y_{\X\cup\Y}(t)=y_{\X}(t)+y_{\Y}(t)$. En efecte: $$y_{\X\cup\Y}(t)=y_{\X}(t)+y_{\Y}(t)=y_{\X'}(t)+y_{\Y'}(t)=y_{\X'\cup\Y'}(t).$$
+    Demostrem ara que el producte per un escalar està també ben definit. Sigui $\lambda\in\RR$ i $\X,\X'\in\mathcal{C}$ tals que $\overline{\X}=\overline{\X'}$ o, equivalentment, $y_{\X}(t)=y_{\X'}(t)$. Suposem que $\lambda\cdot\overline{\X}=\overline{\Y}$ i $\lambda\cdot\overline{\X'}=\overline{\Y'}$. Hem de veure que $\overline{\Y}=\overline{\Y'}$. Sabem que: $$\overline{\Y}=\overline{\Y'}\iff y_{\Y}(t)=y_{\Y'}(t).$$
+    Tenint en compte que $y_{\Y}(t)=\lambda y_{\X}(t)$, obtenim: $$y_{\Y}(t)=\lambda y_{\X}(t)=\lambda y_{\X'}(t)=y_{\Y'}(t).$$
+\end{proof}
+Tot i que aquestes definicions les hem fet entre sons complexos, del fet que $\mathcal{S}\subset\mathfrak{C}$, els sons simples els podem pensar com a sons complexos. Per tant, té sentit també considerar sumes de sons simples i productes de sons simples per escalars, com apareixeran més endavant.\par
+Vegem ara una propietat important que es compleix a $\mathfrak{C}$ quan implementem aquestes operacions:
 \begin{theorem}
-    $(\mathcal{C},\oplus,\cdot)$ és un $\RR$-espai vectorial.
+    $(\mathfrak{C},\oplus,\cdot)$ és un $\RR$-espai vectorial.
 \end{theorem}
 \begin{proof}
-    Cal comprovar tots els axiomes d'espai vectorial. Per a tot $\lambda,\mu\in\RR$ i tot $\X,\Y,\Z\in\mathcal{C}$, amb $$\X=\{(f_1,a_1,\varphi_1),(f_2,a_2,\varphi_2),\ldots,(f_n,a_n,\varphi_n)\},\quad\Y=\{(g_1,b_1,\phi_1),(g_2,b_2,\phi_2),\ldots,(g_m,b_m,\phi_m)\},$$  s'han de satisfer les següents propietats:
+    Cal comprovar tots els axiomes d'espai vectorial. Per a tot $\lambda,\mu\in\RR$ i tot $\overline{\X},\overline{\Y},\overline{\Z}\in\mathfrak{C}$, amb $$\X=\{(f_1,a_1,\varphi_1),(f_2,a_2,\varphi_2),\ldots,(f_n,a_n,\varphi_n)\},\quad\Y=\{(g_1,b_1,\phi_1),(g_2,b_2,\phi_2),\ldots,(g_m,b_m,\phi_m)\},$$  s'han de satisfer les següents propietats:
     \begin{enumerate}
-        \item $(\X\oplus \Y)\oplus \Z=\X\oplus (\Y\oplus \Z)$:
-        $$(\X\oplus \Y)\oplus \Z=(\X\cup \Y)\cup \Z=\X\cup(\Y\cup \Z)=\X\oplus (\Y\oplus \Z).$$
-        \item $\X\oplus \Y=\Y\oplus \X$:
-        $$\X\oplus \Y=\X\cup \Y=\Y\cup \X=\Y\oplus \X.$$
-        \item $\exists \0\in\mathcal{C}$ tal que $\X\oplus\0=\X$:\par
-        En aquest cas $\0:=\emptyset$. Així doncs és clar que: $$\X\oplus\0=\X\cup\emptyset=\X.$$ Observem que $\0$ es tracta del so amb equació $y_{\0}(t)=0$.
-        \item $\forall \X\in\mathcal{C}$ $\exists (-\X)\in\mathcal{C}$ tal que $\X\oplus(-\X)=\0$:\par
-        Definim $(-\X)$ com $$-\X:=\{(f_1,a_1,\varphi_1+\pi),(f_2,a_2,\varphi_2+\pi),\ldots,(f_n,a_n,\varphi_n+\pi)\}.$$ D'aquesta manera tenim que $\X\oplus(-\X)$ és el so d'equació:
+        \item $(\overline{\X}\oplus \overline{\Y})\oplus \overline{\Z}=\overline{\X}\oplus (\overline{\Y}\oplus \overline{\Z})$:
+        $$(\overline{\X}\oplus \overline{\Y})\oplus \overline{\Z}=(\overline{\X\cup\Y})\oplus \overline{\Z}=\overline{(\X\cup\Y)\cup\Z}=\overline{\X\cup(\Y\cup\Z)}=\overline{\X}\oplus(\overline{\Y\cup\Z})=\overline{\X}\oplus (\overline{\Y}\oplus \overline{\Z}),$$ on hem utilitzat que la unió de conjunts és associativa.
+        \item $\overline{\X}\oplus \overline{\Y}=\overline{\Y}\oplus \overline{\X}$:
+        $$\overline{\X}\oplus \overline{\Y}=\overline{\X\cup\Y}=\overline{\Y\cup\X}=\overline{\Y}\oplus \overline{\X},$$ on hem utilitzat que la unió de conjunts és commutativa.
+        \item $\exists \overline{\0}\in\mathfrak{C}$ tal que $\overline{\X}\oplus\overline{\0}=\overline{\X}$:\par
+        En aquest cas $\overline{\0}:=\overline{\emptyset}$. Així doncs és clar que: $$\overline{\X}\oplus\overline{\0}=\overline{\X}\oplus\overline{\emptyset}=\overline{\X\cup\emptyset}=\overline{\X}.$$ Observem que $\overline{\0}$ es tracta, com és d'esperar, del so amb equació $y_{\0}(t)=0$.
+        \item $\forall \overline{\X}\in\mathfrak{C}$ existeix $\overline{-\X}\in\mathfrak{C}$ tal que $\overline{\X}\oplus\overline{-\X}=\overline{\0}$:\par
+        Definim $-\X$ com $$-\X:=\{(f_1,a_1,\varphi_1+\pi),(f_2,a_2,\varphi_2+\pi),\ldots,(f_n,a_n,\varphi_n+\pi)\}.$$ D'aquesta manera tenim que $\overline{\X}\oplus\overline{-\X}$ és el so d'equació:
         \begin{multline*}
-            y_{\X\oplus(-\X)}=y_{\X}+y_{-\X}=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)+\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i+\pi)=\\=\sum_{i=1}^na_i\left[\sin(2\pi f_it+\varphi_i)+\sin(2\pi f_it+\varphi_i+\pi)\right].
+            y_{\overline{\X}\oplus\overline{-\X}}=y_{\overline{\X}}+y_{\overline{-\X}}=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)+\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i+\pi)=\\=\sum_{i=1}^na_i\left[\sin(2\pi f_it+\varphi_i)+\sin(2\pi f_it+\varphi_i+\pi)\right].
         \end{multline*}
-        Recordant la fórmula trigonomètrica $\sin\alpha+\sin\beta=2\sin\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}$ obtenim que: $$y_{\X\oplus(-\X)}=\sum_{i=1}^na_i\left[\sin(2\pi f_it+\varphi_i)+\sin(2\pi f_it+\varphi_i+\pi)\right]=\sum_{i=1}^n2a_i\sin\left(2\pi f_it+\varphi +\frac{\pi}{2}\right)\cos\frac{\pi}{2}=0.$$ Per tant, tenim que $\X\oplus(-\X)=\0$.
-        \item $\lambda\cdot[\mu\cdot \X]=[\lambda\mu]\cdot \X$:
+        Recordant la fórmula trigonomètrica $\sin\alpha+\sin\beta=2\sin\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}$ obtenim que: $$y_{\overline{\X}\oplus\overline{-\X}}=\sum_{i=1}^na_i\left[\sin(2\pi f_it+\varphi_i)+\sin(2\pi f_it+\varphi_i+\pi)\right]=\sum_{i=1}^n2a_i\sin\left(2\pi f_it+\varphi +\frac{\pi}{2}\right)\cos\frac{\pi}{2}=0.$$ Per tant, tenim que $\overline{\X}\oplus\overline{-\X}=\overline{\0}$.
+        \item $\lambda\cdot\left[\mu\cdot \overline{\X}\right]=[\lambda\mu]\cdot \overline{\X}$:
         \begin{multline*}
-            \lambda\cdot[\mu\cdot \X]=\lambda\cdot\left[\mu\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}\right]=\lambda\cdot\{(f_1,\mu a_1,\varphi_1),\ldots,(f_n,\mu a_n,\varphi_n)\}=\\=\{(f_1,\lambda\mu a_1,\varphi_1),\ldots,(f_n,\lambda\mu a_n,\varphi_n)\}=[\lambda\mu]\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}=[\lambda\mu]\cdot \X.
+            \lambda\cdot\left[\mu\cdot \overline{\X}\right]=\lambda\cdot\left[\mu\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\right]=\lambda\cdot\overline{\{(f_1,\mu a_1,\varphi_1),\ldots,(f_n,\mu a_n,\varphi_n)\}}=\\=\overline{\{(f_1,\lambda\mu a_1,\varphi_1),\ldots,(f_n,\lambda\mu a_n,\varphi_n)\}}=[\lambda\mu]\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}=[\lambda\mu]\cdot \overline{\X}.
         \end{multline*}
-        \item $1\cdot \X=\X$:
+        \item $1\cdot \overline{\X}=\overline{\X}$:
         \begin{multline*}
-            1\cdot\X=1\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}=\{(f_1,1a_1,\varphi_1),\ldots,(f_n,1a_n,\varphi_n)\}=\\=\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}=\X.
+            1\cdot\overline{\X}=1\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}=\overline{\{(f_1,1a_1,\varphi_1),\ldots,(f_n,1a_n,\varphi_n)\}}=\\=\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}=\overline{\X}.
         \end{multline*}
-        \item $\lambda\cdot[\X\oplus\Y]=[\lambda\cdot \X]\oplus[\lambda\cdot \Y]$:
+        \item $\lambda\cdot\left[\overline{\X}\oplus\overline{\Y}\right]=\left[\lambda\cdot \overline{\X}\right]\oplus\left[\lambda\cdot \overline{\Y}\right]$:
         \begin{multline*}
-            \lambda\cdot[\X\oplus \Y]=\lambda\cdot[\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}\oplus\{(g_1,b_1,\phi_1),\ldots,(g_m,b_m,\phi_m)\}]=\\=\lambda\cdot\{(f_1, a_1,\varphi_1),\ldots,(f_n, a_n,\varphi_n),(g_1,b_1,\phi_1),\ldots,(g_m,b_m,\phi_m)\}=\\=\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n),(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}=\\=\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n)\}\oplus\{(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}=\\=[\lambda\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}]\oplus[\lambda\cdot\{(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}]=[\lambda\cdot \X]\oplus[\lambda\cdot \Y].
+            \lambda\cdot\left[\overline{\X}\oplus \overline{\Y}\right]=\lambda\cdot\left[\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\oplus\overline{\{(g_1,b_1,\phi_1),\ldots,(g_m,b_m,\phi_m)\}}\right]=\\=\lambda\cdot\overline{\{(f_1, a_1,\varphi_1),\ldots,(f_n, a_n,\varphi_n),(g_1,b_1,\phi_1),\ldots,(g_m,b_m,\phi_m)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n),(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n)\}}\oplus\overline{\{(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}}=\\=\left[\lambda\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\right]\oplus\left[\lambda\cdot\overline{\{(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}}\right]=\left[\lambda\cdot \overline{\X}\right]\oplus\left[\lambda\cdot \overline{\Y}\right].
         \end{multline*}
-        \item $[\lambda+\mu]\cdot \X=[\lambda \cdot \X] \oplus[\mu \cdot \X]$:
+        \item $[\lambda+\mu]\cdot \overline{\X}=\left[\lambda \cdot \overline{\X}\right] \oplus\left[\mu \cdot \overline{\X}\right]$:
         \begin{multline*}
-            [\lambda+\mu]\cdot \X=[\lambda+\mu]\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}=\{(f_1,[\lambda+\mu]a_1,\varphi_1),\ldots,(f_n,[\lambda+\mu]a_n,\varphi_n)\}=\\=\{(f_1,\lambda a_1+\mu a_1,\varphi_1),\ldots,(f_n,\lambda a_n+\mu a_n,\varphi_n)\}=\\=[\lambda\mu]\cdot\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n)\}\oplus\{(f_1,\lambda\mu a_1,\varphi_1),\ldots,(f_n,\lambda\mu a_n,\varphi_n)\}=\\=[\lambda\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}]\oplus[\mu\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}]=[\lambda \cdot \X] \oplus[\mu \cdot \X],
+            [\lambda+\mu]\cdot \overline{\X}=[\lambda+\mu]\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}=\overline{\{(f_1,[\lambda+\mu]a_1,\varphi_1),\ldots,(f_n,[\lambda+\mu]a_n,\varphi_n)\}}=\\=\overline{\{(f_1,\lambda a_1+\mu a_1,\varphi_1),\ldots,(f_n,\lambda a_n+\mu a_n,\varphi_n)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),(f_1,\mu a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n),(f_n,\mu a_n,\varphi_n)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n)\}}\oplus\overline{\{(f_1,\lambda\mu a_1,\varphi_1),\ldots,(f_n,\lambda\mu a_n,\varphi_n)\}}=\\=\left[\lambda\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\right]\oplus\left[\mu\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\right]=\left[\lambda \cdot \overline{\X}\right] \oplus\left[\mu \cdot \overline{\X}\right],
         \end{multline*}
         on el la quatra igualtat hem fet servir que el so complex $\{(f,\lambda a+\mu a,\varphi)\}$ és el mateix que $\{(f,\lambda a,\varphi),(f,\mu a,\varphi)\}$ ja que ambdós satisfan la mateixa equació: $$y(t)=(\lambda a+\mu a)\sin(2\pi ft+\varphi)=\lambda a\sin(2\pi ft+\varphi)+\mu a\sin(2\pi ft+\varphi).$$
     \end{enumerate}
@@ -357,78 +331,104 @@ Amb tot això ja podem definir una funció per mesurar el grau de dissonància e
     \delta:\mathcal{S}\times\mathcal{S}&\longrightarrow\RR\\
     (s_1,s_2)&\longmapsto\delta(s_1,s_2)
 \end{align*}
-\textcolor{green}{PROPIETATS OBLIGATÒRIES DE $\delta$:
-\begin{itemize}
-    \item Simetria
-    \item $\propto$ amplituds
-    \item recordar que també té sentit producte per escalars en sons simples
-\end{itemize}
-}
+En aquesta funció li exigim certes propietats que ha de complir. Aquestes són les següents:
+\begin{enumerate}[label=$\delta$\arabic*),ref=$\delta$\arabic*]
+    \item\label{delta1} $\delta(s_1,s_2)=\delta(s_2,s_1)$ per a tot $s_1,s_2\in\mathcal{S}$.
+    \item\label{delta2} $\delta(\lambda s_1,s_2)=\lambda\delta(s_1,s_2)$ per a tot $s_1,s_2\in\mathcal{S}$ i tot $\lambda\in\RR$.
+    \item\label{delta3} $\delta(s_1,\lambda s_2)=\lambda\delta(s_1,s_2)$ per a tot $s_1,s_2\in\mathcal{S}$ i tot $\lambda\in\RR$.\par
+\end{enumerate}
+Observem que la tercera propietat és conseqüència de la primera i la segona. D'altra banda, si $s_1=(f_1,a_1,\varphi_1)$ i $s_2=(f_2,b_2,\varphi_2)$, llavors ajuntant les dues últimes propietats obtenim que $\delta(\lambda s_1,\mu s_2)=\lambda\mu\delta(s_1,s_2)$ que és equivalent a dir que $$\delta(s_1,s_2)\propto a_1a_2.$$ 
+
 L'objectiu ara és crear una funció 
 \begin{align*}
-    D:\mathcal{C}&\longrightarrow\RR\\
-    \X&\longmapsto D(\X)
+    D:\mathfrak{C}&\longrightarrow\RR\\
+    \overline{\X}&\longmapsto D(\overline{\X})
 \end{align*}
 que mesuri la dissonància d'un so complex. Per això definirem primer una funció $d$ que mesura la dissonància \textit{relativa} entre dos sons.
 \begin{definition}
-    Definim la mesura de la dissonància relativa $d$ entre dos sons complexos com:
-    \begin{align*}
-        d:\mathcal{C}\times\mathcal{C}&\longrightarrow\RR\\
-        (\{s_i\}_{i=1}^n,\{r_i\}_{i=1}^m)&\longmapsto\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(s_i,r_i)
-    \end{align*}
+    Definim la \textit{mesura de la dissonància relativa $d$} entre dos sons complexos com:
+    \begin{equation*}
+        \begin{array}{r@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}l}
+            d:&\mathfrak{C}\times\mathfrak{C}&\longrightarrow&\RR\\
+        &(\{s_i\}_{i=1}^n,\{r_i\}_{i=1}^m)&\longmapsto&\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(s_i,r_j)
+        \end{array}
+    \end{equation*}
 \end{definition}
 Aquesta funció té les següents propietats:
 \begin{prop}
-    Siguin $\X,\Y,\Z\in\mathcal{C}$ sons complexos i $\lambda\in\RR$. Llavors:
-    \begin{enumerate}
-        \item $d(\X,\Y)=d(\Y,\X)$.
-        \item $d(\X+\Y,\Z)=d(\X,\Z)+d(\Y,\Z)$.
-        \item $d(\X,\Y+\Z)=d(\X,\Y)+d(\X,\Z)$.
-        \item $d(\lambda\X,\Y)=\lambda d(\X,\Y)$.
-        \item $d(\X,\lambda\Y)=\lambda d(\X,\Y)$.
+    Siguin $\overline{\X},\overline{\Y},\overline{\Z}\in\mathfrak{C}$ sons complexos i $\lambda\in\RR$. Llavors:
+    \begin{enumerate}[label=$d$\arabic*),ref=$d$\arabic*]
+        \item\label{d1} $d(\overline{\X},\overline{\Y})=d(\overline{\Y},\overline{\X})$.
+        \item\label{d2} $d(\overline{\X}\oplus\overline{\Y},\overline{\Z})=d(\overline{\X},\overline{\Z})+d(\overline{\Y},\overline{\Z})$.
+        \item\label{d3} $d(\overline{\X},\overline{\Y}\oplus\overline{\Z})=d(\overline{\X},\overline{\Y})+d(\overline{\X},\overline{\Z})$.
+        \item\label{d4} $d(\lambda\cdot\overline{\X},\overline{\Y})=\lambda d(\overline{\X},\overline{\Y})$.
+        \item\label{d5} $d(\overline{\X},\lambda\cdot\overline{\Y})=\lambda d(\overline{\X},\overline{\Y})$.
     \end{enumerate}
 \end{prop}
 \begin{proof}
-    \textcolor{green}{FALTA FER}
+    Suposem que $\X=\{x_i\}_{i=1}^n$, $\Y=\{y_i\}_{i=1}^m$ i $\Z=\{z_i\}_{i=1}^p$.
+    \begin{enumerate}[label=$d$\arabic*)]
+        \item $$d(\overline{\X},\overline{\Y})=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(x_i,y_j)=\frac{1}{2}\sum_{j=1}^m\sum_{i=1}^n\delta(y_j,x_i)=d(\overline{\Y},\overline{\X}),$$ on hem utilitzat que la funció $\delta$ és simètrica (propietat \ref{delta1}).
+        \item Per simplificar la notació, anomenem 
+        $$
+        w_i=\left\{
+        \begin{array}{ccc}
+            x_i & \text{si} & 1\leq i\leq n\\
+            y_{i-n} & \text{si} & n+1\leq i\leq m
+        \end{array}\right.
+        $$ Aleshores tenim que: $$d(\overline{\X}\oplus\overline{\Y},\overline{\Z})=\frac{1}{2}\sum_{i=1}^{n+m}\sum_{j=1}^p\delta(w_i,z_j)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^p\delta(x_i,z_j)+\frac{1}{2}\sum_{i=n+1}^m\sum_{j=1}^p\delta(y_i,z_j)=d(\overline{\X},\overline{\Z})+d(\overline{\Y},\overline{\Z}).$$
+        \item És conseqüència de les propietats \ref{d1} i \ref{d2}.
+        \item $$d(\lambda\cdot\overline{\X},\overline{\Y})=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(\lambda x_i,y_j)=\frac{\lambda}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(x_i,y_j)=\lambda d(\overline{\X},\overline{\Y}),$$ on hem aplicat la propietat \ref{delta2}.
+        \item És conseqüència de les propietats \ref{d1} i \ref{d4}.
+    \end{enumerate}
 \end{proof}
-Amb aquesta definició, donat un so complex $\X\in\mathcal{C}$, hom pot preguntar-se què ocorre quan evaluem $d(\X,\X)$.
+Amb aquesta definició, donat un so complex $\overline{\X}\in\mathfrak{C}$, hom pot preguntar-se què ocorre quan avaluem $d(\overline{\X},\overline{\X})$.
 \begin{definition}[Mesura de dissonància]
-    Definim la mesura de la dissonància $D$ d'un so complex com:
+    Definim la \textit{mesura de la dissonància $D$ d'un so complex} com:
     \begin{align*}
-        D:\mathcal{C}&\longrightarrow\RR\\
-        \X&\longmapsto d(\X,\X)
+        D:\mathfrak{C}&\longrightarrow\RR\\
+        \overline{\X}&\longmapsto d(\overline{\X},\overline{\X})
     \end{align*}
 \end{definition}
-Amb tals definicions, obtenim una sèrie de propietats que seran importants alhora de calcular la dissonància entre dos (o més sons) de manera computacional.
+Amb tals definicions, obtenim una sèrie de propietats que seran importants a l'hora de calcular la dissonància entre dos (o més) sons de manera computacional.
 \begin{prop}
-    Siguin $\X,\Y\in\mathcal{C}$ sons complexos i $\lambda\in\RR$. Llavors:
-    \begin{enumerate}
-        \item $D(\X+\Y)=D(\X)+D(\Y)+2d(\X,\Y)$.
-        \item $D(\lambda\cdot \X)=\lambda^2D(\X)$.
+    Siguin $\overline{\X},\overline{\Y}\in\mathfrak{C}$ sons complexos i $\lambda\in\RR$. Llavors:
+    \begin{enumerate}[label=$D$\arabic*),ref=$D$\arabic*]
+        \item\label{D1} $D(\overline{\X}\oplus\overline{\Y})=D(\overline{\X})+D(\overline{\Y})+2d(\overline{\X},\overline{\Y})$.
+        \item\label{D2} $D(\lambda\cdot \overline{\X})=\lambda^2D(\overline{\X})$.
     \end{enumerate}
 \end{prop}
 \begin{proof}
-    Suposem que $\X=\{x_i\}_{i=1}^n$ i $\Y=\{y_i\}_{i=1}^m$. Llavors $\X+\Y=\{x_1,\ldots,x_n,y_1,\ldots,y_m\}$. Per simplificar la notació anomenem $$
+    Suposem que $\X=\{x_i\}_{i=1}^n$ i $\Y=\{y_i\}_{i=1}^m$. Llavors $\overline{\X}\oplus\overline{\Y}=\overline{\{x_1,\ldots,x_n,y_1,\ldots,y_m\}}$. Per simplificar la notació anomenem $$
     z_i=\left\{
     \begin{array}{ccc}
         x_i & \text{si} & 1\leq i\leq n\\
         y_{i-n} & \text{si} & n+1\leq i\leq m
     \end{array}\right.
-    $$ Per tant, podem escriure $\X+\Y$ com $\X+\Y=\{z_1,\ldots,z_{n+m}\}$.
-    \begin{enumerate}
-        \item 
+    $$ Per tant, podem escriure $\overline{\X}\oplus\overline{\Y}$ com $\overline{\X}\oplus\overline{\Y}=\overline{\{z_1,\ldots,z_{n+m}\}}$.
+    \begin{enumerate}[label=$D$\arabic*)]
+        \item Aplicant les propietats \ref{d1}, \ref{d2} i \ref{d3} obtenim:
         \begin{multline*}
-            D(\X+\Y)=d(\X+\Y,\X+\Y)=\frac{1}{2}\sum_{i=1}^{n+m}\sum_{j=1}^{n+m}\delta(z_i,z_j)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\delta(z_i,z_j)+\frac{1}{2}\sum_{i=1}^n\sum_{j=n+1}^m\delta(z_i,z_j)+\\+\frac{1}{2}\sum_{i=n+1}^m\sum_{j=1}^n\delta(z_i,z_j)+\frac{1}{2}\sum_{i=n+1}^m\sum_{j=n+1}^m\delta(z_i,z_j)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\delta(x_i,x_j)+\frac{1}{2}\sum_{i=1}^n\sum_{j=n+1}^m\delta(x_i,y_j)+\\+\frac{1}{2}\sum_{i=n+1}^m\sum_{j=1}^n\delta(y_i,x_j)+\frac{1}{2}\sum_{i=n+1}^m\sum_{j=n+1}^m\delta(y_i,y_j)=d(\X,\X)+\frac{1}{2}\sum_{i=1}^n\sum_{j=n+1}^m\delta(x_i,y_j)+\\+\frac{1}{2}\sum_{j=1}^n\sum_{i=n+1}^m\delta(x_j,y_i)+d(\Y,\Y)=d(\X,\X)+\sum_{i=1}^n\sum_{j=n+1}^m\delta(x_i,y_j)+d(\Y,\Y)=\\=d(\X,\X)+2d(\X,\Y)+d(\Y,\Y).
+            D(\overline{\X}\oplus\overline{\Y})=d(\overline{\X}\oplus\overline{\Y},\overline{\X}\oplus\overline{\Y})=d(\overline{\X},\overline{\X}\oplus\overline{\Y})+d(\overline{\Y},\overline{\X}\oplus\overline{\Y})=d(\overline{\X},\overline{\X})+d(\overline{\X},\overline{\Y})+\\+d(\overline{\Y},\overline{\X})+d(\overline{\Y},\overline{\Y})=d(\overline{\X},\overline{\X})+d(\overline{\Y},\overline{\Y})+2d(\overline{\X},\overline{\Y})=D(\overline{\X})+D(\overline{\Y})+2d(\overline{\X},\overline{\Y}).
         \end{multline*}
-        \item 
-        \begin{multline*}
-            D(\lambda\X)=d(\lambda\X,\lambda\X)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\delta(\lambda z_i,\lambda z_j)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda^2\delta(z_i,z_j)=\lambda^2\left[\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\delta(x_i,x_j)\right]=\\=\lambda^2D(\X).
-        \end{multline*}
+        \item Aplicant les propietats \ref{d4} i \ref{d5} obtenim: $$D(\lambda\cdot\overline{\X})=d(\lambda\cdot\overline{\X},\lambda\cdot\overline{\X})=\lambda d(\overline{\X},\lambda\cdot\overline{\X})=\lambda^2d(\overline{\X},\overline{\X})=\lambda^2D(\overline{\X}).$$
     \end{enumerate}
 \end{proof}
 \begin{corollary}
-    Siguin $\X_1,\ldots,\X_n\in\mathcal{C}$ sons complexos i $\lambda\in\RR$. 
+    Siguin $\overline{\X_1},\ldots,\overline{\X_n}\in\mathfrak{C}$ sons complexos i $\lambda\in\RR$. Aleshores: $$D(\overline{\X_1}\oplus\cdots\oplus\overline{\X_n})=\sum_{i=1}^nD(\overline{\X_i})+\sum_{\substack{i,j=1\\i\ne j}}^nd(\overline{\X_i},\overline{\X_j})=\sum_{i,j=1}^nd(\overline{\X_i},\overline{\X_j})$$
 \end{corollary}
+\begin{proof}
+    Ho demostrarem per inducció sobre $n$. Per $n=1$ clarament es compleix la igualtat.\par Suposem certa la igualtat per $n=k$ i demostrem-la per $n=k+1$. Per les propietats \ref{D1} i \ref{d2} tenim que:
+    \begin{multline*}
+        D(\overline{\X_1}\oplus\cdots\oplus\overline{\X_{k+1}})=D([\overline{\X_1}\oplus\cdots\oplus\overline{\X_k}]\oplus\overline{\X_{k+1}})=D(\overline{\X_1}\oplus\cdots\oplus\overline{\X_k})+\\+D(\overline{\X_{k+1}})+2d(\overline{\X_1}\oplus\cdots\oplus\overline{\X_k},\overline{\X_{k+1}})=D(\overline{\X_1}\oplus\cdots\oplus\overline{\X_k})+D(\overline{\X_{k+1}})+2\sum_{i=1}^kd(\overline{\X}_i,\overline{\X_{k+1}}).
+    \end{multline*}
+    Ara bé, per la hipòtesi d'inducció tenim que:
+    $$D(\overline{\X_1}\oplus\cdots\oplus\overline{\X_k})=\sum_{i=1}^kD(\overline{\X_i})+\sum_{\substack{i,j=1\\i\ne j}}^kd(\overline{\X_i},\overline{\X_j}).$$ Així doncs, ajuntant-ho tot obtenim:
+    \begin{multline*}
+        D(\overline{\X_1}\oplus\cdots\oplus\overline{\X_{k+1}})=\sum_{i=1}^kD(\overline{\X_i})+\sum_{\substack{i,j=1\\i\ne j}}^kd(\overline{\X_i},\overline{\X_j})+D(\overline{\X_{k+1}})+2\sum_{i=1}^kd(\overline{\X_i},\overline{\X_{k+1}})=\\=\sum_{i=1}^{k+1}D(\overline{\X_i})+\sum_{\substack{i,j=1\\i\ne j}}^{k+1}d(\overline{\X_i},\overline{\X_j}).
+    \end{multline*}
+    Finalment, si expressem en aquesta igualtat $D(\overline{\X_i})$ com $d(\overline{\X_i},\overline{\X_i})$ deduïm la segona igualtat del coro\lgem ari.
+\end{proof}
 \section{Model per a sons simples basat en la banda crítica}
 Aquest segon model l'enfocarem des d'un punt més adequat per aquest context: la banda crítica. A més ens basarem en dades experimentals fetes per Plomp i Levelt \cite{plomp}, cosa que donarà una major credibilitat a la nostra fórmula. Com s'ha explicat a la secció \ref{teoria_auditiva}, quan dues freqüències sonen al mateix instant i s'activen els mateixos nervis de la membrana basilar, diem que les dues freqüències estan en la mateixa banda crítica i, per tant, es produeix interferència, que es tradueix a dissonància. Això en certa manera corresponia als batiments, estudiats a la secció anterior. Si les dues freqüències estan suficientment separades de manera que s'activen nervis diferents de la membrana basilar, les percebrem com a diferents i gairebé no hi haurà dissonància entre elles.\par 
 Com hem dit per calcular una funció adequada ens hem basat en els estudis empírics de Plomp i Levelt \cite{plomp}. Plomp i Levelt van modelitzar empíricament la dissonància entre dos sons purs. Algunes equacions funcionals que aproximen bé els seus resultats són les següents: $$\delta_1(x)=e^{-\alpha x}-e^{-\beta x}\qquad\delta_2(x)=e^{-\left(\log(\beta x)\right)^2}\quad\delta_3(x)=\beta xe^{-\beta x}$$
