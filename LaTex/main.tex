@@ -8,6 +8,7 @@
 \usepackage{stmaryrd,csquotes}
 \usepackage[affil-it]{authblk}
 \usepackage{multirow}
+\usepackage{physics}
 %%%%%%%%% more colors %%%%%%%%%%%%
 \usepackage{xcolor}
 \definecolor{darkblue}{RGB}{86, 40, 240}
@@ -78,7 +79,26 @@
 \newtheorem{definition}{Definició}[section]
 \newtheorem{theorem}[definition]{Teorema}
 \newtheorem{prop}[definition]{Proposició}
+\newtheorem{lemma}[definition]{Lema}
+\newtheorem{corollary}[definition]{Coro\lgem ari}
 
+\newcommand\quot[2]{
+    \mathchoice
+        {% \displaystyle 
+        \text{\raise1ex\hbox{$#1$}\!\Big/\!\lower1ex\hbox{$#2$}}}
+        {% \textstyle
+            #1/#2}
+        {% \scriptstyle
+            #1/#2}
+        {% \scriptscriptstyle  
+            #1/#2}
+}% quotient group. Usage A/B--->\quot{A}{B}.
+
+\newcommand{\0}{\ensuremath{\vb{0}}}
+\newcommand{\X}{\ensuremath{\vb{X}}}
+\newcommand{\Y}{\ensuremath{\vb{Y}}}
+\newcommand{\Z}{\ensuremath{\vb{Z}}}
+\newcommand{\NN}{\ensuremath{\mathbb{N}}} % set of real numbers
 \newcommand{\RR}{\ensuremath{\mathbb{R}}} % set of real numbers
 \newcommand\Hz{\text{ Hz}}
 \DeclareMathOperator{\arccosh}{arccosh}
@@ -198,59 +218,217 @@ A la figura \ref{main:fig2} es mostra una representació d'aquesta fórmula.
 \section{Model}
 Com hem comentat anteriorment, distingirem dos tipus de sons: els sons simples i els sons complexos. Per això, ens anirà bé definir els següents conjunts:
 \begin{definition}
-    Definim el conjunt $\mathcal{S}$ de sons simples com: $$\mathcal{S}=\{s=(f,a,\varphi)^\mathrm{T}\in\RR^3:s\text{ és el so d'equació }x(t)=a\sin(2\pi ft+\varphi)\}.$$
+    Definim el conjunt $\mathcal{S}$ de sons simples com: $$\mathcal{S}=\{s=(f,a,\varphi)\in\RR^3:f\in(0,\infty),a\in[0,\infty),\varphi\in[0,2\pi)\text{ i $s$ és el so d'equació }y_s(t)=a\sin(2\pi ft+\varphi)\}.$$
 \end{definition}
 \begin{definition}
-    Definim el conjunt $\mathcal{C}$ de sons complexos com: $$\mathcal{C}=\left\{M=
-    \begin{pmatrix}
-        f_1 & f_2 & \cdots & f_n\\
-        a_1 & a_2 & \cdots & a_n\\
-        \varphi_1 & \varphi_2 & \cdots & \varphi_n
-    \end{pmatrix}\in\mathcal{M}_{3\times n}(\RR):M\text{ és el so d'equació }x(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)\right\}.$$
+    Definim el conjunt $\mathcal{C}$ de sons complexos com:
+    \begin{multline*}
+        \mathcal{C}=\Bigg\{\X=\{s_1,s_2,\ldots,s_3\}:s_i=(f_i,a_i,\varphi_i)\in\mathcal{S}\text{ per } i=1,\ldots,n\text{ i $\X$ és el so d'equació}\\y_{\X}(t)=\sum_{i=1}^ny_{s_i}(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)\Bigg\}.
+    \end{multline*}
 \end{definition}
-A partir d'aquestes dues definicions observem que $\mathcal{S}\subset\mathcal{C}$. L'objectiu ara és definir operacions que d'una banda ens permetin combinar dos (o més) sons complexos en un de sol i d'altra banda ens permetin calibrar la intensitat d'un so.
+És a dir, el conjunt $\mathcal{C}$ està format per un conjunt de tuples de 3 elements (correponent a sons simples).\par
+% A partir d'aquestes dues definicions observem que $\mathcal{S}\subset\mathcal{C}$. Definim ara la següent relació:
+% \begin{definition}
+%     Considerem el conjunt $\mathcal{C}$ i dos sons $\X,\Y\in\mathcal{C}$ definits per:
+%     \begin{gather*}
+%         \X=
+%         \begin{pmatrix}
+%             f_1 & \cdots & f_1 & f_2 & \cdots & f_2 & \cdots & f_n & \cdots & f_n\\
+%             a_1 & \cdots & a_{r_1} & a_{r_1+1} & \cdots & a_{r_2} & \cdots & a_{r_{n-1}+1} & \cdots & a_{r_n}\\
+%             \varphi_1 & \cdots & \varphi_1 & \varphi_2 & \cdots & \varphi_2 & \cdots & \varphi_n & \cdots & \varphi_n
+%         \end{pmatrix},\\ \Y=
+%         \begin{pmatrix}
+%             g_1 & \cdots & g_1 & g_2 & \cdots & g_2 & \cdots & g_m & \cdots & g_m\\
+%             b_1 & \cdots & b_{s_1} & b_{s_1+1} & \cdots & b_{s_2} & \cdots & b_{s_{m-1}+1} & \cdots & g_{s_m}\\
+%             \phi_1 & \cdots & \phi_1 & \phi_2 & \cdots & \phi_2 & \cdots & \phi_m & \cdots & \phi_m
+%         \end{pmatrix},
+%     \end{gather*}
+%     tals que $(f_i,\varphi_i)=(f_j,\varphi_j)\text{ i }(g_i,\phi_i)=(g_j,\phi_j)\iff i=j$; $f_i<f_j$ i $g_i<g_j$ si $i<j$, i $r_0=s_0:=0$. Observem que per la definició de sons complexos això ho podem suposar. Definim la relació $\sim$ com: $$\X\sim \Y\iff n=m\text{ i } \sum_{j=1}^{r_i}a_{r_{i-1}+j}=\sum_{j=1}^{s_i}b_{s_{i-1}+j}\quad\forall i=1,\ldots,n.$$
+% \end{definition}
+% \begin{lemma}
+%     La relació $\sim$ és una relació d'equivalència.
+% \end{lemma}
+% \begin{proof}
+%     Hem de veure comprovar les tres propietats que tenen les relacions d'equivalència. Per a tot $\X,\Y,\Z\in\mathcal{C}$ de la forma:
+%     \begin{gather*}
+%         \X=
+%         \begin{pmatrix}
+%             f_1 & \cdots & f_1 & f_2 & \cdots & f_2 & \cdots & f_n & \cdots & f_n\\
+%             a_1 & \cdots & a_{r_1} & a_{r_1+1} & \cdots & a_{r_2} & \cdots & a_{r_{n-1}+1} & \cdots & a_{r_n}\\
+%             \varphi_1 & \cdots & \varphi_1 & \varphi_2 & \cdots & \varphi_2 & \cdots & \varphi_n & \cdots & \varphi_n
+%         \end{pmatrix},\\ \Y=
+%         \begin{pmatrix}
+%             g_1 & \cdots & g_1 & g_2 & \cdots & g_2 & \cdots & g_m & \cdots & g_m\\
+%             b_1 & \cdots & b_{s_1} & b_{s_1+1} & \cdots & b_{s_2} & \cdots & b_{s_{m-1}+1} & \cdots & g_{s_m}\\
+%             \phi_1 & \cdots & \phi_1 & \phi_2 & \cdots & \phi_2 & \cdots & \phi_m & \cdots & \phi_m
+%         \end{pmatrix},\\\Z=
+%         \begin{pmatrix}
+%             h_1 & \cdots & h_1 & h_2 & \cdots & h_2 & \cdots & h_p & \cdots & h_p\\
+%             c_1 & \cdots & c_{t_1} & c_{t_1+1} & \cdots & c_{t_2} & \cdots & c_{t_{p-1}+1} & \cdots & c_{t_p}\\
+%             \psi_1 & \cdots & \psi_1 & \psi_2 & \cdots & \psi_2 & \cdots & \psi_p & \cdots & \psi_p
+%         \end{pmatrix},
+%     \end{gather*}
+%     tals que $(f_i,\varphi_i)=(f_j,\varphi_j),(g_i,\phi_i)=(g_j,\phi_j)\text{ i }(h_i,\psi_i)=(h_j,\psi_j)\iff i=j$; $f_i<f_j$, $g_i<g_j$ i $h_i<h_j$ si $i<j$, i $r_0=s_0=t_0:=0$. Llavors es compleix:
+%     \begin{enumerate}
+%         \item Reflexivitat: $\X\sim \X$.\par És clar que es compleix.
+%         \item Simetria: $\X\sim \Y\implies \Y\sim \X$.\par
+%         \begin{multline*}
+%             \X\sim \Y\implies n=m\text{ i } \sum_{j=1}^{r_i}a_{r_{i-1}+j}=\sum_{j=1}^{s_i}b_{s_{i-1}+j}\quad\forall i=1,\ldots,n\implies\\\implies m=n\text{ i }\sum_{j=1}^{s_i}b_{s_{i-1}+j}=\sum_{j=1}^{r_i}a_{r_{i-1}+j}\quad\forall i=1,\ldots,m\implies \Y\sim \X.
+%         \end{multline*}
+%         \item Transitivitat: $\X\sim \Y\text{ i }\Y\sim \Z\implies \X\sim \Z$:
+%         \begin{multline*}
+%             \left.
+%             \begin{array}{l}
+%                 \X\sim \Y\implies n=m\text{ i } \sum_{j=1}^{r_i}a_{r_{i-1}+j}=\sum_{j=1}^{s_i}b_{s_{i-1}+j}\quad\forall i=1,\ldots,n\\
+%                 \Y\sim \Z\implies m=p\text{ i } \sum_{j=1}^{s_i}b_{s_{i-1}+j}=\sum_{j=1}^{t_i}a_{t_{i-1}+j}\quad\forall i=1,\ldots,m
+%             \end{array}\right\}\implies\\\implies n=p\text{ i } \sum_{j=1}^{r_i}a_{r_{i-1}+j}=\sum_{j=1}^{t_i}b_{t_{i-1}+j}\quad\forall i=1,\ldots,n\implies \X\sim \Z.
+%         \end{multline*}
+%     \end{enumerate}
+% \end{proof}
+% \begin{definition}
+%     Considerem el conjunt $\mathcal{C}$ amb la relació d'equivalència $\sim$. Definim la classe d'equivalència de $\X\in\mathcal{C}$ sota la relació $\sim$ com: $$\overline{\X}=\{\Y\in\mathcal{M}:\X\sim \Y\}.$$
+% \end{definition}
+% Observem que un representant natural de $\overline{\X}$ és $$
+% \begin{pmatrix}
+%     f_1 & \cdots & f_n\\
+%     a_1 & \cdots & a_n\\
+%     \varphi_1 & \cdots &\varphi_n
+% \end{pmatrix}$$ on $(f_i,\varphi_i)=(f_)$
+% \begin{definition}
+%     Considerem el conjunt $\mathcal{C}$ amb la relació d'equivalència $\sim$. Definim el conjunt $\overline{\mathcal{C}}$ com el conjunt de les classes d'equivalència, és a dir: $$\overline{\mathcal{C}}:=\quot{\mathcal{C}}{\sim}:=\{\}$$
+% \end{definition}
+L'objectiu ara és definir operacions que d'una banda ens permetin combinar dos (o més) sons complexos en un de sol i d'altra banda ens permetin calibrar la intensitat d'un so.
 \begin{definition}
-    Siguin $M_1,M_2\in\mathcal{C}$ tals que $$M_1=
-    \begin{pmatrix}
-        f_1 & f_2 & \cdots & f_n\\
-        a_1 & a_2 & \cdots & a_n\\
-        \varphi_1 & \varphi_2 & \cdots & \varphi_n
-    \end{pmatrix}\quad\text{i}\quad M_2=
-    \begin{pmatrix}
-        f_{n+1} & f_{n+2} & \cdots & f_m\\
-        a_{n+1} & a_{n+2} & \cdots & a_m\\
-        \varphi_{n+1} & \varphi_{n+2} & \cdots & \varphi_m
-    \end{pmatrix}.$$ Definim la \textit{suma $+$ de $M_1$ i $M_2$} com: $$M_1+M_2:=
-    \begin{pmatrix}
-        f_1 & f_2 & \cdots & f_n & f_{n+1} & f_{n+2} & \cdots & f_m\\
-        a_1 & a_2 & \cdots & a_n & a_{n+1} & a_{n+2} & \cdots & a_m\\
-        \varphi_1 & \varphi_2 & \cdots & \varphi_n & \phi_{n+1} & \phi_{n+2} & \cdots & \phi_m
-    \end{pmatrix}.$$
+    Siguin $\X,\Y\in\mathcal{C}$. Definim la operació \textit{suma $+$} com l'aplicació
+    \begin{align*}
+        \oplus:\mathcal{C}\times\mathcal{C}&\longrightarrow\mathcal{C}\\
+        (\X,\Y)&\longmapsto \X\oplus \Y:=\X\cup \Y
+    \end{align*}
 \end{definition}
 \begin{definition}
-    Sigui $\lambda\in\RR$ i $M\in\mathcal{C}$ tal que $$M=
-    \begin{pmatrix}
-        f_1 & f_2 & \cdots & f_n\\
-        a_1 & a_2 & \cdots & a_n\\
-        \varphi_1 & \varphi_2 & \cdots & \varphi_n
-    \end{pmatrix}.$$ Definim el \textit{producte $\cdot$ de $M$ per l'escalar $\lambda$} com: $$\lambda\cdot M:=
-    \begin{pmatrix}
-        f_1 & f_2 & \cdots & f_n\\
-        \lambda a_1 & \lambda a_2 & \cdots & \lambda a_n\\
-        \varphi_1 & \varphi_2 & \cdots & \varphi_n
-    \end{pmatrix}$$
+    Sigui $\lambda\in\RR$ i $\X=\{(f_1,a_1,\varphi_1),(f_2,a_2,\varphi_2),\ldots,(f_n,a_n,\varphi_n)\}\in\mathcal{C}$. Definim la operació \textit{producte per escalar $\cdot$} com l'aplicació
+    \begin{align*}
+        \cdot:\RR\times\mathcal{C}&\longrightarrow\mathcal{C}\\
+        (\lambda,\X)&\longmapsto \lambda\cdot \X:=\{(f_1,\lambda a_1,\varphi_1),(f_2,\lambda a_2,\varphi_2),\ldots,(f_n,\lambda a_n,\varphi_n)\}
+    \end{align*}
+    %on: $$\lambda\cdot \X:=\{(f_1,\lambda a_1,\varphi_1),(f_2,\lambda a_2,\varphi_2),\ldots,(f_n,\lambda a_n,\varphi_n)\}$$
 \end{definition}
+
 Vegem ara una propietat important que es compleix a $\mathcal{C}$ quan implementem aquestes operacions:
 \begin{theorem}
-    $(\mathcal{C},+,\cdot)$ és un $\RR$-espai vectorial.
+    $(\mathcal{C},\oplus,\cdot)$ és un $\RR$-espai vectorial.
 \end{theorem}
 \begin{proof}
-    Cal comprovar totes els axiomes d'espai vectorial.
+    Cal comprovar tots els axiomes d'espai vectorial. Per a tot $\lambda,\mu\in\RR$ i tot $\X,\Y,\Z\in\mathcal{C}$, amb $$\X=\{(f_1,a_1,\varphi_1),(f_2,a_2,\varphi_2),\ldots,(f_n,a_n,\varphi_n)\},\quad\Y=\{(g_1,b_1,\phi_1),(g_2,b_2,\phi_2),\ldots,(g_m,b_m,\phi_m)\},$$  s'han de satisfer les següents propietats:
     \begin{enumerate}
-        \item d
+        \item $(\X\oplus \Y)\oplus \Z=\X\oplus (\Y\oplus \Z)$:
+        $$(\X\oplus \Y)\oplus \Z=(\X\cup \Y)\cup \Z=\X\cup(\Y\cup \Z)=\X\oplus (\Y\oplus \Z).$$
+        \item $\X\oplus \Y=\Y\oplus \X$:
+        $$\X\oplus \Y=\X\cup \Y=\Y\cup \X=\Y\oplus \X.$$
+        \item $\exists \0\in\mathcal{C}$ tal que $\X\oplus\0=\X$:\par
+        En aquest cas $\0:=\emptyset$. Així doncs és clar que: $$\X\oplus\0=\X\cup\emptyset=\X.$$ Observem que $\0$ es tracta del so amb equació $y_{\0}(t)=0$.
+        \item $\forall \X\in\mathcal{C}$ $\exists (-\X)\in\mathcal{C}$ tal que $\X\oplus(-\X)=\0$:\par
+        Definim $(-\X)$ com $$-\X:=\{(f_1,a_1,\varphi_1+\pi),(f_2,a_2,\varphi_2+\pi),\ldots,(f_n,a_n,\varphi_n+\pi)\}.$$ D'aquesta manera tenim que $\X\oplus(-\X)$ és el so d'equació:
+        \begin{multline*}
+            y_{\X\oplus(-\X)}=y_{\X}+y_{-\X}=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)+\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i+\pi)=\\=\sum_{i=1}^na_i\left[\sin(2\pi f_it+\varphi_i)+\sin(2\pi f_it+\varphi_i+\pi)\right].
+        \end{multline*}
+        Recordant la fórmula trigonomètrica $\sin\alpha+\sin\beta=2\sin\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}$ obtenim que: $$y_{\X\oplus(-\X)}=\sum_{i=1}^na_i\left[\sin(2\pi f_it+\varphi_i)+\sin(2\pi f_it+\varphi_i+\pi)\right]=\sum_{i=1}^n2a_i\sin\left(2\pi f_it+\varphi +\frac{\pi}{2}\right)\cos\frac{\pi}{2}=0.$$ Per tant, tenim que $\X\oplus(-\X)=\0$.
+        \item $\lambda\cdot[\mu\cdot \X]=[\lambda\mu]\cdot \X$:
+        \begin{multline*}
+            \lambda\cdot[\mu\cdot \X]=\lambda\cdot\left[\mu\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}\right]=\lambda\cdot\{(f_1,\mu a_1,\varphi_1),\ldots,(f_n,\mu a_n,\varphi_n)\}=\\=\{(f_1,\lambda\mu a_1,\varphi_1),\ldots,(f_n,\lambda\mu a_n,\varphi_n)\}=[\lambda\mu]\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}=[\lambda\mu]\cdot \X.
+        \end{multline*}
+        \item $1\cdot \X=\X$:
+        \begin{multline*}
+            1\cdot\X=1\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}=\{(f_1,1a_1,\varphi_1),\ldots,(f_n,1a_n,\varphi_n)\}=\\=\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}=\X.
+        \end{multline*}
+        \item $\lambda\cdot[\X\oplus\Y]=[\lambda\cdot \X]\oplus[\lambda\cdot \Y]$:
+        \begin{multline*}
+            \lambda\cdot[\X\oplus \Y]=\lambda\cdot[\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}\oplus\{(g_1,b_1,\phi_1),\ldots,(g_m,b_m,\phi_m)\}]=\\=\lambda\cdot\{(f_1, a_1,\varphi_1),\ldots,(f_n, a_n,\varphi_n),(g_1,b_1,\phi_1),\ldots,(g_m,b_m,\phi_m)\}=\\=\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n),(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}=\\=\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n)\}\oplus\{(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}=\\=[\lambda\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}]\oplus[\lambda\cdot\{(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}]=[\lambda\cdot \X]\oplus[\lambda\cdot \Y].
+        \end{multline*}
+        \item $[\lambda+\mu]\cdot \X=[\lambda \cdot \X] \oplus[\mu \cdot \X]$:
+        \begin{multline*}
+            [\lambda+\mu]\cdot \X=[\lambda+\mu]\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}=\{(f_1,[\lambda+\mu]a_1,\varphi_1),\ldots,(f_n,[\lambda+\mu]a_n,\varphi_n)\}=\\=\{(f_1,\lambda a_1+\mu a_1,\varphi_1),\ldots,(f_n,\lambda a_n+\mu a_n,\varphi_n)\}=\\=[\lambda\mu]\cdot\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n)\}\oplus\{(f_1,\lambda\mu a_1,\varphi_1),\ldots,(f_n,\lambda\mu a_n,\varphi_n)\}=\\=[\lambda\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}]\oplus[\mu\cdot\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}]=[\lambda \cdot \X] \oplus[\mu \cdot \X],
+        \end{multline*}
+        on el la quatra igualtat hem fet servir que el so complex $\{(f,\lambda a+\mu a,\varphi)\}$ és el mateix que $\{(f,\lambda a,\varphi),(f,\mu a,\varphi)\}$ ja que ambdós satisfan la mateixa equació: $$y(t)=(\lambda a+\mu a)\sin(2\pi ft+\varphi)=\lambda a\sin(2\pi ft+\varphi)+\mu a\sin(2\pi ft+\varphi).$$
     \end{enumerate}
 \end{proof}
-
+Amb tot això ja podem definir una funció per mesurar el grau de dissonància entre dos sons complexos. Suposem abans de tot que tenim una funció $\delta$ que mesura el grau de dissonància entre dos sons simples. És a dir, $\delta$ és una funció de la forma:
+\begin{align*}
+    \delta:\mathcal{S}\times\mathcal{S}&\longrightarrow\RR\\
+    (s_1,s_2)&\longmapsto\delta(s_1,s_2)
+\end{align*}
+\textcolor{green}{PROPIETATS OBLIGATÒRIES DE $\delta$:
+\begin{itemize}
+    \item Simetria
+    \item $\propto$ amplituds
+    \item recordar que també té sentit producte per escalars en sons simples
+\end{itemize}
+}
+L'objectiu ara és crear una funció 
+\begin{align*}
+    D:\mathcal{C}&\longrightarrow\RR\\
+    \X&\longmapsto D(\X)
+\end{align*}
+que mesuri la dissonància d'un so complex. Per això definirem primer una funció $d$ que mesura la dissonància \textit{relativa} entre dos sons.
+\begin{definition}
+    Definim la mesura de la dissonància relativa $d$ entre dos sons complexos com:
+    \begin{align*}
+        d:\mathcal{C}\times\mathcal{C}&\longrightarrow\RR\\
+        (\{s_i\}_{i=1}^n,\{r_i\}_{i=1}^m)&\longmapsto\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(s_i,r_i)
+    \end{align*}
+\end{definition}
+Aquesta funció té les següents propietats:
+\begin{prop}
+    Siguin $\X,\Y,\Z\in\mathcal{C}$ sons complexos i $\lambda\in\RR$. Llavors:
+    \begin{enumerate}
+        \item $d(\X,\Y)=d(\Y,\X)$.
+        \item $d(\X+\Y,\Z)=d(\X,\Z)+d(\Y,\Z)$.
+        \item $d(\X,\Y+\Z)=d(\X,\Y)+d(\X,\Z)$.
+        \item $d(\lambda\X,\Y)=\lambda d(\X,\Y)$.
+        \item $d(\X,\lambda\Y)=\lambda d(\X,\Y)$.
+    \end{enumerate}
+\end{prop}
+\begin{proof}
+    \textcolor{green}{FALTA FER}
+\end{proof}
+Amb aquesta definició, donat un so complex $\X\in\mathcal{C}$, hom pot preguntar-se què ocorre quan evaluem $d(\X,\X)$.
+\begin{definition}[Mesura de dissonància]
+    Definim la mesura de la dissonància $D$ d'un so complex com:
+    \begin{align*}
+        D:\mathcal{C}&\longrightarrow\RR\\
+        \X&\longmapsto d(\X,\X)
+    \end{align*}
+\end{definition}
+Amb tals definicions, obtenim una sèrie de propietats que seran importants alhora de calcular la dissonància entre dos (o més sons) de manera computacional.
+\begin{prop}
+    Siguin $\X,\Y\in\mathcal{C}$ sons complexos i $\lambda\in\RR$. Llavors:
+    \begin{enumerate}
+        \item $D(\X+\Y)=D(\X)+D(\Y)+2d(\X,\Y)$.
+        \item $D(\lambda\cdot \X)=\lambda^2D(\X)$.
+    \end{enumerate}
+\end{prop}
+\begin{proof}
+    Suposem que $\X=\{x_i\}_{i=1}^n$ i $\Y=\{y_i\}_{i=1}^m$. Llavors $\X+\Y=\{x_1,\ldots,x_n,y_1,\ldots,y_m\}$. Per simplificar la notació anomenem $$
+    z_i=\left\{
+    \begin{array}{ccc}
+        x_i & \text{si} & 1\leq i\leq n\\
+        y_{i-n} & \text{si} & n+1\leq i\leq m
+    \end{array}\right.
+    $$ Per tant, podem escriure $\X+\Y$ com $\X+\Y=\{z_1,\ldots,z_{n+m}\}$.
+    \begin{enumerate}
+        \item 
+        \begin{multline*}
+            D(\X+\Y)=d(\X+\Y,\X+\Y)=\frac{1}{2}\sum_{i=1}^{n+m}\sum_{j=1}^{n+m}\delta(z_i,z_j)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\delta(z_i,z_j)+\frac{1}{2}\sum_{i=1}^n\sum_{j=n+1}^m\delta(z_i,z_j)+\\+\frac{1}{2}\sum_{i=n+1}^m\sum_{j=1}^n\delta(z_i,z_j)+\frac{1}{2}\sum_{i=n+1}^m\sum_{j=n+1}^m\delta(z_i,z_j)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\delta(x_i,x_j)+\frac{1}{2}\sum_{i=1}^n\sum_{j=n+1}^m\delta(x_i,y_j)+\\+\frac{1}{2}\sum_{i=n+1}^m\sum_{j=1}^n\delta(y_i,x_j)+\frac{1}{2}\sum_{i=n+1}^m\sum_{j=n+1}^m\delta(y_i,y_j)=d(\X,\X)+\frac{1}{2}\sum_{i=1}^n\sum_{j=n+1}^m\delta(x_i,y_j)+\\+\frac{1}{2}\sum_{j=1}^n\sum_{i=n+1}^m\delta(x_j,y_i)+d(\Y,\Y)=d(\X,\X)+\sum_{i=1}^n\sum_{j=n+1}^m\delta(x_i,y_j)+d(\Y,\Y)=\\=d(\X,\X)+2d(\X,\Y)+d(\Y,\Y).
+        \end{multline*}
+        \item 
+        \begin{multline*}
+            D(\lambda\X)=d(\lambda\X,\lambda\X)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\delta(\lambda z_i,\lambda z_j)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\lambda^2\delta(z_i,z_j)=\lambda^2\left[\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\delta(x_i,x_j)\right]=\\=\lambda^2D(\X).
+        \end{multline*}
+    \end{enumerate}
+\end{proof}
+\begin{corollary}
+    Siguin $\X_1,\ldots,\X_n\in\mathcal{C}$ sons complexos i $\lambda\in\RR$. 
+\end{corollary}
 \section{Model per a sons simples basat en la banda crítica}
 Aquest segon model l'enfocarem des d'un punt més adequat per aquest context: la banda crítica. A més ens basarem en dades experimentals fetes per Plomp i Levelt \cite{plomp}, cosa que donarà una major credibilitat a la nostra fórmula. Com s'ha explicat a la secció \ref{teoria_auditiva}, quan dues freqüències sonen al mateix instant i s'activen els mateixos nervis de la membrana basilar, diem que les dues freqüències estan en la mateixa banda crítica i, per tant, es produeix interferència, que es tradueix a dissonància. Això en certa manera corresponia als batiments, estudiats a la secció anterior. Si les dues freqüències estan suficientment separades de manera que s'activen nervis diferents de la membrana basilar, les percebrem com a diferents i gairebé no hi haurà dissonància entre elles.\par 
 Com hem dit per calcular una funció adequada ens hem basat en els estudis empírics de Plomp i Levelt \cite{plomp}. Plomp i Levelt van modelitzar empíricament la dissonància entre dos sons purs. Algunes equacions funcionals que aproximen bé els seus resultats són les següents: $$\delta_1(x)=e^{-\alpha x}-e^{-\beta x}\qquad\delta_2(x)=e^{-\left(\log(\beta x)\right)^2}\quad\delta_3(x)=\beta xe^{-\beta x}$$
