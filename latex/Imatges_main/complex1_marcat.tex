@@ -21,8 +21,12 @@
             xlabel = {$f_2/f_1$}, %
             ylabel = {$\mathcal{D}(\mathcal{S}_1,\mathcal{S}_2)$}, %
             legend cell align = {left}, %
-        ]
-            \addplot [thick,smooth,no markers,red] table {./../Dades_i_codi/complex110.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+        ]  
+            \IfStandalone{% options when file is compiled on its own
+                \addplot [thick,smooth,no markers,red] table {./../Dades_i_codi/complex110.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            }{% options when file is compiled from main.tex
+                \addplot [thick,smooth,no markers,red] table {./Dades_i_codi/complex110.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            }
             %%%%%%%%%%%% SI %%%%%%%%%%%%
             \draw [thin,lessgreen,dashed] (axis cs:1.1225,0) -- node[right,pos=1]{SI2} (axis cs:1.1225,3.5289);
             \filldraw[lessgreen] (1.1225,3.5289) circle [radius=1.5pt];

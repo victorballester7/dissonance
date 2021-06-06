@@ -22,7 +22,11 @@
             ylabel = {$\mathcal{D}(\mathcal{S}_1,\mathcal{S}_2)$}, %
             legend cell align = {left}, %
         ]
-            \addplot [thick,smooth,no markers,red] table {./../Dades_i_codi/complex1760.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            \IfStandalone{% options when file is compiled on its own
+                \addplot [thick,smooth,no markers,red] table {./../Dades_i_codi/complex1760.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            }{% options when file is compiled from main.tex
+                \addplot [thick,smooth,no markers,red] table {./Dades_i_codi/complex1760.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            }
             
             \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1,0.001)};
             \node[color=darkblue] at (1 + 0.03,0.001 + 0.15) {$\frac{1}{1}$};

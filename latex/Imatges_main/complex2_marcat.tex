@@ -22,7 +22,11 @@
             ylabel = {$\mathcal{D}(\mathcal{S}_1,\mathcal{S}_2)$}, %
             legend cell align = {left}, %
         ]
-            \addplot [thick,smooth,no markers,red] table {./../Dades_i_codi/complex440.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            \IfStandalone{% options when file is compiled on its own
+                \addplot [thick,smooth,no markers,red] table {./../Dades_i_codi/complex440.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            }{% options when file is compiled from main.tex
+                \addplot [thick,smooth,no markers,red] table {./Dades_i_codi/complex440.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            }
             %%%%%%%%%%%% LA %%%%%%%%%%%%
             \draw [thin,lessgreen,dashed] (axis cs:1.0595,0) -- node[right,pos=1]{LA\#4} (axis cs:1.0595,2.8032);
             \filldraw[lessgreen] (1.0595,2.8032) circle [radius=1.5pt];
