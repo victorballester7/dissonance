@@ -4,6 +4,7 @@ dissonance
 second_derivative_check
 *.pdf
 !LaTex/Dades_i_codi/**
+.vscode
 
 # Tex files
 *.aux
