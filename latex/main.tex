@@ -26,9 +26,7 @@
 \pgfplotsset{compat = newest}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{subfig}
-%%%%%%%%%%% Pels codis en C o Python que posarem en un annex %%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newtheoremstyle{math}
     {\topsep}   % ABOVESPACE
     {\topsep}   % BELOWSPACE
@@ -481,7 +479,7 @@ A la figura \ref{main:fig2} es mostra una representació d'aquesta fórmula.
         \begin{multline*}
             \lambda\cdot\left[\overline{\X}\boxplus \overline{\Y}\right]=\lambda\cdot\left[\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\boxplus\overline{\{(g_1,b_1,\phi_1),\ldots,(g_m,b_m,\phi_m)\}}\right]=\\=\lambda\cdot\overline{\{(f_1, a_1,\varphi_1),\ldots,(f_n, a_n,\varphi_n),(g_1,b_1,\phi_1),\ldots,(g_m,b_m,\phi_m)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n),(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n)\}}\boxplus\overline{\{(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}}=\\=\left[\lambda\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\right]\boxplus\left[\lambda\cdot\overline{\{(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}}\right]=\left[\lambda\cdot \overline{\X}\right]\boxplus\left[\lambda\cdot \overline{\Y}\right].
         \end{multline*}
-        \item $[\lambda+\mu]\cdot \overline{\X}=\left[\lambda \cdot \overline{\X}\right] \boxplus\left[\mu \cdot \overline{\X}\right]$:
+        \item $[\lambda+\mu]\cdot\overline{\X}=\left[\lambda \cdot \overline{\X}\right] \boxplus\left[\mu \cdot \overline{\X}\right]$:
         \begin{multline*}
             [\lambda+\mu]\cdot \overline{\X}=[\lambda+\mu]\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}=\overline{\{(f_1,[\lambda+\mu]a_1,\varphi_1),\ldots,(f_n,[\lambda+\mu]a_n,\varphi_n)\}}=\\=\overline{\{(f_1,\lambda a_1+\mu a_1,\varphi_1),\ldots,(f_n,\lambda a_n+\mu a_n,\varphi_n)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),(f_1,\mu a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n),(f_n,\mu a_n,\varphi_n)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n)\}}\boxplus\overline{\{(f_1,\lambda\mu a_1,\varphi_1),\ldots,(f_n,\lambda\mu a_n,\varphi_n)\}}=\\=\left[\lambda\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\right]\boxplus\left[\mu\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\right]=\left[\lambda \cdot \overline{\X}\right] \boxplus\left[\mu \cdot \overline{\X}\right],
         \end{multline*}

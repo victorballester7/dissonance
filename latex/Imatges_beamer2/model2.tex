@@ -25,6 +25,15 @@
             ylabel = {$\delta(f_1,f_2,1,1)$}, %
             legend cell align = {left}, %
         ]
+            \IfStandalone{% options when file is compiled on its own
+                \addplot [thick,smooth,no markers,red] table {./../Dades_i_codi/model2-100.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color1] table {./../Dades_i_codi/model2-100.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color2] table {./../Dades_i_codi/model2-500.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            }{% options when file is compiled from main.tex
+                \addplot [thick,smooth,no markers,red] table {./Dades_i_codi/model2-100.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color1] table {./Dades_i_codi/model2-100.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color2] table {./Dades_i_codi/model2-500.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            }
             \addplot [thick,smooth,no markers,color1] table {./../Dades_i_codi/model2-100.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
             \addplot [thick,smooth,no markers,color2] table {./../Dades_i_codi/model2-500.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
             \addplot [thick,smooth,no markers,color3] table {./../Dades_i_codi/model2-3000.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
