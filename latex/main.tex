@@ -37,12 +37,26 @@
     {5pt plus 1pt minus 1pt} % HEADSPACE
     {\thmname{#1}\thmnumber{ #2}\thmnote{ \bfseries(#3)}} % CUSTOM-HEAD-SPEC
 
+\newtheoremstyle{TheoremNum}
+    {\topsep}
+    {\topsep}              %%% space between body and thm
+    {}                      %%% Thm body font
+    {}                              %%% Indent amount (empty = no indent)
+    {\bfseries}                     %%% Thm head font
+    {.}                             %%% Punctuation after thm head
+    {5pt plus 1pt minus 1pt}                             %%% Space after thm head
+    {\thmname{#1}\thmnote{ \bfseries #3}}%%% Thm head spec
+
 \theoremstyle{math}
 \newtheorem{definition}{Definició}[section]
 \newtheorem{theorem}[definition]{Teorema}
 \newtheorem{prop}[definition]{Proposició}
 \newtheorem{lemma}[definition]{Lema}
 \newtheorem{corollary}[definition]{Coro\lgem ari}
+
+\theoremstyle{TheoremNum}
+\newtheorem{prop*}[definition]{Proposició}
+\newtheorem{corollary*}[definition]{Coro\lgem ari}
 
 \newcommand\quot[2]{
     \mathchoice
@@ -94,131 +108,107 @@
 \maketitle
 \selectlanguage{english}
 \begin{abstract}
-    Per si voleu posar abstract. De moment serveix per posar comentaris. Carlo: jo crec que sí que cal abstract
-    \begin{itemize}
-        \item L'estructura del treball (posar newpages...) ja la decidirem al final.
-        \item Una pregunta: què us agrada més, primer la bibliografia o l'annex? No sé quin se sol posar davant...
-        \item Us agrada el sagnat? A vegades queda bé, i a vegades no. Carlo: no m'agrada el sagnat
-    \end{itemize}
+    És ben sabut que hi ha combinacions de notes musicals que sonen més bé que d'altres. Des de l'antiguitat se sap que això correspon al fet que els quocients de les freqüències de les notes involucrades siguin proporcionals a fraccions de nombres enters senzills. En aquest treball donarem una modelització matemàtica de com mesurar el grau de dissonància produït quan toquem dos (o més) notes musicals simultàniament. Finalment compararem els resultats amb l'opinió pública per veure si hi ha algun tipus de correspondència entre els fets teòrics i els fets empírics. 
 \end{abstract}
 \selectlanguage{catalan}
+\newpage
+Per posar la frase
+\newpage
 \tableofcontents
-\section{Teoria musical}
+\newpage
+\section{Introducció}
+L'objectiu principal del treball és donar a entendre matemàticament per què es produeix la dissonància i intentar modelitzar-la quantitativament, per tal de determinar d'entre dos notes musicals quina és la més dissonant. Per això començarem fent una petita introducció de teoria musical on aprofitarem per definir les definicions necessàries i bàsiques per el treball. Seguidament comentarem molt breument certs de conceptes referents a l'oïda humana que necessitarem per deduïr una funció de dissonància. Acabat això, descriurem el model de dissonància que proposem juntament amb un anàlisi dels resultats obtinguts. Finalment compararem aquests valors amb els recollits en un test fet prèviament a un públic general.
+\section{Teoria musical i definicions prèvies}
 Aquest treball està molt estretament relacionat amb la música, en com els humans percebem els sons i, per extensió, en les notes musicals. És per això que ens cal per una petita incursió en la teoria musical per poder entendre correctament el sentit del nostre model.\par
 És ben conegut per a tothom que hi ha combinacions de notes musicals que sonen \textit{bé} i d'altres que sonen \textit{malament}. Ara bé, què volen dir \textit{bé} i \textit{malament} en aquest context? Vegem ara dues definicions que ens ho aclariran:
 \begin{definition}
 Anomenem \textit{consonància} la qualitat de dos o més sons amb una relació de freqüències concreta, que sonen agradables a l'oïda humana.\par
-Anomenem \textit{dissonància} la qualitat de dos o més sons amb una relació de freqüències concreta, que sonen poc agradables a l'oïda humana.
+\noindent Anomenem \textit{dissonància} la qualitat de dos o més sons amb una relació de freqüències concreta, que sonen poc agradables a l'oïda humana.
 \end{definition}
 Quedant-nos amb aquestes definicions, descriurem en la secció \ref{teoria_auditiva} del treball quin és el motiu pel qual hi ha combinacions de sons que no són agradables a l'oïda humana i en la secció \ref{model} intentarem donar una quantificació d'aquesta inharmonia.\par
 En aquest treball, distingirem dos tipus de sons: els sons simples i els sons complexos. Les seves definicions ens seran útils per caracteritzar-los:
 \begin{definition}[So simple]
-Siguin $f\in(0,\infty)$, $a\in[0,\infty)$ i $\varphi\in[0,2\pi)$. Anomenem \textit{so simple} o \textit{so pur} a la terna $s=(f, a, \varphi)$ on $s$ és el so sinusoidal d'equació $$y_s(t)=a\sin(2\pi f+\varphi).$$
+Siguin $f\in(0,\infty)$ i $a\in[0,\infty)$. Anomenem \textit{so simple} o \textit{so pur} el parell $s=(f, a)$ on $s$ és el so sinusoidal d'equació $$y_s(t)=a\sin(2\pi f).$$
 \end{definition}
+\noindent Observem que en aquesta definició hem omès una possible fase del so. Això ho hem suposat perquè quan toquem una nota musical (per exemple, una tecla d'un piano) tots els harmònics correponents a aquella nota comencen a vibren tots alhora, de manera que el desfasament entre cada parell d'harmònics és nul.\par D'altra banda, és ben sabut que l'amplitud té unitats de longitud. No obstant nosaltres la considerarem adimensional per facilitar-ne la seva manipulació. Més ben dit, el que considerem no són amplituds, sinó relacions d'amplituds, que són magnituds adimensionals. És a dir, fixada una amplitud base $a_0$ i donat un so pur $s=(f,a)$ d'amplitud real $a^*$ prenem $a$ que sigui $a:=\frac{a^*}{a_0}$. Observem que d'aquesta manera, el so \textit{real} i el so \textit{modificat} satisfan la mateixa equació llevat d'un escalar.
 \begin{definition}
-    Definim el conjunt $\mathcal{S}$ de sons simples com: $$\mathcal{S}=\{s=(f,a,\varphi)\in\RR^3:f\in(0,\infty),a\in[0,\infty),\varphi\in[0,2\pi)\text{ i $s$ és el so d'equació }y_s(t)=a\sin(2\pi ft+\varphi)\}.$$
+    Definim el conjunt $\mathcal{S}$ de sons simples com: $$\mathcal{S}=\{s=(f,a):f\in(0,\infty),a\in[0,\infty)\text{ i $s$ és el so d'equació }y_s(t)=a\sin(2\pi ft)\}.$$
 \end{definition}
 \begin{definition}[So complex]\label{so_complex}
-Siguin $s_1,\ldots,s_n\in\mathcal{S}$ són simples tals que $s_i=(f_i,a_i,\varphi_i)$ per $i=1,\ldots,n$. Anomenem \textit{so complex} el conjunt $\X=\{s_1,\ldots,s_n\}$ tal que $\X$ és el so d'equació: $$y_{\X}(t)=\sum_{i=1}^ny_{s_i}(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i).$$
+Siguin $s_1,\ldots,s_n\in\mathcal{S}$ són simples tals que $s_i=(f_i,a_i)$ per $i=1,\ldots,n$. Anomenem \textit{so complex} el conjunt $\X=\{s_1,\ldots,s_n\}$ tal que $\X$ és el so d'equació: $$y_{\X}(t)=\sum_{i=1}^ny_{s_i}(t)=\sum_{i=1}^na_i\sin(2\pi f_it).$$
 \end{definition}
 \begin{definition}
     Definim el conjunt $\mathcal{C}$ de sons complexos com:
     $$\mathcal{C}=\left\{\X=\{s_1,\ldots,s_n\}:s_i\in\mathcal{S}\text{ per } i=1,\ldots,n\text{ i $\X$ és el so d'equació }y_{\X}(t)=\sum_{i=1}^ny_{s_i}(t)\right\}.$$
 \end{definition}
-És a dir, el conjunt $\mathcal{C}$ està format per un conjunt de tuples de 3 elements (corresponents a sons simples). D'altra banda, tot i que hem definit els elements del conjunt $\mathcal{C}$ com sumes finites de sons simples, és natural pensar que els elements de $\mathcal{C}$ podrien tenir també cardinal infinit. Efectivament això és possible però no ho hem considerat degut al poc interès pràctic que té aquest fet en relació amb l'objectiu principal del treball.\par
-Tot i que la definició \ref{so_complex} de so complex l'hem feta per a combinacions arbitràries de sons purs, podem  particularitzar-la de certa forma amb l'objectiu de apropar-nos més als propòsits d'aquest treball: les \textit{notes musicals}.
+\noindent És a dir, el conjunt $\mathcal{C}$ està format per un conjunt de tuples de 2 elements (corresponents a sons simples). D'altra banda, tot i que hem definit els elements del conjunt $\mathcal{C}$ com sumes finites de sons simples, és natural pensar que els elements de $\mathcal{C}$ podrien tenir també cardinal infinit. Efectivament això és possible però no ho hem considerat degut al poc interès pràctic que té aquest fet en relació amb l'objectiu principal del treball\footnote{L'oïda humana només és capaç de percebre sons les freqüències dels quals estan en l'interval entre $20\Hz$ i $20000\Hz$. És per això que a la pràctica considerar infinits harmònics és poc coherent.}.\par
+Tot i que la definició \ref{so_complex} de so complex l'hem feta per a combinacions arbitràries de sons purs, podem  particularitzar-la de certa forma amb l'objectiu d'apropar-nos més als propòsits d'aquest treball: les \textit{notes musicals}.
 \begin{definition}
-    Sigui $\N\in\mathcal{C}$ un so complex tal que $$\N=\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\},$$ on $n\in\NN\cup\{\infty\}$. Diem que $\N$ és una \textit{nota musical} si es compleix que $f_k=kf_1$ per a tot $k=1,\ldots,n$. En aquest cas $n$ s'anomena el \textit{nombre d'harmònics de $\N$} i el so simple $(f_k,a_k,\varphi_k)$ s'anomena \textit{harmònic $k$-èssim de $\N$}, per a $k=2,\ldots,n$. Finalment el so $(f_1,a_1,\varphi_1)$ s'anomena \textit{harmònic fonamental de $\N$} i la seva freqüència, és a dir, $f_1$, \textit{freqüència fonamental de $\N$}.
+    Sigui $\N\in\mathcal{C}$ un so complex tal que $$\N=\{(f_1,a_1),\ldots,(f_n,a_n)\},$$ on $n\in\NN\cup\{\infty\}$. Diem que $\N$ és una \textit{nota musical} si es compleix que $f_k=kf_1$ per a tot $k=1,\ldots,n$. En aquest cas $n$ s'anomena el \textit{nombre d'harmònics de $\N$} i el so simple $(f_k,a_k)$ s'anomena \textit{harmònic $k$-èssim de $\N$}, per a $k=1,\ldots,n$. En particular, el so $(f_1,a_1)$ s'anomena \textit{harmònic fonamental de $\N$} i la seva freqüència, $f_1$, \textit{freqüència fonamental de $\N$}.
 \end{definition}
+\noindent No hem de confondre la definició \textit{contínua} que hem fet de nota musical amb la versió \textit{discreta} d'aquesta, per exemple, les notes en les tecles d'un piano. En el primer cas la freqüència fonamental de la nota pot variar lliurement a l'interval $(0,\infty)$, mentre que en el segon cas, hi ha un nombre finit de notes definides cadascuna amb una certa freqüència. Per no confondre els termes, en aquest segon conjunt de notes, l'anomenarem \textit{notes de l'escala musical}.
 \begin{definition}
     Sigui $n\in\NN\cup\{\infty\}$ un valor representant el nombre d'harmònics d'una nota musical. Definim el conjunt $\mathcal{N}$ de notes musicals com: $$\mathcal{N}=\left\{\X\in\mathcal{C}:\X\text{ és una nota musical}\right\}.$$
 \end{definition}
-Si observem l'escala musical, veiem que hi ha únicament 12 noms de notes diferents\footnotemark\space que es van repetint seguint el mateix patró en tota l'escala. Cal observar també:
+\noindent Si observem l'escala musical, veiem que hi ha únicament 12 noms de notes diferents\footnotemark\space que es van repetint seguint el mateix patró en tota l'escala. Cal observar també:
 \footnotetext{Ens centrarem, d'ara en endavant, en l'escala musical occidental, composta per les notes DO, DO\#, RE, RE\#, MI, FA, FA\#, SOL, SOL\#, LA, LA\#, SI.}
 \begin{prop}
-  Siguin $\N_1$, $\N_2$ dues notes musicals que tenen el mateix nom de nota i siguin $f_1$, $f_2$ les seves respectives freqüències fonamentals. Sense pèrdua de generalitat, suposem que $f_1 \leq f_2$. Llavors $\frac{f_{2}}{f_{1}} = 2^n$ per algun $n \in \mathbb{N}\cup\{0\}$.
+  Siguin $\N_1$, $\N_2$ dues notes de l'escala musical que tenen el mateix nom de nota i siguin $f_1$, $f_2$ les seves respectives freqüències fonamentals. Sense pèrdua de generalitat, suposem que $f_1 \leq f_2$. Llavors $\frac{f_{2}}{f_{1}} = 2^n$ per algun $n \in \mathbb{N}\cup\{0\}$.
 \end{prop}
 \begin{proof}
-    Per poder fer que això passi, es declara que la relació entre les freqüències de dues notes successives sempre sigui de $\sqrt[12]{2}$\footnotemark. D'aquesta manera, com que hem dit que hi ha 12 notes diferents, quan tornem a arribar a una nota amb el mateix nom que l'original haurem fet 12 salts de nota, és a dir, $\left(\sqrt[12]{2}\right)^{12} = 2$. Si féssim aquests 12 salts $n$ vegades tindríem $\left(\sqrt[12]{2}\right)^{12\cdot n} = 2^n$ i, fem que es compleixi la proposició anterior. \footnotetext{Aquesta manera de definir la distància entre notes de manera que totes les notes siguin equidistants entre si s'anomena Temperament igual \cite{wikitemp}.}
+    Per poder fer que això passi, es declara que la relació entre les freqüències de dues notes successives sempre sigui de $\sqrt[12]{2}$\footnotemark. D'aquesta manera, com que hem dit que hi ha 12 notes diferents, quan tornem a arribar a una nota amb el mateix nom que l'original haurem fet 12 salts de nota, és a dir, $\left(\sqrt[12]{2}\right)^{12} = 2$. Si féssim aquests 12 salts $n$ vegades tindríem ${\left(\sqrt[12]{2}\right)}^{12\cdot n} = 2^n$ i fem que es compleixi la proposició anterior. \footnotetext{Aquesta manera de definir la distància entre notes de manera que totes les notes siguin equidistants entre si s'anomena Temperament igual \cite{wikitemp}.}
 \end{proof}
 \section{Teoria auditiva}\label{teoria_auditiva}
 El nostre cos ha desenvolupat un sistema complex per al reconeixement de sons fruit de milers d'anys d'evolució. Això juntament amb l'efecte de la cultura en la nostra vida ha provocat que un cert conjunt de freqüències sigui més agradable per a la nostra oïda que unes altres. Per tal de modelar en detall com percebem la dissonància, ens caldrà fer menció de dos conceptes clau en el sistema auditiu humà: la còclea i la membrana basilar. \par
 La còclea és una estructura en forma de tub enrotllat en espiral, similar a la closca d'un caragol. Al centre i interior del tub s'hi troba una membrana anomenada membrana basilar (veure figura \ref{coclea}). Aquesta membrana vibra quan ones de so arriben a ella. Sobre la membrana basilar s'hi troba l'òrgan de Corti, que és el responsable de transformar les vibracions del so en impulsos nerviosos que són enviats al cervell.\par
 Un concepte que serà important de cara a la caracterització del nostre model és el de \textit{banda crítica}. Aquesta és l'amplada de freqüències dins de la qual un segon so interferirà amb la percepció d'un primer so en el sentit que activaran les mateixes cè\lgem ules de l'òrgan de Corti. Dit d'una altra manera, quan una freqüència arriba a la membrana basilar, aquesta fa que s'activin els receptors corresponents a aquesta freqüència i els receptors en un entorn (la banda crítica) d'aquesta. Per tant, si dues freqüències arriben a la membrana basilar i no són prou distants entre si, es produeix una interferència que fa que no siguem capaços de distingir cada freqüència per separat i, com a conseqüència, es produeix dissonància. En canvi, si les dues freqüències estan prou allunyades entre si, el nostre cervell les interpreta com a diferents i provoca una resposta agradable: es produeix consonància (veure figura \ref{membrana}).\par
-\begin{figure}
+\begin{figure}[ht]
     \begin{minipage}[c]{0.49\linewidth}
         \centering
         \includegraphics[height=0.6\linewidth]{Imatges_beamer2/coclea.png}
-        \caption{Estructura de la còclea}
+        \caption{Estructura de la còclea \href{https://www.pinterest.com/pin/336995984614355654/}{\enllas}}
         \label{coclea}
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.49\linewidth}
         \centering
         \includegraphics[height=0.6\linewidth]{Imatges_beamer2/basilar_membrane.jpg}
-        \caption{Interferència de dos sons en la mem\-bra\-na basilar}
+        \caption{Interferència de dos sons en la membrana basilar \href{https://www.phys.uconn.edu/~gibson/Notes/Section7_3/Sec7_3.htm}{\enllas}}
         \label{membrana}
     \end{minipage}
 \end{figure}
-Això ens porta a concloure que dues freqüències les percebem com a dissonants si es troben dins la mateixa banda i consonants si es troben en bandes diferents. Per tant, és natural preguntar-se quina amplada té aquesta banda, per tal d'estudiar amb més precisió quan dos sons sonen desagradablement.\par
+Això ens porta a concloure que dues freqüències les percebem com a dissonants si es troben dins la mateixa banda i consonants si es troben en bandes diferents. Per tant, és natural preguntar-se quina amplada té aquesta banda crítica, per tal d'estudiar amb més precisió quan dos sons sonen desagradablement.\par
 Hi ha diversos models que parametritzen l'amplada de banda crítica corresponent a cada freqüència de l'espectre audible. El més adient pel nostre model és el donat per William Hutchinson i Leon Knopoff en \cite{hutchinson} basat en dades de \cite{plomp,goodwin,mayer} que parametritza l'amplada de banda crítica amb la funció:
 \begin{equation}
     \text{CBW}(f)=1.72 f^{0.65}
     \label{CBW}
 \end{equation}
-\section{Model}\label{model}
-\subsection{Conjunt quocient de sons complexos}
-Abans de començar a plantejar un model per a la dissonància, prestem atenció al següent fet: Observem que donada una equació de la forma $$y(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)$$ hi ha més d'un element a $\mathcal{C}$ que la satisfà. En efecte, considerem l'equació $y(t)=0$. Siguin $\X,\Y,\Z\in\mathcal{C}$ tals que $\X=\emptyset$, $\Y=\{(f,a,\varphi),(f,a,\varphi+\pi)\}$ i $\Z=\{(g,0,\phi)\}$. Llavors, tenim que:
-\begin{gather*}
-    y_{\X}(t)=0=y(t)\\
-    y_{\Y}(t)=a\sin(2\pi ft+\varphi)+a\sin(2\pi ft+\varphi+\pi)=2a\sin\left(2\pi ft+\varphi +\frac{\pi}{2}\right)\cos\frac{\pi}{2}=0=y(t)\\
-    y_{\Z}(t)=0\sin(2\pi gt+\phi)=0=y(t)
-\end{gather*}
-on en el segon cas hem utilitzat la relació trigonomètrica $\sin\alpha+\sin\beta=2\sin\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}$. Això mostra que en general hi ha més d'un element a $\mathcal{C}$ satisfent una equació de la forma $y(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)$. Aquesta petita inconsistència podria ser un problema de cara a l'estudi dels sons complexos. És per això que cal definir la següent relació per tal de corregir aquest fenòmen.
+\section{Model per a la mesura de dissonància}\label{model}
+Les demostracions de les proposicions que apareguin en aquesta secció es troben a la secció \ref{demos}.
+\subsection{Operacions definides a \texorpdfstring{$\mathcal{C}$}{C}}
+Primer de tot, l'objectiu és definir operacions que ens permetin combinar dos (o més) sons complexos en un de sol i modificar la intensitat d'un so complex.
 \begin{definition}
-    Considerem el conjunt $\mathcal{C}$ i dos sons $\X,\Y\in\mathcal{C}$. Definim la relació $\sim$ com: $$\X\sim \Y\iff y_{\X}(t)=y_{\Y}(t).$$
-\end{definition}
-\begin{lemma}
-    La relació $\sim$ és una relació d'equivalència.
-\end{lemma}
-Definim ara les classes d'equivalència de $\mathcal{C}$ sota aquesta relació juntament amb el conjunt de les classes d'equivalència.
-\begin{definition}
-    Considerem el conjunt $\mathcal{C}$ amb la relació d'equivalència $\sim$. Definim la classe d'equivalència de $X\in\mathcal{C}$ sota la relació $\sim$ com: $$\overline{\X}=\{\Y\in\mathcal{C}:\X\sim \Y\}.$$
-\end{definition}
-\begin{definition}
-    Considerem el conjunt $\mathcal{C}$ amb la relació d'equivalència $\sim$. Definim el conjunt $\mathfrak{C}$ com el conjunt de les classes d'equivalència de $\mathcal{C}$ sota la relació $\sim$.
-\end{definition}
-D'aquesta manera solucionem el problema comentat anteriorment, de manera que donada una equació de la forma $y(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)$, ara existeix un únic $\overline{\X}\in\mathfrak{C}$ tal que $y_{\X}=y(t)$.
-\subsection{Estructura de \texorpdfstring{$\mathfrak{C}$}{C}}
-L'objectiu ara és definir operacions que ens permetin combinar dos (o més) sons complexos en un de sol i modificar la intensitat d'un so complex.
-\begin{definition}
-    Siguin $\overline{\X},\overline{\Y}\in\mathfrak{C}$. Definim la operació \textit{suma $\boxplus$} entre sons complexos com l'aplicació:
+    Siguin $\X,\Y\in\mathcal{C}$. Definim la operació \textit{suma $\oplus$} entre sons complexos com l'aplicació:
     \begin{equation*}
         \begin{array}{r@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}l}
-            \boxplus:&\mathfrak{C}\times\mathfrak{C}&\longrightarrow&\mathfrak{C}\\
-            &(\overline{\X},\overline{\Y})&\longmapsto&\overline{\X}\boxplus \overline{\Y}:=\overline{\X\cup\Y}
+            \oplus:&\mathcal{C}\times\mathcal{C}&\longrightarrow&\mathcal{C}\\
+            &(\X,\Y)&\longmapsto&\X\oplus \Y:=\X\cup\Y
         \end{array}
     \end{equation*}
 \end{definition}
-\begin{definition}
-    Sigui $\lambda\in\RR$ i $\overline{\X}=\{(f_1,a_1,\varphi_1),(f_2,a_2,\varphi_2),\ldots,(f_n,a_n,\varphi_n)\}\in\mathfrak{C}$. Definim la operació \textit{producte per escalar $\cdot$} entre un so complex i un escalar com l'aplicació:
+\begin{definition}\label{prod_per_escalar}
+    Sigui $\lambda\in[0,\infty)$ i $\X=\{(f_1,a_1),(f_2,a_2),\ldots,(f_n,a_n)\}\in\mathcal{C}$. Definim la operació \textit{producte per escalar $\cdot$} entre un so complex i un escalar com l'aplicació:
     \begin{equation*}
         \begin{array}{r@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}l}
-            \cdot:&\mathfrak{C}\times\RR&\longrightarrow&\mathfrak{C}\\
-            &(\overline{\X},\lambda)&\longmapsto&\lambda\cdot \overline{\X}:=\overline{\Y}
+            \cdot:&\mathcal{C}\times[0,\infty)&\longrightarrow&\mathcal{C}\\
+            &(\X,\lambda)&\longmapsto&\lambda\cdot \X:=\Y
         \end{array}
     \end{equation*}
-    on $\Y=\{(f_1,\lambda a_1,\varphi_1),(f_2,\lambda a_2,\varphi_2),\ldots,(f_n,\lambda a_n,\varphi_n)\}\in\mathcal{C}$.
+    on $\Y=\{(f_1,\lambda a_1),(f_2,\lambda a_2),\ldots,(f_n,\lambda a_n)\}\in\mathcal{C}$.
 \end{definition}
-\begin{prop}
-    Les operacions $\boxplus$ i $\cdot$ sobre el conjunt $\mathfrak{C}$ estan ben definides.
-\end{prop}
-Tot i que aquestes definicions les hem fet entre sons complexos, del fet que $\mathcal{S}\subset\mathcal{C}$, els sons simples els podem pensar com a sons complexos. Per tant, té sentit també considerar sumes de sons simples i productes de sons simples per escalars, com apareixeran més endavant.\par
-Vegem ara una propietat important que es compleix a $\mathfrak{C}$ quan implementem aquestes operacions:
-\begin{theorem}
-    $(\mathfrak{C},\boxplus,\cdot)$ és un $\RR$-espai vectorial.
-\end{theorem}
-\subsection{Plantejament del model de la dissonància}
+És clar que les operacions $\oplus$ i $\cdot$ sobre el conjunt $\mathcal{C}$ estan ben definides en el sentit que donats dos sons $\X,\Y\in\mathcal{C}$ aleshores $\X\oplus\Y\in\mathcal{C}$ i $\lambda\cdot\X\in\mathcal{C}$. Efectivament, en el primer cas $\X\oplus\Y$ és, per definició, la unió de dos conjunts formats per sons simples, per tant, $\X\oplus\Y$ també serà un conjunt format per sons simples. En el segon cas ja ho hem vist en la pròpia definició.\par
+D'altra banda, tot i que aquestes definicions les hem fet entre sons complexos, com que $\mathcal{S}\subset\mathcal{C}$, els sons simples els podem pensar com a sons complexos. Per tant, té sentit també considerar sumes de sons simples i productes de sons simples per escalars, com apareixeran més endavant.
+\subsection{Funció de dissonància per a sons simples}
 Amb tot això ja podem definir una funció per mesurar el grau de dissonància entre dos sons complexos. Suposem abans de tot que tenim una funció $\delta$ que mesura el grau de dissonància entre dos sons simples. És a dir, $\delta$ és una funció de la forma:
 \begin{align*}
     \delta:\mathcal{S}\times\mathcal{S}&\longrightarrow\RR\\
@@ -227,279 +217,165 @@ Amb tot això ja podem definir una funció per mesurar el grau de dissonància e
 En aquesta funció li exigim certes propietats que ha de complir:
 \begin{enumerate}[label=$\delta$\arabic*),ref=$\delta$\arabic*]
     \item\label{delta1} $\delta(s_1,s_2)=\delta(s_2,s_1)$ per a tot $s_1,s_2\in\mathcal{S}$.
-    \item\label{delta2} $\delta(\lambda s_1,s_2)=\lambda\delta(s_1,s_2)$ per a tot $s_1,s_2\in\mathcal{S}$ i tot $\lambda\in\RR$.
-    \item\label{delta3} $\delta(s_1,\lambda s_2)=\lambda\delta(s_1,s_2)$ per a tot $s_1,s_2\in\mathcal{S}$ i tot $\lambda\in\RR$.\par
+    \item\label{delta2} $\delta(\lambda\cdot s_1,s_2)=\lambda\delta(s_1,s_2)$ per a tot $s_1,s_2\in\mathcal{S}$ i tot $\lambda\in[0,\infty)$.
+    \item\label{delta3} $\delta(s_1,\lambda\cdot s_2)=\lambda\delta(s_1,s_2)$ per a tot $s_1,s_2\in\mathcal{S}$ i tot $\lambda\in[0,\infty)$.\par
 \end{enumerate}
-Observem que la tercera propietat és conseqüència de la primera i la segona. D'altra banda, si $s_1=(f_1,a_1,\varphi_1)$ i $s_2=(f_2,b_2,\varphi_2)$, llavors ajuntant les dues últimes propietats obtenim que $\forall\lambda,\mu\in\RR$ es compleix $\delta(\lambda s_1,\mu s_2)=\lambda\mu\delta(s_1,s_2)$, que és equivalent a dir: $$\delta(s_1,s_2)\propto a_1a_2.$$ 
-
+En aquestes propietats s'entén que, anàlogament a la definició \ref{prod_per_escalar}, si $s_1=(f_1,a_1)$ i $s_2=(f_2,a_2)$, aleshores $\lambda\cdot s_1=(f_1,\lambda a_1)$ i $\lambda\cdot s_2=(f_2,\lambda a_2)$. Aquest fet juntament amb el fet que l'amplitud de qualsevol so és sempre no-negativa, ens fa veure per què $\lambda$ i $\mu$ no poden ser valors negatius. Observem, a més, que la tercera propietat és conseqüència de la primera i la segona. D'altra banda, ajuntant les dues últimes propietats obtenim que $\forall\lambda,\mu\in[0,\infty)$ es compleix $\delta(\lambda\cdot s_1,\mu\cdot s_2)=\lambda\mu\delta(s_1,s_2)$, que és equivalent a dir: $$\delta(s_1,s_2)\propto a_1a_2.$$
+\subsection{Model de dissonància per a sons complexos}
 L'objectiu ara és crear una funció 
 \begin{align*}
-    D:\mathfrak{C}&\longrightarrow\RR\\
-    \overline{\X}&\longmapsto D(\overline{\X})
+    D:\mathcal{C}&\longrightarrow\RR\\
+    \X&\longmapsto D(\X)
 \end{align*}
 que mesuri la dissonància d'un so complex. Per això definirem primer una funció $d$ que mesura la dissonància \textit{relativa} entre dos sons.
 \begin{definition}
     Definim la \textit{mesura de la dissonància relativa $d$} entre dos sons complexos com:
     \begin{equation*}
         \begin{array}{r@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}l}
-            d:&\mathfrak{C}\times\mathfrak{C}&\longrightarrow&\RR\\
+            d:&\mathcal{C}\times\mathcal{C}&\longrightarrow&\RR\\
         &(\{s_i\}_{i=1}^n,\{r_i\}_{i=1}^m)&\longmapsto&\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(s_i,r_j)
         \end{array}
     \end{equation*}
 \end{definition}
-Aquesta funció té les següents propietats:
-\begin{prop}
-    Siguin $\overline{\X},\overline{\Y},\overline{\Z}\in\mathfrak{C}$ sons complexos i $\lambda\in\RR$. Llavors:
+\noindent Aquesta funció té les següents propietats:
+\begin{prop}\label{prop_dem1}
+    Siguin $\X,\Y,\Z\in\mathcal{C}$ sons complexos i $\lambda\in[0,\infty)$. Llavors:
     \begin{enumerate}[label=$d$\arabic*),ref=$d$\arabic*]
-        \item\label{d1} $d(\overline{\X},\overline{\Y})=d(\overline{\Y},\overline{\X})$.
-        \item\label{d2} $d(\overline{\X}\boxplus\overline{\Y},\overline{\Z})=d(\overline{\X},\overline{\Z})+d(\overline{\Y},\overline{\Z})$.
-        \item\label{d3} $d(\overline{\X},\overline{\Y}\boxplus\overline{\Z})=d(\overline{\X},\overline{\Y})+d(\overline{\X},\overline{\Z})$.
-        \item\label{d4} $d(\lambda\cdot\overline{\X},\overline{\Y})=\lambda d(\overline{\X},\overline{\Y})$.
-        \item\label{d5} $d(\overline{\X},\lambda\cdot\overline{\Y})=\lambda d(\overline{\X},\overline{\Y})$.
+        \item\label{d1} $d(\X,\Y)=d(\Y,\X)$.
+        \item\label{d2} $d(\X\oplus\Y,\Z)=d(\X,\Z)+d(\Y,\Z)$.
+        \item\label{d3} $d(\X,\Y\oplus\Z)=d(\X,\Y)+d(\X,\Z)$.
+        \item\label{d4} $d(\lambda\cdot\X,\Y)=\lambda d(\X,\Y)$.
+        \item\label{d5} $d(\X,\lambda\cdot\Y)=\lambda d(\X,\Y)$.
     \end{enumerate}
 \end{prop}
-Amb aquesta definició, donat un so complex $\overline{\X}\in\mathfrak{C}$, hom pot preguntar-se què ocorre quan avaluem $d(\overline{\X},\overline{\X})$.
+\noindent Amb aquesta definició, donat un so complex $\X\in\mathcal{C}$, hom pot preguntar-se què ocorre quan avaluem $d(\X,\X)$.
 \begin{definition}[Mesura de dissonància]
     Definim la \textit{mesura de la dissonància $D$ d'un so complex} com:
     \begin{align*}
-        D:\mathfrak{C}&\longrightarrow\RR\\
-        \overline{\X}&\longmapsto d(\overline{\X},\overline{\X})
+        D:\mathcal{C}&\longrightarrow\RR\\
+        \X&\longmapsto d(\X,\X)
     \end{align*}
 \end{definition}
-Amb tals definicions, obtenim una sèrie de propietats que seran importants a l'hora de calcular la dissonància entre dos (o més) sons de manera computacional.
-\begin{prop}
-    Siguin $\overline{\X},\overline{\Y}\in\mathfrak{C}$ sons complexos i $\lambda\in\RR$. Llavors:
+\noindent Amb tals definicions obtenim una sèrie de propietats que seran importants a l'hora de calcular la dissonància entre dos (o més) sons de manera computacional \footnote{Per més informació sobre el codi informàtic en llenguatge C veure \url{https://github.com/carlosala/dissonance}.}.
+\begin{prop}\label{prop_dem2}
+    Siguin $\X,\Y\in\mathcal{C}$ sons complexos i $\lambda\in\RR_{\geq 0}$. Llavors:
     \begin{enumerate}[label=$D$\arabic*),ref=$D$\arabic*]
-        \item\label{D1} $D(\overline{\X}\boxplus\overline{\Y})=D(\overline{\X})+D(\overline{\Y})+2d(\overline{\X},\overline{\Y})$.
-        \item\label{D2} $D(\lambda\cdot \overline{\X})=\lambda^2D(\overline{\X})$.
+        \item\label{D1} $D(\X\oplus\Y)=D(\X)+D(\Y)+2d(\X,\Y)$.
+        \item\label{D2} $D(\lambda\cdot \X)=\lambda^2D(\X)$.
     \end{enumerate}
 \end{prop}
-\begin{corollary}
-    Siguin $\overline{\X_1},\ldots,\overline{\X_n}\in\mathfrak{C}$ sons complexos i $\lambda\in\RR$. Aleshores: $$D(\overline{\X_1}\boxplus\cdots\boxplus\overline{\X_n})=\sum_{i=1}^nD(\overline{\X_i})+\sum_{\substack{i,j=1\\i\ne j}}^nd(\overline{\X_i},\overline{\X_j})=\sum_{i,j=1}^nd(\overline{\X_i},\overline{\X_j})$$
+\begin{corollary}\label{coro_dem3}
+    Siguin $\X_1,\ldots,\X_n\in\mathcal{C}$ sons complexos i $\lambda\in[0,\infty)$ . Aleshores: $$D(\X_1\oplus\cdots\oplus\X_n)=\sum_{i=1}^nD(\X_i)+\sum_{\substack{i,j=1\\i\ne j}}^nd(\X_i,\X_j)=\sum_{i,j=1}^nd(\X_i,\X_j)$$
 \end{corollary}
-Observem que la primera d'aquestes últimes propietats (la propietat \ref{D1}) ens permet expressar el valor de $d(\overline{\X},\overline{\Y})$ en funció únicament de la funció $D$, de la següent manera: $$d(\overline{\X},\overline{\Y})=\frac{1}{2}\left[D(\overline{\X}+\overline{\Y})-D(\overline{\X})-D(\overline{\Y})\right].$$
-Així doncs aquesta relació juntament amb la de la definició de la funció $D$, $D(\overline{\X}):=d(\overline{\X},\overline{\X})$, ens permet passar d'una funció a l'altra i viceversa.\par 
-Aquesta estreta relació entre $d$ i $D$, i el fet que ambdues tenen un domini de definició ``similar''\footnote{En aquest cas, el terme ``similar'' fa referència a que un domini està format pel conjunt $\mathfrak{C}$ i l'altre pel producte cartesià d'aquest conjunt amb si mateix, és a dir, pel conjunt $\mathfrak{C}\times\mathfrak{C}$.} ens fa plantejar la possibilitat de ser $d$ una forma bilineal i $D$ la seva forma quadràtica associada.\textcolor{green}{ACABAR AIXÒ.}
-\subsection{Implementació de la funció \texorpdfstring{$\delta$}{d}} 
+\noindent Observem que la primera d'aquestes últimes propietats (la propietat \ref{D1}) ens permet expressar el valor de $d(\X,\Y)$ en funció únicament de la funció $D$, de la següent manera: $$d(\X,\Y)=\frac{1}{2}\left[D(\X+\Y)-D(\X)-D(\Y)\right].$$
+Així doncs aquesta relació juntament amb la de la definició de la funció $D$, $D(\X):=d(\X,\X)$, ens permet passar d'una funció a l'altra i viceversa.\par 
+Aquesta estreta relació entre $d$ i $D$, i el fet que ambdues tenen un domini de definició ``similar''\footnote{En aquest cas, el terme ``similar'' fa referència a que un domini està format pel conjunt $\mathcal{C}$ i l'altre pel producte cartesià d'aquest conjunt amb si mateix, és a dir, pel conjunt $\mathcal{C}\times\mathcal{C}$.} ens fa plantejar la possibilitat de ser $d$ una forma bilineal i $D$ la seva forma quadràtica associada. Perquè fos possible això s'hauria de complir que $(\mathcal{C},\oplus,\cdot)$ fos un $\RR$-espai vectorial, que no és cert\footnote{Una manera fàcil de veure que $(\mathcal{C},\oplus,\cdot)$ no és un $\RR$-espai vectorial és tenir en compte que donada una equació de la forma $y(t)=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)$ hi ha més d'un element a $\mathcal{C}$ que la satisfà. En efecte, només cal considerar els sons complexos $\X=\emptyset$ i $\Y=(f,0)$, que són clarament diferents, i satisfan la mateixa equació $y_{\X}(t)=y_{\Y}(t)=0$. Això provoca que, entre altres coses, l'invers d'un element per l'operació $\oplus$ no sigui únic.\newline Si es volgués insistir amb fer un espai vectorial a partir del conjunt $\mathcal{C}$ de sons complexos caldria primer de tot modificar el conjunt de sons simples afegint-hi la fase com a propietat juntament amb la freqüència i amplitud, i d'altra banda també s'hauria de definir una relació $\sim$ de forma que si $\X$ i $\Y$ fossin dos son complexos amb les suposades condicions, aleshores $\X\sim \Y\iff y_{\X}(t)=y_{\Y}(t)$. És fàcil veure que aquesta relació seria d'equivalència. D'aquesta manera es pot veure que el conjunt $\mathfrak{C}$ de les classes d'equivalència juntament amb les operacions $\oplus$ i $\cdot$ retocades convenientment per definir-les sobre $\mathfrak{C}$ (i no sobre $\mathcal{C}$) té estructura de $\RR$-espai vectorial.}. Per tant, $d$ i $D$ són simplement dues aplicacions que satisfan propietats de bilinealitat.
+\subsection{Implementació de la funció \texorpdfstring{$\delta$}{delta}} 
 Fet aquest plantejament del model de la dissonància, hom pot observar que el valor final depèn única i exclusivament de la funció $\delta$, cosa que intensifica la importància de la seva tria.\par
-Per fer-ho, adoptarem un punt de vista biològic: la banda crítica. A més, ens basarem en dades experimentals fetes per Plomp i Levelt \cite{plomp}, cosa que donarà una major credibilitat a la nostra fórmula.\par Com hem explicat a la secció \ref{teoria_auditiva}, quan dues freqüències sonen al mateix instant i s'activen els mateixos nervis de la membrana basilar, diem que les dues freqüències estan en la mateixa banda crítica i, per tant, es produeix interferència, que es tradueix a dissonància. Això en certa manera correspon als batiments creats a causa de la interferència dels sons (vegeu l'apartat \ref{model_batiments}). Si les dues freqüències estan suficientment separades en el sentit que s'activen nervis diferents de la membrana basilar, les percebrem com a diferents i, per tant, no hi haurà a penes dissonància entre elles.\par 
-Com hem mencionat, per calcular una funció $\delta$ adequada ens hem basat en els estudis empírics de Plomp i Levelt \cite{plomp}. Plomp i Levelt van modelitzar empíricament la dissonància entre dos sons purs. Algunes equacions funcionals que aproximen bé els seus resultats són les següents: $$\delta_1(x)=ae^{-\alpha x}-be^{-\beta x})\qquad\delta_2(x)=\alpha e^{-\left(\log(\beta x)\right)^2}\qquad\delta_3(x)=\beta xe^{-\beta x}$$
-Aquestes funcions tenen en comú que, per a valors adequats dels paràmetres, creixen des de 0 fins un valor màxim i a partir d'aquí decreixen de nou fins a zero, de forma similar a la funció obtinguda en l'apartat \ref{model_batiments}. Pel nostre model finalment hem decidit adoptar la tercera ja que l'hem vist més apropiada que la segona, i la primera ja ha estat utilitzada per William A. Sethares (veure \cite{sethares1})\footnote{Per altres modelitzacions de corbes de dissonància consultar la feta per David J. Benson \cite{benson} usant també funcions exponencials i la feta per Giorgio Dillon \cite{dillon} usant una funció polinòmica.}. Notem que l'elecció de la funció usada no és una cosa objectiva, degut a la falta de precisió de les dades de Plomp i Levelt i la subjectivitat de la percepció de la dissonància. L'objectiu que ha de satisfer la funció és que tingui unes característiques que s'ajustin bé als resultats empírics \cite{benson}.\par
-Així doncs, donats dos sons simples $s_1=(f_1,a_1,\varphi_1)$ i $s_2=(f_2,a_2,\varphi_2)$, volem calcular una funció de dissonància $\delta(s_1,s_2)$. Per simplicitat, hem suposat que $\varphi_1=\varphi_2=0$. Per tant, els sons $s_1$ i $s_2$ estan compostos essencialment d'una freqüència i d'una amplitud. Com hem mencionat, per crear aquesta funció tindrem en compte el concepte de banda crítica, introduïa a la secció \ref{teoria_auditiva}. Segons dades de \cite{zwicker} la màxima dissonància entre els sons $s_1$ i $s_2$ es troba quan les seves respectives freqüències ($f_1$ i $f_2$) estan separades aproximadament un 25\% de l'amplada de la banda crítica de la freqüència mitjana ($f_m:=\frac{f_1+f_2}{2}$). És a dir, les freqüències $f_1$ i $f_2$ tindran una dissonància màxima quan $\frac{|f_1-f_2|}{\text{CBW}(f_m)}=0.25$. Així doncs, per determinar el valor de $\beta$ (que dependrà de $f_1$ i $f_2$) de la funció $\beta xe^{-\beta x}$ hem de tenir en compte que s'ha d'assolir el màxim en la freqüència esmentada. Tenim doncs que:
+Per fer-ho, adoptarem un punt de vista biològic: la banda crítica. A més, ens basarem en dades experimentals fetes per Plomp i Levelt \cite{plomp}, cosa que donarà una major credibilitat a la nostra fórmula.\par Com hem explicat a la secció \ref{teoria_auditiva}, quan dues freqüències sonen al mateix instant i s'activen els mateixos nervis de la membrana basilar, diem que les dues freqüències estan en la mateixa banda crítica i, per tant, es produeix interferència, que es tradueix a dissonància. Si les dues freqüències estan suficientment separades en el sentit que s'activen nervis diferents de la membrana basilar, les percebrem com a diferents i, per tant, no hi haurà a penes dissonància entre elles.\par 
+Com hem mencionat, per calcular una funció $\delta$ adequada ens hem basat en els estudis empírics de Plomp i Levelt \cite{plomp}. Plomp i Levelt van modelitzar empíricament la dissonància entre dos sons purs. Algunes equacions funcionals que aproximen bé els seus resultats són les següents: $$\delta_1(x)=ae^{-\alpha x}-be^{-\beta x}\qquad\delta_2(x)=\alpha e^{-\left(\log(\beta x)\right)^2}\qquad\delta_3(x)=\beta xe^{-\beta x}$$
+Aquestes funcions tenen en comú que, per a valors adequats dels paràmetres, creixen des de 0 fins un valor màxim i a partir d'aquí decreixen de nou fins a zero. Pel nostre model finalment hem decidit adoptar la tercera ja que l'hem vist més apropiada que la segona, i la primera ja ha estat utilitzada per William A. Sethares (veure \cite{sethares1})\footnote{Per altres modelitzacions de corbes de dissonància consultar la feta per David J. Benson \cite{benson} usant també funcions exponencials i la feta per Giorgio Dillon \cite{dillon} usant una funció polinòmica.}. Notem que l'elecció de la funció usada no és una cosa objectiva, degut a la falta de precisió de les dades de Plomp i Levelt i la subjectivitat de la percepció de la dissonància. L'objectiu principal que ha de satisfer la funció, més enllà de les propietats \ref{delta1}-\ref{delta3}, és que tingui unes característiques que s'ajustin bé als resultats empírics \cite{benson}.\par
+Així doncs, donats dos sons simples $s_1=(f_1,a_1)$ i $s_2=(f_2,a_2$, volem calcular una funció de dissonància $\delta(s_1,s_2)$. Com hem mencionat, per crear aquesta funció tindrem en compte el concepte de banda crítica, introduïa a la secció \ref{teoria_auditiva}. Segons dades de E. Zwicker, G. Flottorp i S. S. Stevens \cite{zwicker} la màxima dissonància entre els sons $s_1$ i $s_2$ es troba quan les seves respectives freqüències ($f_1$ i $f_2$) estan separades aproximadament un 25\% de l'amplada de la banda crítica de la freqüència mitjana $f_m:=\frac{f_1+f_2}{2}$. És a dir, les freqüències $f_1$ i $f_2$ tindran una dissonància màxima quan $\frac{|f_1-f_2|}{\text{CBW}(f_m)}=0.25$. Així doncs, per determinar el valor de $\beta$ (que dependrà de $f_1$ i $f_2$) de la funció $\beta xe^{-\beta x}$ hem de tenir en compte que s'ha d'assolir el màxim en la freqüència esmentada. Tenim doncs que:
 $$\left(\beta xe^{-\beta x}\right)'=0\iff \beta e^{-\beta x}(1-\beta x)=0\iff\beta x=1.$$ A més com que $$\left(\beta xe^{-\beta x}\right)''=\beta^2e^{-\beta x}(\beta x-2),$$ efectivament tenim un màxim quan $\beta x=1$.
-En el cas que ens ocupa, $x=\frac{|f_2-f_1|}{\min(f_1,f_2)}$. És a dir, prenem $x$ com la freqüència normalitzada. Com que sabem que el màxim s'assoleix quan $\frac{|f_1-f_2|}{\text{CBW}(f_m)}=0.25$ tindrem que:
-$$\frac{|f_1-f_2|}{\text{CBW}(f_m)}=0.25\iff\frac{\min(f_1, f_2)}{\text{CBW}(f_m)\cdot 0.25}\cdot\frac{|f_1-f_2|}{\min(f_1, f_2)}=1=\beta x\iff\beta=\beta_{f_1,f_2}=\frac{\min(f_1, f_2)}{\text{CBW}(f_m)\cdot 0.25}.$$
-Així doncs per a la funció de dissonància sabem que: $$\delta(s_1,s_2)=\delta((f_1,a_1,0),(f_2,a_2,0))\propto\beta(f_1,f_2)xe^{-\beta_{f_1,f_2}x}$$ Recordant dues de les propietats necessàries (\ref{delta2} i \ref{delta3}) que ha de complir la funció $\delta$ deduïm que: $$\delta((f_1,a_1,0),(f_2,a_2,0))\propto a_1a_2.$$ Finalment la nostra funció de dissonància $\delta$ triada és: $$\delta((f_1,a_1,0),(f_2,a_2,0))=a_1a_2\beta_{f_1,f_2}\frac{|f_2-f_1|}{\min(f_1,f_2)}e^{-\beta_{f_1,f_2}\frac{|f_2-f_1|}{\min(f_1,f_2)}}$$
-O, equivalentment, si simplifiquem l'expressió i l'escalem de tal forma que la màxima dissonància valgui 1: 
+En el cas que ens ocupa, prenem $x=\frac{|f_2-f_1|}{\min(f_1,f_2)}$. És a dir, prenem $x$ com la resta de les dues freqüències normalitzada. Com que sabem que el màxim s'assoleix quan $\frac{|f_1-f_2|}{\text{CBW}(f_m)}=0.25$ tindrem que:
+$$\frac{|f_1-f_2|}{\text{CBW}(f_m)}=0.25\iff\frac{\min(f_1, f_2)}{\text{CBW}(f_m)\cdot 0.25}\cdot\frac{|f_1-f_2|}{\min(f_1, f_2)}=1=\beta x\iff\beta=\beta(f_1,f_2)=\frac{\min(f_1, f_2)}{\text{CBW}(f_m)\cdot 0.25}.$$
+Així doncs per a la funció de dissonància sabem que: $$\delta(s_1,s_2)=\delta((f_1,a_1),(f_2,a_2))\propto\beta(f_1,f_2)xe^{-\beta(f_1,f_2)x}$$ Recordant dues de les propietats necessàries (\ref{delta2} i \ref{delta3}) que ha de complir la funció $\delta$ deduïm que: $$\delta((f_1,a_1),(f_2,a_2))\propto a_1a_2.$$ Finalment la nostra funció de dissonància $\delta$ triada és: $$\delta((f_1,a_1),(f_2,a_2))=a_1a_2\beta(f_1,f_2)\frac{|f_2-f_1|}{\min(f_1,f_2)}e^{-\beta(f_1,f_2)\frac{|f_2-f_1|}{\min(f_1,f_2)}}$$
+O, equivalentment, si simplifiquem l'expressió i l'escalem de tal forma que la màxima dissonància valgui 1 quan les amplituds valguin 1, obtenim: 
 \begin{equation}
-    \delta((f_1,a_1,0),(f_2,a_2,0))=a_1a_2\frac{|f_2-f_1|}{\text{CBW}(f_m)\cdot 0.25}e^{1-\frac{|f_2-f_1|}{\text{CBW}(f_m)\cdot 0.25}}
+    \delta((f_1,a_1),(f_2,a_2))=a_1a_2\frac{|f_2-f_1|}{\text{CBW}(f_m)\cdot 0.25}e^{1-\frac{|f_2-f_1|}{\text{CBW}(f_m)\cdot 0.25}}
     \label{for:dissonancia}
 \end{equation}
 A la figura \ref{main:fig3} es mostra un exemple gràfic d'aquesta fórmula per a diferents sons purs.
 \begin{center}
     \includestandalone[mode=image|tex,width=0.5\linewidth]{Imatges_main/model2}
-    \captionof{figure}{Representació de la funció $\delta(s_1,s_2)$, on $s_1=(f_1,1,0)$ i $s_2=(f_2,1,0)$ a partir de varies freqüències fixades $f_1$ i fent variar $f_2$ o, més ben dit, fent variar $\frac{f_2}{f_1}$ suposant $f_2\geq f_1$.}
+    \captionof{figure}{Representació de la funció $\delta(s_1,s_2)$, on $s_1=(f_1,1)$ i $s_2=(f_2,1)$ a partir de varies freqüències fixades $f_1$ i fent variar $f_2$ o, més ben dit, fent variar $\frac{f_2}{f_1}$ suposant $f_2\geq f_1$.}
     \label{main:fig3}
 \end{center}
 \subsection{Anàlisi dels resultats}
-Amb la implementació de la funció $\delta$ en l'apartat anterior ara ja podem 
-\section{Model per a sons complexos}
-L'objectiu ara es proposar una fórmula per a sons complexos, sons compostos de diversos harmònics cadascun dels quals amb una relativa freqüència i amplitud, a partir de la fórmula \eqref{for:dissonancia}.\par 
-Suposem que tenim sons complexos diferents $\mathcal{S}_1=(F_1, A_1)$ i $\mathcal{S}_2=(F_2, A_2)$, on $F_1=(f_{11},\ldots, f_{1n})$, $A_1=(a_{11},\ldots, a_{1n})$, $F_2=(f_{21},\ldots, f_{2m})$ i $A_2=(a_{21},\ldots, a_{2m})$. Aquí $n$ és el nombre d'harmònics considerats en el so $\mathcal{S}_1$ i $m$ és el nombre d'harmònics considerats en el so $\mathcal{S}_1$. A partir d'aquests dos sons volem crear una funció de $\mathcal{D}(\mathcal{S}_1, \mathcal{S}_2)$ que mesuri el grau de dissonància entre entre aquests dos sons. Per això hem considerat que la dissonància total ha de ser la suma de les dissonàncies entre parells de freqüències dels dos sons. És a dir, $\mathcal{D}(\mathcal{S}_1, \mathcal{S}_2)$ consistirà en una suma de tres termes: el primer d'ells serà una suma de tots els valors resultants a aplicar la funció $\delta$ de l'equació \eqref{for:dissonancia} a tots els parells de freqüències de $F_1$, el segon serà fer la mateixa suma però ara amb les freqüències de $F_2$ i, per últim, hi haurà també un suma de tots els valors resultants a aplicar la mateixa funció $\delta$ a tots els parells de freqüències $(f_{1i}, f_{2j})$, on $f_{1i}\in F_1$ i $f_{2j}\in F_2$. Més matemàticament parlant, si definim $D(\mathcal{S}_1, \mathcal{S}_2)$ com 
-$$D(\mathcal{S}_1, \mathcal{S}_2)=D((F_1, A_1), (F_2, A_2))=\sum_{i=1}^n\sum_{j=1}^m\delta(f_{1i}, f_{2j}, a_{1i}, a_{2j}),$$ i $D(S_k)$ com $$D(\mathcal{S}_k)=D((F_k, A_k))=\sum_{i=1}^n\sum_{j=i}^n\delta(f_{ki}, f_{kj}, a_{ki}, a_{kj}),$$ aleshores tindrem que:
-\begin{equation}
-    \mathcal{D}(\mathcal{S}_1, \mathcal{S}_2)=D(\mathcal{S}_1)+D(\mathcal{S}_2)+D(\mathcal{S}_1, \mathcal{S}_2).
-\end{equation}
-Observem que aquest mètode pel càlcul de la dissonància permet fer una generalització per calcular la dissonància entre un nombre arbitrari de sons complexos. 
-\begin{theorem}
-Sigui $\mathcal{S}_N=\{\mathcal{S}_k\in(\mathbb{R}^{n_k})^2:n_k\in\mathbb{N}^*,k=1,\ldots, N\}$ una família de $N$ sons complexos $\mathcal{S}_k=(F_k, A_k)$ amb $F_k=(f_{k1},\ldots, f_{kn_k})$ i $A_k=(a_{k1},\ldots, a_{kn_k})$. La dissonància entre aquests sons vindrà donada per 
-\begin{multline}
-    \mathcal{D}(\mathcal{S}_N)=\sum_{k=1}^ND(\mathcal{S}_k)+\frac{1}{2}\sum_{\substack{k, m=1\\ k\ne m}}^ND(\mathcal{S}_k, \mathcal{S}_m)=\\=\sum_{k=1}^N\sum_{i=1}^{n_i}\sum_{j=i}^{n_j}\delta(f_{ki}, f_{kj}, a_{ki}, a_{kj})+\sum_{\substack{k, m=1\\ k\ne m}}^N\sum_{i=1}^{n_k}\sum_{j=1}^{n_m}\delta(f_{ki}, f_{mj}, a_{ki}, a_{mj}),
-    \label{eq:diss_tot}
-\end{multline}
-on $\delta(f_{ki}, f_{mj}, a_{ki}, a_{mj})$ és la funció de dissonància entre sons simples donada en \eqref{for:dissonancia}.
-\end{theorem}
-\begin{proof}
-La deducció d'aquesta fórmula ha estat feta prèviament.
-\end{proof}
-La fórmula \eqref{eq:diss_tot} es pot simplificar considerant el tipus de sons que tractem en aquest treball, els sons harmònics. És a dir, si $\mathcal{S}_i\in(\mathbb{R}^{n_i})^2$ és un so harmònic, llavors es compleix que $$F_i=(f_{i1},2f_{i1},\ldots, n_if_{in_i})=:(f_i,2f_i,\ldots, n_if_i).$$ D'aquesta manera la fórmula \eqref{eq:diss_tot} passa a ser: 
-\begin{equation}
-    \mathcal{D}(\mathcal{S}_N)=\sum_{k=1}^N\sum_{i=1}^{n_i}\sum_{j=i}^{n_j}\delta(if_k, jf_k, a_{ki}, a_{kj})+\sum_{\substack{k, m=1\\ k\ne m}}^N\sum_{i=1}^{n_k}\sum_{j=1}^{n_m}\delta(if_k, jf_m, a_{ki}, a_{mj})
-\end{equation}
-Construïm ara un exemple d'aplicació d'aquesta fórmula. Suposem que estem treballant amb sons complexos, és a dir, amb freqüències compostes per diferents harmònics. Suposem a més que l'amplitud de l'harmònic $i$-èssim és $1/i^\alpha$, on $\alpha\in\mathbb{R}$ és un paràmetre fixat arbitrari. És a dir, la freqüència fonamental té amplitud 1, el segon harmònic té amplitud $1/2^\alpha$; el tercer, $1/3^\alpha$... Si fixem un so $\mathcal{S}_1$ i fem variar $\mathcal{S}_2$ a partir d'un índex $r\in[1,2]$ tal que $F_2=rF_1$, obtenim els resultats que es mostren a les figures següents. Cal mencionar que en el nostre treball hem agafat $\alpha=0,4$...\textcolor{green}{POSAR FOTO DE FREQÜÈNCIES AMB LA FUNCIÓ $1/x^\alpha$}.
+Amb la implementació de la funció $\delta$ en l'apartat anterior ara ja podem treure les primeres conclusions. Per això, construïm ara un exemple d'aplicació d'aquesta model.\par Suposem que estem treballant amb sons complexos que són notes musicals, és a dir, amb conjunts de sons simples les freqüències dels quals són múltiples enters de una freqüència fonamental. Suposem a més que l'amplitud de l'harmònic $i$-èssim és $1/i^\alpha$, on $\alpha\in\mathbb{R}$ és un paràmetre fixat arbitrari. És a dir, la freqüència fonamental té amplitud 1, el segon harmònic té amplitud $1/2^\alpha$; el tercer, $1/3^\alpha$... Si fixem una nota musical $\N_1$ (de freqüència fonamental $f_1$) i fem variar-ne una altra $\N_2$ (de freqüència fonamental $f_2$) a partir d'un índex $r\in[1,2]$ tal que $f_2=rf_1$, obtenim els resultats que es mostren a les figures següents. Cal mencionar que en el nostre treball hem agafat $\alpha=0,4$...\textcolor{green}{POSAR FOTO DE FREQÜÈNCIES AMB LA FUNCIÓ $1/x^\alpha$}.
 \begin{center}
     \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex1}
     \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex2}\\
     \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex3}
-    \captionof{figure}{Dissonància entre dos sons $\mathcal{S}_1$ i $\mathcal{S}_2$. Aquí hem fixat la freqüència fonamental de $\mathcal{S}_1$ a 100 Hz, 440 Hz i 1760 Hz, respectivament i hem fet variar la relació $f_2/f_1$, essent $f_2$ la freqüència fonamental de $\mathcal{S}_2$.}
+    \captionof{figure}{Dissonància entre dos notes musicals $\N_1$ i $\N_2$. Aquí hem fixat la freqüència fonamental de $\N_1$ a 100 Hz, 440 Hz i 1760 Hz, respectivament i hem fet variar la relació $f_2/f_1$, essent $f_2$ la freqüència fonamental de $\N_2$.}
     \label{fig:complex}
 \end{center}
+Observem la peculiar forma dels gràfics. En particular sembla que se satisfà que els punts de màxima consonància es troben quan el quocient de les dues freqüències fonamentals de les notes $\N_1$ i $\N_2$ és una fracció involucrant nombres enters senzills en el numerador i denominador, tal com ja teoritzaven el pitagòrics al segle \MakeUppercase{\romannumeral 6} aC.\par D'altra banda, notem que conforme augmentem la freqüència base $f_1$ la dissonància en general va disminuint. Això és degut a la forma de la funció $\delta$ i també del comportament de la funció $\text{CBW}$ a freqüències altes. Aquest fet explica el per què no se sol produir música amb notes musicals que tenen freqüències fonamentals menors a 100 Hz.
 \section{Anàlisi dels fets empírics}
-Per a comprovar que el model és encertat, es vam realitzar un test a una mostra d'aproximadament 200 persones. El test consistia en 11 sons diferents, 3 corresponents a combinacions de freqüències baixes $(f \approx 110\Hz)$, 4 corresponents a freqüències mitjanes $(f \approx 440\Hz)$ i 4 corresponents a freqüències altes $(f \approx 1760\Hz)$. Es van escollir aquestes combinacions de freqüències perquè els sons baixos no tenen molta rellevància en el nostre dia a dia, i sempre els percebem menys agradables. L'oient havia de marcar un número de l'1 al 10, essent 1 el nivell més dissonant i 10 el menys dissonant. El test també demanava a l'enquestat l'edat i, més important encara, la seva formació musical, que podia variar entre 5 nivells diferents (molt baix, baix, intermedi, alt i molt alt). Per tal de verificar que la gent era honesta amb la seva puntuació sobre el nivell de formació musical vam demanar, a més, que descrivissin breument la seva trajectòria musical. \par
-En total vam aconseguir 190 respostes, de les quals 42 eren de nivell molt baix; 69, de nivell baix; 43, de nivell intermedi; 26, de nivell alt, i 10, de nivell alt. Aquesta separació entre grups ens va conduir a poder classificar les dades en 3 grups segons el nivell de formació musical: nivell molt baix-baix (111 respostes), nivell intermedi (43 respostes) i nivell alt-molt alt (36 respostes). \par
-Analitzem ara, amb més detall els sons que vam incloure. Al test únicament vam incloure combinacions de dos sons $\mathcal{S}_1$ i $\mathcal{S}_2$. Pel primer d'ells vam elegir sempre la nota LA de freqüències 110 Hz, 440 Hz i 1760 Hz, respectivament segons el rang de freqüències (baixes, mitjanes o altes) que estiguéssim treballant. A continuació veiem la freqüència (i la seva nota corresponent) amb que vam combinar aquestes notes i quin hauria de ser el resultat obtingut segons el nostre model:
+Per comprovar que el model és encertat, vam realitzar un test a una mostra d'aproximadament 200 persones. El test consistia en 11 sons diferents, 3 corresponents a combinacions de freqüències baixes $(f \approx 110\Hz)$, 4 corresponents a freqüències mitjanes $(f \approx 440\Hz)$ i 4 corresponents a freqüències altes $(f \approx 1760\Hz)$. L'oient havia qualificar-los amb un número de l'1 al 10, essent 1 el nivell més dissonant i 10 el menys dissonant. El test també demanava a l'enquestat l'edat i, més important encara, la seva formació musical, que podia variar entre 5 nivells diferents (molt baix, baix, intermedi, alt i molt alt). Per tal de verificar que la gent era honesta amb la seva puntuació sobre el nivell de formació musical vam demanar, a més, que descrivissin breument la seva trajectòria musical. \par
+En total vam aconseguir 190 respostes, de les quals 42 eren de nivell molt baix; 69, de nivell baix; 43, de nivell intermedi; 26, de nivell alt, i 10, de nivell alt. Aquesta separació entre grups ens va permetre poder classificar les dades en 3 grups segons el nivell de formació musical: nivell molt baix-baix (111 respostes), nivell intermedi (43 respostes) i nivell alt-molt alt (36 respostes). \par
+Al test únicament vam incloure combinacions de dos notes $\N_1$ i $\N_2$ de l'escala musical d'un piano. Pel primer d'ells vam elegir sempre la nota LA de freqüències 110 Hz, 440 Hz i 1760 Hz, respectivament segons el rang de freqüències (baixes, mitjanes o altes) que estiguéssim treballant. A continuació veiem la freqüència (i la seva nota corresponent) amb que vam combinar aquestes notes i quin hauria de ser el resultat obtingut segons el nostre model:
 \begin{table}[ht]
     \centering
-    \begin{tabular}{| c | c | c |}
+    \begin{tabular}{| c | c | c | c |}
+    \cline{2-4}
+    \multicolumn{1}{c|}{} & $\N_1$ & $\N_2$ & $D(\N_1\oplus\N_2)$\\
     \hline
-    $\mathcal{S}_1$ & $\mathcal{S}_2$ & $\mathcal{D}(\mathcal{S}_1,\mathcal{S}_2)$\\
     \hline
+    So 1 & \multirow{3}{2.5cm}{LA2 $(110\Hz)$} & SI2 $(123.47\Hz)$ & 3.5289\\
+    \cline{1-1}\cline{3-4}
+    So 2 & & MI3 $(164.81\Hz)$ & 1.4513\\		
+    \cline{1-1}\cline{3-4}
+    So 3 & & SOL3 $(196\Hz)$  & 2.1898\\
     \hline
-    \multirow{3}{2.5cm}{LA2 $(110\Hz)$}
-    & SI2 $(123.47\Hz)$ & 3.5289\\
-    \cline{2-3}
-    & MI3 $(164.81\Hz)$ & 1.4513\\		
-    \cline{2-3}
-    & SOL3 $(196\Hz)$  & 2.1898\\
+    So 4 & \multirow{4}{2.5cm}{LA4 $(440\Hz)$} & LA\#4 $(466.16\Hz)$ & 2.8032 \\
+    \cline{1-1}\cline{3-4}
+    So 5 & & RE5 $(587.33\Hz)$  & 0.7927 \\
+    \cline{1-1}\cline{3-4}
+    So 6 & & RE\#5 $(622.25\Hz)$ & 1.2071 \\
+    \cline{1-1}\cline{3-4}
+    So 7 & & FA5 $(698.46\Hz)$ & 1.1055 \\
     \hline
-    \multirow{4}{2.5cm}{LA4 $(440\Hz)$}
-    & LA\#4 $(466.16\Hz)$ & 2.8032 \\
-    \cline{2-3}
-    & RE5 $(587.33\Hz)$  & 0.7927 \\
-    \cline{2-3}
-    & RE\#5 $(622.25\Hz)$ & 1.2071 \\
-    \cline{2-3}
-    & FA5 $(698.46\Hz)$ & 1.1055 \\
-    \hline
-    \multirow{4}{2.5cm}{LA6 $(1760\Hz)$}
-    & LA\#6 $(1864.66\Hz)$ & 1.7028 \\
-    \cline{2-3}
-    & DO\#7 $(2217.46\Hz)$ & 0.5485 \\
-    \cline{2-3}
-    & MI7 $(2637.02\Hz)$ & 0.1832 \\
-    \cline{2-3}
-    & FA\#7 $(2959.96\Hz)$ & 0.4842 \\
+    So 8 & \multirow{4}{2.5cm}{LA6 $(1760\Hz)$} & LA\#6 $(1864.66\Hz)$ & 1.7028 \\
+    \cline{1-1}\cline{3-4}
+    So 9 & & DO\#7 $(2217.46\Hz)$ & 0.5485 \\
+    \cline{1-1}\cline{3-4}
+    So 10 & & MI7 $(2637.02\Hz)$ & 0.1832 \\
+    \cline{1-1}\cline{3-4}
+    So 11 & & FA\#7 $(2959.96\Hz)$ & 0.4842 \\
     \hline
     \end{tabular}
     \caption{Freqüències usades al test i dissonància predita pel nostre model}
     \label{tab:3}
-\end{table}
+\end{table}\par
 Els següents gràfics mostren de manera més clara on se situen les combinacions de notes escollides pel que fa a la dissonància entre elles:
 \begin{center}
     \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex1_marcat}
     \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex2_marcat}\\
     \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex3_marcat}
-    \captionof{figure}{Dissonància dels sons escollits pel test}
+    \captionof{figure}{Gràfic on es mostra la posició de les combinacions de sons escollides pel test en les corbes de dissonància}
 \end{center}
-Els següents gràfics mostren els resultats obtinguts en el test.
-\begin{center}
-    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/mitjana}
-    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/mediana}\\
-    \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/moda}
-    \captionof{figure}{Resultats del test}
-\end{center}
-Per l'anàlisi dels resultats hem utilitzat la mediana. Això ha sigut perquè la mitjana està condicionada per les opcions polaritzades, per tant no mostra un resultat real. I la moda [ALGUNA COSA] \par
-Observem que hi ha clares diferències entre els diferents nivells. També veiem que quant més familiar és ens el so, menys polaritzades estan les respostes. Veiem també que els sons greus i aguts provoquen confusió al nostre cervell. Els resultats verifiquen bastant els resultats obtinguts al nostre model.
-\section{Conclusions}
-posar aquí també els possibles refinaments.
+Els següent gràfic mostra els resultats obtinguts en el test.\par
+\begin{figure}[ht]
+    \centering
+    \includestandalone[mode=image|tex,width=0.6\linewidth]{Imatges_main/mediana}
+    \caption{Resultats del test juntament amb la predicció (reescalada convenientment) dels nostres resultats}
+\end{figure}
+Per a l'anàlisi dels resultats ens hem basat en la mediana dels tots els valors obtinguts. El motiu de no haver inclòs la mitjana o la moda juntament amb la mediana es deu al fet que la primera està molt condicionada pels valors centrals de manera que les puntuacions mitjanes de cada so eren totes relativament similar, i no haurien de ser-ho per l'elecció feta dels sons. Pel que fa a la moda, aquesta ens va condicionar molt els valors extrems ja que molta gent puntuava la dissonància dels sons amb valors molt radicals: o propers a 1, o propers a 10.\par
+Observem que hi ha clares diferències entre els diferents nivells. En particular, deduïm que quan més familiar ens és un so, millor són els resultats predits pel model. Efectivament, en els sons 4, 5, 6 i 7, que són els de freqüències mitjanes (i.e. els més comuns), l'error comès en l'aproximació teòrica és inferior en comparació amb l'aproximació del model dels sons greus (sons 1, 2 i 3) i els sons aguts (sons 8, 9, 10 i 11). Podem concloure, doncs, que els resultats empírics obtinguts verifiquen prou bé els resultats obtinguts al nostre model.
+\section{Conclusions i possibles refinaments}
+Malgrat ser aquest tema de la dissonància molt subjectiu, al llarg del treball hem vist que és possible modelar la dissonància partint de fenòmens auditius com és el de la banda crítica.\par
+Una possible extensió és endinsar-nos més en l'estructura algebraica que hi ha darrera el conjunt de sons complexos. Per això caldria, però, redefinir el conjunt de sons simples i incorporar-li un nou factor: la fase del so. Això ens permetria, juntament amb petites modificacions, definir les funcions $d$ i $D$ sobre un espai vectorial de dimensió infinita. D'aquesta manera $d$ seria una forma bilineal i $D$ la seva forma quadràtica associada.\par
+Referent al test, degut a la situació de la pandèmia no vam poder dur-lo a terme amb les condicions idònies que haguéssim volgut. La forma ideal de fer aquest test hagués estat, assegurar-nos que tothom escoltés els sons amb els mateixos altaveus i en un ambient silenciós, per tal d'eliminar possibles factors externs interferint en els resultats.
+\section{Agraïments}
+
 \printbibliography[heading=bibintoc]
 \appendix
-\section{Model per a sons simples basat en els batiments}\label{model_batiments}
-Per començar, farem un model per a sons purs o simples, és a dir, sons compostos per una sola freqüència i amplitud. Aquest primer model l'enfocarem des del punt de vista dels batiments. Per entendre què són exactament els batiments, comencem considerem dos sons sinusoïdals de diferent freqüència però mateixa amplitud: $$y_1(t)=A\sin(2\pi f_1 t),\qquad y_2(t)=A\sin(2\pi f_2 t).$$
-Si fem la superposició dels dos sons obtenim: $$y(t)=y_1(t)+y_2(t)=2A\cos\left(2\pi\frac{f_1-f_2}{2}t\right)\sin\left(2\pi\frac{f_1+f_2}{2}t\right).$$
-D'aquesta expressió podem observar dos freqüències diferents: $\frac{f_1-f_2}{2}$ i $\frac{f_1+f_2}{2}$. El sentit físic de la segona és la freqüència en què osci\lgem a l'amplitud de l'ona resultant. Aquesta ona ve modulada per una altra la qual vibra amb una freqüència igual a $\frac{f_1-f_2}{2}$ (vegeu figura \ref{main:fig1}). Si les dues freqüències estan suficientment a prop perquè la diferència $f_p:=|f_1-f_2|$ sigui petita, es creen els batiments: sons polsants (a freqüència $f_p$) interpretats a una sola freqüència corresponent a la mitjana de les dues inicials, és a dir, a $\frac{f_1+f_2}{2}$. A aquesta freqüència $f_p$ se la coneix com freqüència de pulsació. Si les dues freqüències estan molt separades, $f_p$ serà gran i, per tant, no es percebran els batiments i es podran distingir les dues freqüències amb claredat. Finalment, si les dues freqüències estan massa a prop per distingir-se amb claredat, però massa lluny per interpretar-se com una de sola es produirà el fenomen de dissonància.
-\begin{center}
-    \includestandalone[mode=image|tex,width=0.5\linewidth]{Imatges_main/sin}
-    \captionof{figure}{Superposició de dues ones sinusoïdals amb equacions $y_1(t)=\sin(2\pi f_1 t)$ i $y_2(t)=\sin(2\pi f_2 t)$}
-    \label{main:fig1}
-\end{center}
-Segons dades de \cite{gibson} els batiments creen dissonància quan aproximadament tenim $15\text{ Hz}<f_p<60\text{ Hz}$. Més precisament,
-\begin{itemize}
-    \item Si $f_p<10\text{ Hz}$: Interpretem un únic so i podem distingir els batiments.
-    \item Si $15\text{ Hz}<f_p<60\text{ Hz}$: Els sons estan massa separats per ser interpretats com un de sol, però massa junts per distingir-se amb claredat. Es produeix dissonància.
-    \item Si $f_p>60\text{ Hz}$: Podem distingir els dos sons amb claredat.
-\end{itemize}
-Empíricament hem comprovat que la màxima dissonància es troba a aproximadament 38 Hz de diferència d'una freqüència fixe al volant de 300 Hz. És a dir, donada una freqüència $f_1$ suposarem que la màxima dissonància entre $f_1$ i una altra freqüència $f_2>f_1$ es troba quan $f_2-f_1=38\text{ Hz}$. A més, prendrem les amplituds de les ones constants i iguals a 1, és a dir, $A=1$.\par Així doncs busquem una funció $\delta(f_1,f_2)$ que creixi monòtonament des de 0 fins un valor i a partir de llavors decreixi monòtonament de nou fins a 0. Aquesta funció serà la que valori el grau de dissonància entre els dos sons simples de freqüències $f_1$ i $f_2$. Per això hem escollit funcions de la forma $\cosh\left(ax^2\right)$ i $e^{-bx}$ per representar la dissonància en aquests dos intervals, on $x=\frac{f_2-f_1}{f_1}$ és la freqüència normalitzada. Si pressuposem que la màxima dissonància la tenim en el punt $x=\frac{38}{f_1}$, com hem mencionat anteriorment, i volem que assoleixi un valor de 1 en aquest punt, aleshores l'exponencial decreixent ha de ser de la forma $e^{-b\left(x-38/f_1\right)}$. Com que en aquest model la dissonància entre dues freqüències només depèn de la diferència entre aquestes, tenim que necessàriament s'ha de complir $b\propto f_1$. Per tant, $e^{-\beta f_1(x-38/f_1)}$, on hem escollit $\beta=0.15$ per obtenir uns resultats coherents.\par Pel que fa l'altra part de la funció $\delta(f_1,f_2)$ (la del creixement fins al valor màxim), de manera similar a com hem raonat anteriorment, la funció $\cosh\left(ax^2\right)$ ha de ser en realitat de l'estil $\cosh\left(ax^2\right)-1$ i com que, per sentit comú\footnote{És clar que al escoltar dues freqüències, una de les quals està fixada i l'altra és variable, no existeix un moment en què percebem un salt brusc en la interpretació del so resultant mentre variem la segona freqüència. Per tant, la funció de dissonància ha de ser necessàriament contínua.}, la funció de dissonància ha de ser contínua obtenim que en el punt $x=\frac{38}{f_1}$ la funció ha de valdre 1. Així doncs, hem de resoldre l'equació següent per trobar el valor de $a$ adequat:
-$$\cosh\left[a\left(\frac{38}{f_1}\right)^2\right]-1=1.$$ Aquesta equació té solució quan $a=\arccosh(2)\left(\frac{f_1}{38}\right)^2$ i d'aquesta manera la funció en l'interval de creixement resulta ser: $$\cosh\left(\arccosh(2)\left(\frac{f_1}{38}\right)^2x^2\right).$$ Notem que, de nou, el valor només depèn de la diferència de freqüències $f_2-f_1$.\par Si anomenem $\gamma_{f_1}:=\frac{38}{f_1}$ tenim que la funció final de dissonància $\delta(f_1,f_2)$ és: $$\delta(f_1,f_2)=
-    \left\{\begin{array}{lll}
-        \cosh\left[\frac{\arccosh(2)}{\left(\gamma_{f_1}\right)^2}\left(\frac{f_2-f_1}{f_1}\right)^2\right]-1 & \text{si} & 1<\frac{f_2}{f_1}<1+\gamma_{f_1}\vspace{5pt}\\
-        e^{-\beta f_1\left(\frac{f_2-f_1}{f_1}-\gamma_{f_1}\right)} & \text{si} & 1+\gamma_{f_1}<\frac{f_2}{f_1}
-    \end{array}\right.$$ on $\beta=0.15$.
-A la figura \ref{main:fig2} es mostra una representació d'aquesta fórmula.
-\begin{center}
-    \includestandalone[mode=image|tex,width=0.5\linewidth]{Imatges_main/model1}
-    \captionof{figure}{Representació de la funció $\delta(f_1,f_2)$ a partir de varies freqüències base $f_1$ i fent variar $f_2$ o, més ben dit, fent variar $\frac{f_2}{f_1}$ suposant $f_2>f_1$.}
-    \label{main:fig2}
-\end{center}
-És clar que el model descrit no diferencia si estem comparant dues freqüències prop dels 200 Hz o dues freqüències prop dels 2000 Hz. Només té en compte la diferència entre ambdues. Aquest és un primer inconvenient que podem trobar al model. Un segon problema podria ser que la corba té un punt on no és diferenciable (el màxim de la funció), cosa que ens porta a pensar si realment percebem els sons d'aquesta manera o d'una manera més suau, més \textit{diferenciable}. Aquests dos problemes ens porten a reconsiderar el problema inicial de calcular la dissonància entre dos sons purs i enfocar-ho des d'un altre punt de vista, com veurem a la secció següent.
-\textcolor{red}{COPIAT DE L'APARTAT 2N MODEL. El gran avantatge d'aquest model respecte l'anterior és el de la dependència de la localització de les freqüències al llarg de tot l'espectre gràcies a la implementació de la banda crítica. Ara amb aquesta fórmula ja estem preparats per estudiar la modelització dels sons complexos.}
-\section{Demostracions}\label{appendix1}
-\begin{lemma}
-    La relació $\sim$ és una relació d'equivalència.
-\end{lemma}
-\begin{proof}
-    Hem de comprovar les tres propietats que tenen les relacions d'equivalència. Per a tot $\X,\Y,\Z\in\mathcal{C}$, tenim que:
-    \begin{enumerate}
-        \item Propietat reflexiva: $\X\sim \X$.\par És clar que es compleix.
-        \item Propietat simètrica: $\X\sim \Y\iff \Y\sim \X$.
-        $$\X\sim \Y\iff y_{\X}(t)=y_{\Y}(t)\iff y_{\Y}(t)=y_{\X}(t)\iff \Y\sim \X.$$
-        \item Propietat transitiva: Si $\X\sim \Y$ i $\Y\sim \Z$, llavors $\X\sim \Z$.
-            $$\left.
-            \begin{array}{l}
-                \X\sim \Y\implies y_{\X}(t)=y_{\Y}(t)\\
-                \Y\sim \Z\implies y_{\Y}(t)=y_{\Z}(t)
-            \end{array}\right\}\implies y_{\X}(t)=y_{\Y}(t)=y_{\Z}(t)\implies \X\sim \Z.$$
-    \end{enumerate}
-\end{proof}
-\begin{prop}
-    Les operacions $\boxplus$ i $\cdot$ sobre el conjunt $\mathfrak{C}$ estan ben definides.
-\end{prop}
-\begin{proof}
-    Comencem primer veient que la suma està ben definida. Siguin $\X,\X',\Y,\Y'\in\mathcal{C}$ tals que $\overline{\X}=\overline{\X'}$ i $\overline{\Y}=\overline{\Y'}$, és a dir, tals que $y_{\X}(t)=y_{\X'}(t)$ i $y_{\Y}(t)=y_{\Y'}(t)$. Hem de veure que el valor $\overline{\X}\boxplus\overline{\Y}$ no depèn del representant, és a dir, que $\overline{\X}\boxplus\overline{\Y}=\overline{\X'}\boxplus\overline{\Y'}$. Sabem que: $$\overline{\X}\boxplus\overline{\Y}=\overline{\X'}\boxplus\overline{\Y'}\iff\overline{\X\cup\Y}=\overline{\X'\cup\Y'}\iff y_{\X\cup\Y}(t)=y_{\X'\cup\Y'}(t).$$ I aquesta darrera igualtat és certa tenint en compte que $y_{\X\cup\Y}(t)=y_{\X}(t)+y_{\Y}(t)$. En efecte: $$y_{\X\cup\Y}(t)=y_{\X}(t)+y_{\Y}(t)=y_{\X'}(t)+y_{\Y'}(t)=y_{\X'\cup\Y'}(t).$$
-    Demostrem ara que el producte per un escalar també està ben definit. Sigui $\lambda\in\RR$ i $\X,\X'\in\mathcal{C}$ tals que $\overline{\X}=\overline{\X'}$ o, equivalentment, $y_{\X}(t)=y_{\X'}(t)$. Suposem que $\lambda\cdot\overline{\X}=\overline{\Y}$ i $\lambda\cdot\overline{\X'}=\overline{\Y'}$. Hem de veure que $\overline{\Y}=\overline{\Y'}$. Sabem que: $$\overline{\Y}=\overline{\Y'}\iff y_{\Y}(t)=y_{\Y'}(t).$$
-    Tenint en compte que $y_{\Y}(t)=\lambda y_{\X}(t)$, obtenim: $$y_{\Y}(t)=\lambda y_{\X}(t)=\lambda y_{\X'}(t)=y_{\Y'}(t).$$
-\end{proof}
-\begin{theorem}
-    $(\mathfrak{C},\boxplus,\cdot)$ és un $\RR$-espai vectorial.
-\end{theorem}
-\begin{proof}
-    Cal comprovar tots els axiomes d'espai vectorial. Per a tot $\lambda,\mu\in\RR$ i tot $\overline{\X},\overline{\Y},\overline{\Z}\in\mathfrak{C}$, amb $$\X=\{(f_1,a_1,\varphi_1),(f_2,a_2,\varphi_2),\ldots,(f_n,a_n,\varphi_n)\},\quad\Y=\{(g_1,b_1,\phi_1),(g_2,b_2,\phi_2),\ldots,(g_m,b_m,\phi_m)\},$$  s'han de satisfer les següents propietats:
-    \begin{enumerate}
-        \item $(\overline{\X}\boxplus \overline{\Y})\boxplus \overline{\Z}=\overline{\X}\boxplus (\overline{\Y}\boxplus \overline{\Z})$:
-        $$(\overline{\X}\boxplus \overline{\Y})\boxplus \overline{\Z}=(\overline{\X\cup\Y})\boxplus \overline{\Z}=\overline{(\X\cup\Y)\cup\Z}=\overline{\X\cup(\Y\cup\Z)}=\overline{\X}\boxplus(\overline{\Y\cup\Z})=\overline{\X}\boxplus (\overline{\Y}\boxplus \overline{\Z}),$$ on hem utilitzat que la unió de conjunts és associativa.
-        \item $\overline{\X}\boxplus \overline{\Y}=\overline{\Y}\boxplus \overline{\X}$:
-        $$\overline{\X}\boxplus \overline{\Y}=\overline{\X\cup\Y}=\overline{\Y\cup\X}=\overline{\Y}\boxplus \overline{\X},$$ on hem utilitzat que la unió de conjunts és commutativa.
-        \item $\exists \overline{\0}\in\mathfrak{C}$ tal que $\overline{\X}\boxplus\overline{\0}=\overline{\X}$:\par
-        En aquest cas $\overline{\0}:=\overline{\emptyset}$. Així doncs és clar que: $$\overline{\X}\boxplus\overline{\0}=\overline{\X}\boxplus\overline{\emptyset}=\overline{\X\cup\emptyset}=\overline{\X}.$$ Observem que $\overline{\0}$ es tracta, com és d'esperar, del so amb equació $y_{\0}(t)=0$.
-        \item $\forall \overline{\X}\in\mathfrak{C}$ existeix $\overline{-\X}\in\mathfrak{C}$ tal que $\overline{\X}\boxplus\overline{-\X}=\overline{\0}$:\par
-        Definim $-\X$ com: $$-\X:=\{(f_1,a_1,\varphi_1+\pi),(f_2,a_2,\varphi_2+\pi),\ldots,(f_n,a_n,\varphi_n+\pi)\}.$$ D'aquesta manera tenim que $\overline{\X}\boxplus\overline{-\X}$ és el so d'equació:
-        \begin{multline*}
-            y_{\X\cup(-\X)}=y_{\X}+y_{-\X}=\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i)+\sum_{i=1}^na_i\sin(2\pi f_it+\varphi_i+\pi)=\\=\sum_{i=1}^na_i\left[\sin(2\pi f_it+\varphi_i)+\sin(2\pi f_it+\varphi_i+\pi)\right].
-        \end{multline*}
-        Recordant la fórmula trigonomètrica $\sin\alpha+\sin\beta=2\sin\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}$ obtenim que: $$y_{\X\cup(-\X)}=\sum_{i=1}^na_i\left[\sin(2\pi f_it+\varphi_i)+\sin(2\pi f_it+\varphi_i+\pi)\right]=\sum_{i=1}^n2a_i\sin\left(2\pi f_it+\varphi +\frac{\pi}{2}\right)\cos\frac{\pi}{2}=0.$$ Per tant, tenim que $\overline{\X}\boxplus\overline{-\X}=\overline{\0}$.
-        \item $\lambda\cdot\left[\mu\cdot \overline{\X}\right]=[\lambda\mu]\cdot \overline{\X}$:
-        \begin{multline*}
-            \lambda\cdot\left[\mu\cdot \overline{\X}\right]=\lambda\cdot\left[\mu\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\right]=\lambda\cdot\overline{\{(f_1,\mu a_1,\varphi_1),\ldots,(f_n,\mu a_n,\varphi_n)\}}=\\=\overline{\{(f_1,\lambda\mu a_1,\varphi_1),\ldots,(f_n,\lambda\mu a_n,\varphi_n)\}}=[\lambda\mu]\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}=[\lambda\mu]\cdot \overline{\X}.
-        \end{multline*}
-        \item $1\cdot \overline{\X}=\overline{\X}$:
-        \begin{multline*}
-            1\cdot\overline{\X}=1\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}=\overline{\{(f_1,1a_1,\varphi_1),\ldots,(f_n,1a_n,\varphi_n)\}}=\\=\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}=\overline{\X}.
-        \end{multline*}
-        \item $\lambda\cdot\left[\overline{\X}\boxplus\overline{\Y}\right]=\left[\lambda\cdot \overline{\X}\right]\boxplus\left[\lambda\cdot \overline{\Y}\right]$:
-        \begin{multline*}
-            \lambda\cdot\left[\overline{\X}\boxplus \overline{\Y}\right]=\lambda\cdot\left[\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\boxplus\overline{\{(g_1,b_1,\phi_1),\ldots,(g_m,b_m,\phi_m)\}}\right]=\\=\lambda\cdot\overline{\{(f_1, a_1,\varphi_1),\ldots,(f_n, a_n,\varphi_n),(g_1,b_1,\phi_1),\ldots,(g_m,b_m,\phi_m)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n),(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n)\}}\boxplus\overline{\{(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}}=\\=\left[\lambda\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\right]\boxplus\left[\lambda\cdot\overline{\{(g_1,\lambda b_1,\phi_1),\ldots,(g_m,\lambda b_m,\phi_m)\}}\right]=\left[\lambda\cdot \overline{\X}\right]\boxplus\left[\lambda\cdot \overline{\Y}\right].
-        \end{multline*}
-        \item $[\lambda+\mu]\cdot\overline{\X}=\left[\lambda \cdot \overline{\X}\right] \boxplus\left[\mu \cdot \overline{\X}\right]$:
-        \begin{multline*}
-            [\lambda+\mu]\cdot \overline{\X}=[\lambda+\mu]\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}=\overline{\{(f_1,[\lambda+\mu]a_1,\varphi_1),\ldots,(f_n,[\lambda+\mu]a_n,\varphi_n)\}}=\\=\overline{\{(f_1,\lambda a_1+\mu a_1,\varphi_1),\ldots,(f_n,\lambda a_n+\mu a_n,\varphi_n)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),(f_1,\mu a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n),(f_n,\mu a_n,\varphi_n)\}}=\\=\overline{\{(f_1,\lambda a_1,\varphi_1),\ldots,(f_n,\lambda a_n,\varphi_n)\}}\boxplus\overline{\{(f_1,\lambda\mu a_1,\varphi_1),\ldots,(f_n,\lambda\mu a_n,\varphi_n)\}}=\\=\left[\lambda\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\right]\boxplus\left[\mu\cdot\overline{\{(f_1,a_1,\varphi_1),\ldots,(f_n,a_n,\varphi_n)\}}\right]=\left[\lambda \cdot \overline{\X}\right] \boxplus\left[\mu \cdot \overline{\X}\right],
-        \end{multline*}
-        on en la quarta igualtat hem fet servir que el so complex $\{(f,\lambda a+\mu a,\varphi)\}$ és el mateix que $\{(f,\lambda a,\varphi),\\(f,\mu a,\varphi)\}$ ja que ambdós satisfan la mateixa equació: $$y(t)=(\lambda a+\mu a)\sin(2\pi ft+\varphi)=\lambda a\sin(2\pi ft+\varphi)+\mu a\sin(2\pi ft+\varphi).$$
-    \end{enumerate}
-\end{proof}
-\begin{prop}
-    Siguin $\overline{\X},\overline{\Y},\overline{\Z}\in\mathfrak{C}$ sons complexos i $\lambda\in\RR$. Llavors:
+\section{Demostracions}\label{demos}
+\begin{prop*}[\ref*{prop_dem1}]
+    Siguin $\X,\Y,\Z\in\mathcal{C}$ sons complexos i $\lambda\in[0,\infty)$. Llavors:
     \begin{enumerate}[label=$d$\arabic*),ref=$d$\arabic*]
-        \item\label{dd1} $d(\overline{\X},\overline{\Y})=d(\overline{\Y},\overline{\X})$.
-        \item\label{dd2} $d(\overline{\X}\boxplus\overline{\Y},\overline{\Z})=d(\overline{\X},\overline{\Z})+d(\overline{\Y},\overline{\Z})$.
-        \item\label{dd3} $d(\overline{\X},\overline{\Y}\boxplus\overline{\Z})=d(\overline{\X},\overline{\Y})+d(\overline{\X},\overline{\Z})$.
-        \item\label{dd4} $d(\lambda\cdot\overline{\X},\overline{\Y})=\lambda d(\overline{\X},\overline{\Y})$.
-        \item\label{dd5} $d(\overline{\X},\lambda\cdot\overline{\Y})=\lambda d(\overline{\X},\overline{\Y})$.
+        \item\label{dd1} $d(\X,\Y)=d(\Y,\X)$.
+        \item\label{dd2} $d(\X\oplus\Y,\Z)=d(\X,\Z)+d(\Y,\Z)$.
+        \item\label{dd3} $d(\X,\Y\oplus\Z)=d(\X,\Y)+d(\X,\Z)$.
+        \item\label{dd4} $d(\lambda\cdot\X,\Y)=\lambda d(\X,\Y)$.
+        \item\label{dd5} $d(\X,\lambda\cdot\Y)=\lambda d(\X,\Y)$.
     \end{enumerate}
-\end{prop}
+\end{prop*}
 \begin{proof}
     Suposem que $\X=\{x_i\}_{i=1}^n$, $\Y=\{y_i\}_{i=1}^m$ i $\Z=\{z_i\}_{i=1}^p$.
     \begin{enumerate}[label=$d$\arabic*)]
-        \item $$d(\overline{\X},\overline{\Y})=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(x_i,y_j)=\frac{1}{2}\sum_{j=1}^m\sum_{i=1}^n\delta(y_j,x_i)=d(\overline{\Y},\overline{\X}),$$ on hem utilitzat que la funció $\delta$ és simètrica (propietat \ref{delta1}).
+        \item $$d(\X,\Y)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(x_i,y_j)=\frac{1}{2}\sum_{j=1}^m\sum_{i=1}^n\delta(y_j,x_i)=d(\Y,\X),$$ on hem utilitzat que la funció $\delta$ és simètrica (propietat \ref{delta1}).
         \item Per simplificar la notació, anomenem 
         $$
         w_i=\left\{
@@ -507,42 +383,42 @@ A la figura \ref{main:fig2} es mostra una representació d'aquesta fórmula.
             x_i & \text{si} & 1\leq i\leq n\\
             y_{i-n} & \text{si} & n+1\leq i\leq m
         \end{array}\right.
-        $$ Aleshores tenim que: $$d(\overline{\X}\boxplus\overline{\Y},\overline{\Z})=\frac{1}{2}\sum_{i=1}^{n+m}\sum_{j=1}^p\delta(w_i,z_j)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^p\delta(x_i,z_j)+\frac{1}{2}\sum_{i=n+1}^m\sum_{j=1}^p\delta(y_i,z_j)=d(\overline{\X},\overline{\Z})+d(\overline{\Y},\overline{\Z}).$$
+        $$ Aleshores tenim que: $$d(\X\oplus\Y,\Z)=\frac{1}{2}\sum_{i=1}^{n+m}\sum_{j=1}^p\delta(w_i,z_j)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^p\delta(x_i,z_j)+\frac{1}{2}\sum_{i=n+1}^m\sum_{j=1}^p\delta(y_i,z_j)=d(\X,\Z)+d(\Y,\Z).$$
         \item És conseqüència de les propietats \ref{dd1} i \ref{dd2}.
-        \item $$d(\lambda\cdot\overline{\X},\overline{\Y})=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(\lambda x_i,y_j)=\frac{\lambda}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(x_i,y_j)=\lambda d(\overline{\X},\overline{\Y}),$$ on hem aplicat la propietat \ref{delta2}.
+        \item $$d(\lambda\cdot\X,\Y)=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(\lambda x_i,y_j)=\frac{\lambda}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(x_i,y_j)=\lambda d(\X,\Y),$$ on hem aplicat la propietat \ref{delta2}.
         \item És conseqüència de les propietats \ref{dd1} i \ref{dd4}.
     \end{enumerate}
 \end{proof}
-\begin{prop}
-    Siguin $\overline{\X},\overline{\Y}\in\mathfrak{C}$ sons complexos i $\lambda\in\RR$. Llavors:
+\begin{prop*}[\ref*{prop_dem2}]
+    Siguin $\X,\Y\in\mathcal{C}$ sons complexos i $\lambda\in[0,\infty)$. Llavors:
     \begin{enumerate}[label=$D$\arabic*),ref=$D$\arabic*]
-        \item\label{DD1} $D(\overline{\X}\boxplus\overline{\Y})=D(\overline{\X})+D(\overline{\Y})+2d(\overline{\X},\overline{\Y})$.
-        \item\label{DD2} $D(\lambda\cdot \overline{\X})=\lambda^2D(\overline{\X})$.
+        \item\label{DD1} $D(\X\oplus\Y)=D(\X)+D(\Y)+2d(\X,\Y)$.
+        \item\label{DD2} $D(\lambda\cdot \X)=\lambda^2D(\X)$.
     \end{enumerate}
-\end{prop}
+\end{prop*}
 \begin{proof}
     \hfill
     \begin{enumerate}[label=$D$\arabic*)]
         \item Aplicant les propietats \ref{dd1}, \ref{dd2} i \ref{dd3} obtenim:
         \begin{multline*}
-            D(\overline{\X}\boxplus\overline{\Y})=d(\overline{\X}\boxplus\overline{\Y},\overline{\X}\boxplus\overline{\Y})=d(\overline{\X},\overline{\X}\boxplus\overline{\Y})+d(\overline{\Y},\overline{\X}\boxplus\overline{\Y})=d(\overline{\X},\overline{\X})+d(\overline{\X},\overline{\Y})+\\+d(\overline{\Y},\overline{\X})+d(\overline{\Y},\overline{\Y})=d(\overline{\X},\overline{\X})+d(\overline{\Y},\overline{\Y})+2d(\overline{\X},\overline{\Y})=D(\overline{\X})+D(\overline{\Y})+2d(\overline{\X},\overline{\Y}).
+            D(\X\oplus\Y)=d(\X\oplus\Y,\X\oplus\Y)=d(\X,\X\oplus\Y)+d(\Y,\X\oplus\Y)=d(\X,\X)+d(\X,\Y)+\\+d(\Y,\X)+d(\Y,\Y)=d(\X,\X)+d(\Y,\Y)+2d(\X,\Y)=D(\X)+D(\Y)+2d(\X,\Y).
         \end{multline*}
-        \item Aplicant les propietats \ref{dd4} i \ref{dd5} obtenim: $$D(\lambda\cdot\overline{\X})=d(\lambda\cdot\overline{\X},\lambda\cdot\overline{\X})=\lambda d(\overline{\X},\lambda\cdot\overline{\X})=\lambda^2d(\overline{\X},\overline{\X})=\lambda^2D(\overline{\X}).$$
+        \item Aplicant les propietats \ref{dd4} i \ref{dd5} obtenim: $$D(\lambda\cdot\X)=d(\lambda\cdot\X,\lambda\cdot\X)=\lambda d(\X,\lambda\cdot\X)=\lambda^2d(\X,\X)=\lambda^2D(\X).$$
     \end{enumerate}
 \end{proof}
-\begin{corollary}
-    Siguin $\overline{\X_1},\ldots,\overline{\X_n}\in\mathfrak{C}$ sons complexos i $\lambda\in\RR$. Aleshores: $$D(\overline{\X_1}\boxplus\cdots\boxplus\overline{\X_n})=\sum_{i=1}^nD(\overline{\X_i})+\sum_{\substack{i,j=1\\i\ne j}}^nd(\overline{\X_i},\overline{\X_j})=\sum_{i,j=1}^nd(\overline{\X_i},\overline{\X_j})$$
-\end{corollary}
+\begin{corollary*}[\ref*{coro_dem3}]
+    Siguin $\X_1,\ldots,\X_n\in\mathcal{C}$ sons complexos i $\lambda\in[0,\infty)$. Aleshores: $$D(\X_1\oplus\cdots\oplus\X_n)=\sum_{i=1}^nD(\X_i)+\sum_{\substack{i,j=1\\i\ne j}}^nd(\X_i,\X_j)=\sum_{i,j=1}^nd(\X_i,\X_j)$$
+\end{corollary*}
 \begin{proof}
     Ho demostrarem per inducció sobre $n$. Per $n=1$ clarament es compleix la igualtat.\par Suposem certa la igualtat per $n=k$ i demostrem-la per $n=k+1$. Per les propietats \ref{DD1} i \ref{dd2} tenim que:
     \begin{multline*}
-        D(\overline{\X_1}\boxplus\cdots\boxplus\overline{\X_{k+1}})=D([\overline{\X_1}\boxplus\cdots\boxplus\overline{\X_k}]\boxplus\overline{\X_{k+1}})=D(\overline{\X_1}\boxplus\cdots\boxplus\overline{\X_k})+\\+D(\overline{\X_{k+1}})+2d(\overline{\X_1}\boxplus\cdots\boxplus\overline{\X_k},\overline{\X_{k+1}})=D(\overline{\X_1}\boxplus\cdots\boxplus\overline{\X_k})+D(\overline{\X_{k+1}})+2\sum_{i=1}^kd(\overline{\X}_i,\overline{\X_{k+1}}).
+        D(\X_1\oplus\cdots\oplus\X_{k+1})=D([\X_1\oplus\cdots\oplus\X_k]\oplus\X_{k+1})=D(\X_1\oplus\cdots\oplus\X_k)+\\+D(\X_{k+1})+2d(\X_1\oplus\cdots\oplus\X_k,\X_{k+1})=D(\X_1\oplus\cdots\oplus\X_k)+D(\X_{k+1})+2\sum_{i=1}^kd(\X_i,\X_{k+1}).
     \end{multline*}
     Ara bé, per la hipòtesi d'inducció tenim que:
-    $$D(\overline{\X_1}\boxplus\cdots\boxplus\overline{\X_k})=\sum_{i=1}^kD(\overline{\X_i})+\sum_{\substack{i,j=1\\i\ne j}}^kd(\overline{\X_i},\overline{\X_j}).$$ Així doncs, ajuntant-ho tot obtenim:
+    $$D(\X_1\oplus\cdots\oplus\X_k)=\sum_{i=1}^kD(\X_i)+\sum_{\substack{i,j=1\\i\ne j}}^kd(\X_i,\X_j).$$ Així doncs, ajuntant-ho tot obtenim:
     \begin{multline*}
-        D(\overline{\X_1}\boxplus\cdots\boxplus\overline{\X_{k+1}})=\sum_{i=1}^kD(\overline{\X_i})+\sum_{\substack{i,j=1\\i\ne j}}^kd(\overline{\X_i},\overline{\X_j})+D(\overline{\X_{k+1}})+2\sum_{i=1}^kd(\overline{\X_i},\overline{\X_{k+1}})=\\=\sum_{i=1}^{k+1}D(\overline{\X_i})+\sum_{\substack{i,j=1\\i\ne j}}^{k+1}d(\overline{\X_i},\overline{\X_j}).
+        D(\X_1\oplus\cdots\oplus\X_{k+1})=\sum_{i=1}^kD(\X_i)+\sum_{\substack{i,j=1\\i\ne j}}^kd(\X_i,\X_j)+D(\X_{k+1})+2\sum_{i=1}^kd(\X_i,\X_{k+1})=\\=\sum_{i=1}^{k+1}D(\X_i)+\sum_{\substack{i,j=1\\i\ne j}}^{k+1}d(\X_i,\X_j).
     \end{multline*}
-    Finalment, si expressem en aquesta igualtat $D(\overline{\X_i})$ com $d(\overline{\X_i},\overline{\X_i})$ deduïm la segona igualtat del coro\lgem ari.
+    Finalment, si expressem en aquesta igualtat $D(\X_i)$ com $d(\X_i,\X_i)$ deduïm la segona igualtat del coro\lgem ari.
 \end{proof}
 \end{document}
