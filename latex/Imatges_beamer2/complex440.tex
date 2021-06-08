@@ -10,9 +10,9 @@
     \begin{tikzpicture}
         \begin{axis}[
             xmin = 1, xmax = 2, %
-            ymin = 0, ymax = 3.5, %
+            ymin = 0, ymax = 2, %
             xtick distance = 0.1, %Is the distance between major ticks in the x-axis.
-            ytick distance = 0.5, %Is the distance between major ticks in the y-axis.
+            ytick distance = 0.25, %Is the distance between major ticks in the y-axis.
             grid = major, %When this options is set to both the minor and major grid are plotted.
             minor tick num = 1, %Is the number of ticks between major ticks.
             major grid style = {lightgray}, %Changes the color and stroke of the major grid.
@@ -29,11 +29,11 @@
             }
             
             %%%%%%%% nota1 %%%%%%%% 
-            \draw [thin,lessgreen,dashed] (axis cs:1.4983,0) -- node[right,pos=1.05]{659.26 Hz} (axis cs:1.4983,0.4498);
-            \filldraw[lessgreen] (1.4983,0.4498) circle [radius=1.5pt];
+            \draw [thin,lessgreen,dashed] (axis cs:1.4983,0) -- node[right,pos=1.05]{659.26 Hz} (axis cs:1.4983,0.239);
+            \filldraw[lessgreen] (1.4983,0.239) circle [radius=1.5pt];
             %%%%%%%% nota2 %%%%%%%% 
-            \draw [thin,lessgreen,dashed] (axis cs:1.925,0) -- node[left,pos=1.05]{847 Hz} (axis cs:1.925,1.6140);
-            \filldraw[lessgreen] (1.925,1.6140) circle [radius=1.5pt];
+            \draw [thin,lessgreen,dashed] (axis cs:1.925,0) -- node[left,pos=1.05]{847 Hz} (axis cs:1.925,1.058);
+            \filldraw[lessgreen] (1.925,1.058) circle [radius=1.5pt];
             \legend{$f_1=440\text{ Hz}$}
         \end{axis}
     \end{tikzpicture}

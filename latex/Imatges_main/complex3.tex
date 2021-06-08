@@ -11,9 +11,9 @@
     \begin{tikzpicture}
         \begin{axis}[
             xmin = 1, xmax = 2, %
-            ymin = 0, ymax = 3, %
+            ymin = 0, ymax = 2, %
             xtick distance = 0.1, %Is the distance between major ticks in the x-axis.
-            ytick distance = 0.5, %Is the distance between major ticks in the y-axis.
+            ytick distance = 0.25, %Is the distance between major ticks in the y-axis.
             grid = major, %When this options is set to both the minor and major grid are plotted.
             minor tick num = 1, %Is the number of ticks between major ticks.
             major grid style = {lightgray}, %Changes the color and stroke of the major grid.
@@ -30,25 +30,35 @@
             }
             
             \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1,0.001)};
-            \node[color=darkblue] at (1 + 0.03,0.001 + 0.15) {$\frac{1}{1}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.167,0.445)};
-            \node[color=darkblue] at (1.167,0.445 - 0.25) {$\frac{7}{6}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.2,0.453)};
-            \node[color=darkblue] at (1.2,0.453 - 0.25) {$\frac{6}{5}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.25,0.326)};
-            \node[color=darkblue] at (1.25 + 0.03,0.326) {$\frac{5}{4}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.333,0.260)};
-            \node[color=darkblue] at (1.333 + 0.03,0.260) {$\frac{4}{3}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.4,0.441)};
-            \node[color=darkblue] at (1.4,0.441 - 0.25) {$\frac{7}{5}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.5,0.067)};
-            \node[color=darkblue] at (1.5 + 0.03,0.067 + 0.09) {$\frac{3}{2}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.667,0.201)};
-            \node[color=darkblue] at (1.667 + 0.03,0.201) {$\frac{5}{3}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.75,0.237)};
-            \node[color=darkblue] at (1.75 + 0.03,0.237) {$\frac{7}{4}$};
+            \node[color=darkblue] at (1 + 0.03,0.001 + 0.1) {$\frac{1}{1}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.125,0.402)};
+            \node[color=darkblue] at (1.125 - 0.02,0.402 - 0.05) {$\frac{9}{8}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.143,0.337)};
+            \node[color=darkblue] at (1.143 - 0.01,0.337 - 0.11) {$\frac{8}{7}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.167,0.276)};
+            \node[color=darkblue] at (1.167 - 0.01,0.276 - 0.11) {$\frac{7}{6}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.2,0.204)};
+            \node[color=darkblue] at (1.2 - 0.01,0.204 - 0.11) {$\frac{6}{5}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.25,0.169)};
+            \node[color=darkblue] at (1.25 - 0.02,0.169 - 0.02) {$\frac{5}{4}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.286,0.290)};
+            \node[color=darkblue] at (1.286,0.290 - 0.13) {$\frac{9}{7}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.333,0.127)};
+            \node[color=darkblue] at (1.333 + 0.02,0.127) {$\frac{4}{3}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.4,0.227)};
+            \node[color=darkblue] at (1.4,0.227 - 0.13) {$\frac{7}{5}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.5,0.035)};
+            \node[color=darkblue] at (1.5 + 0.02,0.035 + 0.06) {$\frac{3}{2}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.6,0.223)};
+            \node[color=darkblue] at (1.6,0.223 - 0.13) {$\frac{8}{5}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.667,0.116)};
+            \node[color=darkblue] at (1.667 + 0.02,0.116) {$\frac{5}{3}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.75,0.163)};
+            \node[color=darkblue] at (1.75 + 0.02,0.163 - 0.02) {$\frac{7}{4}$};
+            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.8,0.212)};
+            \node[color=darkblue] at (1.8 + 0.02,0.212 - 0.05) {$\frac{9}{5}$};
             \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(2,0.003)};
-            \node[color=darkblue] at (2 - 0.03,0.003 + 0.15) {$\frac{2}{1}$};
+            \node[color=darkblue] at (2 - 0.03,0.003 + 0.1) {$\frac{2}{1}$};
             
             \legend{$f_1=1760\text{ Hz}$}
         \end{axis}

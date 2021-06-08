@@ -1,4 +1,4 @@
-\documentclass[10pt,hyperref={colorlinks,linkcolor=black,citecolor=blue!80,urlcolor=blue!60}]{beamer} %"handout" serveix per a treure els \pause
+\documentclass[10pt,hyperref={colorlinks,linkcolor=black,citecolor=blue!80,urlcolor=blue!60},handout]{beamer} %"handout" serveix per a treure els \pause
 \usepackage[mode=buildnew]{standalone}
 \usepackage[utf8]{inputenc}
 \usepackage[catalan,english]{babel}
@@ -23,7 +23,7 @@
 \definecolor{lessgreen}{RGB}{0,100,0}
 \definecolor{color1}{RGB}{255,158,1}
 \definecolor{color2}{RGB}{255,74,1}
-\definecolor{color3}{RGB}{220,0,0}
+\definecolor{color4}{RGB}{180,0,0}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%% setbeamer %%%%%%%%%
@@ -85,9 +85,9 @@
     \end{defin}}
 \end{frame}
 \begin{frame}{Operacions definides sobre $\mathcal{C}$}
-    Suposem $\X,\Y\in\mathcal{C}$ tals que $\X=\{s_1,\ldots,s_n\}$, on $s_i\in\mathcal{S}$ per $i=1,\ldots,n$.\par\pause
+    Suposem $\X,\Y\in\mathcal{C}$ tals que $\X=\{(f_1,a_1),(f_2,a_2),\ldots,(f_n,a_n)\}$.\par\pause
     \begin{defin}
-        Definim la suma $\oplus$ de $\X$ i $\Y$ com l'aplicació:
+        Definim la suma $\oplus$ entre sons complexos com l'aplicació:
         $$\begin{array}{r@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}c@{\hspace{0.5\tabcolsep}}l}
             \oplus:&\mathcal{C}\times\mathcal{C}&\longrightarrow&\mathcal{C}\\
             &(\X,\Y)&\longmapsto&\X\oplus \Y:=\X\cup\Y
@@ -102,7 +102,7 @@
         on $\Z=\{(f_1,\lambda a_1),(f_2,\lambda a_2),\ldots,(f_n,\lambda a_n)\}\in\mathcal{C}$.
     \end{defin}  
 \end{frame}
-\begin{frame}{}
+\begin{frame}{Model per a sons complexos}
     Suposem que tenim una funció $\delta$ de dissonància per a sons simples:
     \begin{align*}
         \delta:\mathcal{S}\times\mathcal{S}&\longrightarrow\RR\\
@@ -116,16 +116,15 @@
     \end{enumerate}\vspace{0.3cm}
     Aquí s'entén que si $s=(f,a)$, llavors $\lambda\cdot s=(f,\lambda s)$.
 \end{frame}
-\begin{frame}{Model per a sons complexos}
-    \vspace{-0.1cm}
+\begin{frame}
     \begin{defin}
-        Definim la funció $d$ de \textit{dissonància relativa} entre $\X,\Y\in\mathcal{C}$ com:
+        Definim la funció $d$ de \textit{dissonància relativa} entre $\X=\{s_i\}_{i=1}^n,\Y=\{r_i\}_{i=1}^m\in\mathcal{C}$ com:
     $$d(\X,\Y):=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^m\delta(s_i,r_j)$$
-    \end{defin}\pause\vspace{-0.05cm}
+    \end{defin}\pause
     \begin{alertblock}{Mesura de dissonància de sons complexos}
         Definim la dissonància $D$ d'un so complex $\X$ com: $$D(\X):= d(\X,\X)$$
     \end{alertblock}
-    Es pot comprovar que: $$D(\X\oplus\Y)=D(\X)+D(\Y)+2d(\X,\Y)$$\pause O més en general, donats $n$ sons complexos $\X_1,\ldots,\X_n\in\mathcal{C}$ es complex que:\par \vspace{-0.2cm}
+    Es pot comprovar que: $$D(\X\oplus\Y)=D(\X)+D(\Y)+2d(\X,\Y)$$\pause O més en general, donats $n$ sons complexos $\X_1,\ldots,\X_n\in\mathcal{C}$ es complex que:\par
     $$D(\X_1\oplus\cdots\oplus\X_n)=\sum_{i=1}^nD(\X_i)+\sum_{\substack{i,j=1\\i\ne j}}^nd(\X_i,\X_j)=\sum_{i,j=1}^nd(\X_i,\X_j)$$
 \end{frame}
 \begin{frame}{Teoria auditiva}
@@ -177,7 +176,7 @@
     \end{figure}
 \end{frame}
 \begin{frame}
-    Si considerem dues notes musicals $\N_1$ i $\N_2$ amb 7 harmònics de la forma: $$\N_i=\left\{(f_i,1),\left(2f_i,\frac{1}{2^\alpha}\right),\ldots,\left(7f_i,\frac{1}{7^\alpha}\right)\right\}\quad\text{ per }i=1,2,$$ suposant $a_k=\frac{1}{k^{0.4}}$ amb $\alpha=0.4$:\pause
+    Si considerem dues notes musicals $\N_1$ i $\N_2$ amb 9 harmònics de la forma: $$\N_i=\left\{(f_i,1),\left(2f_i,\frac{1}{2^\alpha}\right),\ldots,\left(7f_i,\frac{1}{7^\alpha}\right)\right\}\quad\text{ per }i=1,2,$$ suposant $a_k=\frac{1}{k^\alpha}$ amb $\alpha=0.75$:\pause
     \begin{figure}
         \centering
         \includestandalone[mode=image|tex,width=9cm]{Imatges_beamer3/complex2}
@@ -187,7 +186,7 @@
     Per tal de verificar el nostre model vam dur a terme un test. \pause
     \begin{itemize}
         \item Cada persona valorava el seu nivell musical (molt baix, baix, intermedi, alt o molt alt).\pause
-        \item Hi havia 11 combinacions de dos sons complexos.\pause
+        \item Hi havia 11 combinacions de dues notes musicals (tocades amb piano).\pause
         \item S'havia de qualificar cada so d'1 (molt dissonant) a 10 (molt consonant).
     \end{itemize}\pause
     En total vam aconseguir 190 respostes.
@@ -200,7 +199,7 @@
     Possibles millores:\pause
     \begin{itemize}
         \item Estudiar una possible estructura d'espai vectorial darrere el conjunt de sons complexos\pause
-        \item Fer un estudi amb diversos tipus d'instruments (de vent, de corda, de percussió...)\pause
+        \item Realitzar el test amb sons de diversos tipus d'instruments (de vent, de corda, de percussió...)\pause
         \item Millorar la fiabilitat del test
     \end{itemize}
 \end{frame}

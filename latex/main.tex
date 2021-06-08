@@ -10,6 +10,7 @@
 \usepackage{multirow}
 \usepackage{physics}
 \usepackage{enumitem}
+\usepackage{epigraph}
 %%%%%%%%% more colors %%%%%%%%%%%%
 \usepackage{xcolor}
 \definecolor{darkblue}{RGB}{86, 40, 240}
@@ -17,7 +18,7 @@
 \definecolor{color1}{RGB}{255,158,1}
 \definecolor{color2}{RGB}{255,74,1}
 \definecolor{color3}{RGB}{220,0,0}
-\definecolor{color4}{RGB}{150,0,0}
+\definecolor{color4}{RGB}{180,0,0}
 \usepackage[hypcap=false]{caption}
 %%%%%%%%% tiks-picture %%%%%%%%%%%
 \usepackage{tikz}
@@ -111,10 +112,16 @@
 \begin{abstract}
     És ben sabut que hi ha combinacions de notes musicals que sonen més bé que d'altres. Des de l'antiguitat se sap que això correspon al fet que els quocients de les freqüències de les notes involucrades siguin proporcionals a fraccions de nombres enters senzills. En aquest treball donarem una modelització matemàtica de com mesurar el grau de dissonància produït quan toquem dos (o més) notes musicals simultàniament. Finalment compararem els resultats amb l'opinió pública per veure si hi ha algun tipus de correspondència entre els fets teòrics i els fets empírics. 
 \end{abstract}
+\thispagestyle{empty}
+\newpage
+\thispagestyle{empty}
+\vspace*{\fill}
+\vspace{-2cm}
+\epigraph{It occurred to me by intuition, and music was the driving force behind that intuition. My discovery was the result of musical perception.}{\textit{Albert Einstein}}
+\vspace*{\fill}
+\newpage
 \selectlanguage{catalan}
-\newpage
-Per posar la frase
-\newpage
+\setcounter{page}{1}
 \tableofcontents
 \newpage
 \section{Introducció}
@@ -297,7 +304,13 @@ Observem que, pel comentaris fets prèviament en les seccions \ref{teoria_musica
     \label{main:fig3}
 \end{center}
 \subsection{Anàlisi dels resultats}
-Amb la implementació de la funció $\delta$ en l'apartat anterior ara ja podem treure les primeres conclusions. Per això, construïm ara un exemple d'aplicació d'aquesta model.\par Suposem que estem treballant amb sons complexos que són notes musicals, és a dir, amb conjunts de sons simples les freqüències dels quals són múltiples enters de una freqüència fonamental. Suposem a més que l'amplitud de l'harmònic $i$-èssim és $1/i^\alpha$, on $\alpha\in\mathbb{R}$ és un paràmetre fixat arbitrari. És a dir, la freqüència fonamental té amplitud 1, el segon harmònic té amplitud $1/2^\alpha$; el tercer, $1/3^\alpha$... Si fixem una nota musical $\N_1$ (de freqüència fonamental $f_1$) i fem variar-ne una altra $\N_2$ (de freqüència fonamental $f_2$) a partir d'un índex $r\in[1,2]$ tal que $f_2=rf_1$, obtenim els resultats que es mostren a les figures següents. Cal mencionar que en el nostre treball hem agafat $\alpha=0,4$...\textcolor{green}{POSAR FOTO DE FREQÜÈNCIES AMB LA FUNCIÓ $1/x^\alpha$}.
+Amb la implementació de la funció $\delta$ en l'apartat anterior ara ja podem treure les primeres conclusions. Per això, construïm ara un exemple d'aplicació d'aquesta model.\par Suposem que estem treballant amb sons complexos que són notes musicals, és a dir, amb conjunts de sons simples les freqüències dels quals són múltiples enters de una freqüència fonamental. Suposem a més que l'amplitud de l'harmònic $k$-èssim és $1/k^\alpha$, on $\alpha\in\mathbb{R}$ és un paràmetre fixat arbitrari. És a dir, la freqüència fonamental té amplitud 1, el segon harmònic té amplitud $1/2^\alpha$; el tercer, $1/3^\alpha$... Si fixem una nota musical $\N_1$ (de freqüència fonamental $f_1$) i fem variar-ne una altra $\N_2$ (de freqüència fonamental $f_2$) a partir d'un índex $r\in[1,2]$ tal que $f_2=rf_1$, obtenim els resultats que es mostren a les figures següents. Cal mencionar que en el nostre treball hem agafat $\alpha=0,75$. A més, en les imatges que hi ha a continuació han estat fetes considerant 9 harmònics de cada nota musical. Això últim ho he fet a causa del ràpid decreixement dels harmònics a partir del 10 i la tria $\alpha$ ha estat feta de manera que l'amplitud dels 9 primers harmònics s'aproximés relativament bé. A la següent imatge es mostre el comportament d'aquests harmònics.\par
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Imatges_main/espectre_freq.png}
+    \caption{Representació de l'espectre de freqüències de la nota LA4 (440 Hz) juntament amb la funció $\frac{1}{k^{0.75}}$ aproximant l'amplitud dels primers 9 harmònics}
+\end{figure}
+En els següents gràfics podem observar les \textit{corbes de dissonància} creades a partir del model descrit anteriorment.
 \begin{center}
     \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex1}
     \includestandalone[mode=image|tex,width=0.49\linewidth]{Imatges_main/complex2}\\
@@ -322,27 +335,27 @@ Al test únicament vam incloure combinacions de dos notes $\N_1$ i $\N_2$ de l'e
     \multicolumn{1}{c|}{} & $\N_1$ & $\N_2$ & $D(\N_1\oplus\N_2)$\\
     \hline
     \hline
-    So 1 & \multirow{3}{2.5cm}{LA2 $(110\Hz)$} & SI2 $(123.47\Hz)$ & 3.5289\\
+    So 1 & \multirow{3}{2.5cm}{LA2 $(110\Hz)$} & SI2 $(123.47\Hz)$ & 2.1409\\
     \cline{1-1}\cline{3-4}
-    So 2 & & MI3 $(164.81\Hz)$ & 1.4513\\		
+    So 2 & & MI3 $(164.81\Hz)$ & 0.7900\\		
     \cline{1-1}\cline{3-4}
-    So 3 & & SOL3 $(196\Hz)$  & 2.1898\\
+    So 3 & & SOL3 $(196\Hz)$  & 1.2839\\
     \hline
-    So 4 & \multirow{4}{2.5cm}{LA4 $(440\Hz)$} & LA\#4 $(466.16\Hz)$ & 2.8032 \\
+    So 4 & \multirow{4}{2.5cm}{LA4 $(440\Hz)$} & LA\#4 $(466.16\Hz)$ & 1.8835 \\
     \cline{1-1}\cline{3-4}
-    So 5 & & RE5 $(587.33\Hz)$  & 0.7927 \\
+    So 5 & & RE5 $(587.33\Hz)$  & 0.3891 \\
     \cline{1-1}\cline{3-4}
-    So 6 & & RE\#5 $(622.25\Hz)$ & 1.2071 \\
+    So 6 & & RE\#5 $(622.25\Hz)$ & 0.6032 \\
     \cline{1-1}\cline{3-4}
-    So 7 & & FA5 $(698.46\Hz)$ & 1.1055 \\
+    So 7 & & FA5 $(698.46\Hz)$ & 0.5752 \\
     \hline
-    So 8 & \multirow{4}{2.5cm}{LA6 $(1760\Hz)$} & LA\#6 $(1864.66\Hz)$ & 1.7028 \\
+    So 8 & \multirow{4}{2.5cm}{LA6 $(1760\Hz)$} & LA\#6 $(1864.66\Hz)$ & 1.2451 \\
     \cline{1-1}\cline{3-4}
-    So 9 & & DO\#7 $(2217.46\Hz)$ & 0.5485 \\
+    So 9 & & DO\#7 $(2217.46\Hz)$ & 0.2617 \\
     \cline{1-1}\cline{3-4}
-    So 10 & & MI7 $(2637.02\Hz)$ & 0.1832 \\
+    So 10 & & MI7 $(2637.02\Hz)$ & 0.09559 \\
     \cline{1-1}\cline{3-4}
-    So 11 & & FA\#7 $(2959.96\Hz)$ & 0.4842 \\
+    So 11 & & FA\#7 $(2959.96\Hz)$ & 0.2156 \\
     \hline
     \end{tabular}
     \caption{Freqüències usades al test i dissonància predita pel nostre model}
@@ -423,7 +436,8 @@ Finalment, i no menys important, també volem deixar constància de tots aquells
     Siguin $\X_1,\ldots,\X_n\in\mathcal{C}$ sons complexos i $\lambda\in[0,\infty)$. Aleshores: $$D(\X_1\oplus\cdots\oplus\X_n)=\sum_{i=1}^nD(\X_i)+\sum_{\substack{i,j=1\\i\ne j}}^nd(\X_i,\X_j)=\sum_{i,j=1}^nd(\X_i,\X_j)$$
 \end{corollary*}
 \begin{proof}
-    Ho demostrarem per inducció sobre $n$. Per $n=1$ clarament es compleix la igualtat.\par Suposem certa la igualtat per $n=k$ i demostrem-la per $n=k+1$. Per les propietats \ref{DD1} i \ref{dd2} tenim que:
+    Ho demostrarem per inducció sobre $n$. Per $n=1$ clarament es compleix la igualtat.\par 
+    \noindent Suposem certa la igualtat per $n=k$ i demostrem-la per $n=k+1$. Per les propietats \ref{DD1} i \ref{dd2} tenim que:
     \begin{multline*}
         D(\X_1\oplus\cdots\oplus\X_{k+1})=D([\X_1\oplus\cdots\oplus\X_k]\oplus\X_{k+1})=D(\X_1\oplus\cdots\oplus\X_k)+\\+D(\X_{k+1})+2d(\X_1\oplus\cdots\oplus\X_k,\X_{k+1})=D(\X_1\oplus\cdots\oplus\X_k)+D(\X_{k+1})+2\sum_{i=1}^kd(\X_i,\X_{k+1}).
     \end{multline*}

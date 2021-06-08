@@ -9,16 +9,16 @@
 \definecolor{color1}{RGB}{255,158,1}
 \definecolor{color2}{RGB}{255,74,1}
 \definecolor{color3}{RGB}{220,0,0}
-\definecolor{color4}{RGB}{150,0,0}
+\definecolor{color4}{RGB}{180,0,0}
 
 \begin{document}
     \pgfkeys{/pgf/number format/.cd,1000 sep={\,}}
     \begin{tikzpicture}
         \begin{axis}[
             xmin = 60, xmax = 1000, %
-            ymin = 0, ymax = 5, %
+            ymin = 0, ymax = 3, %
             xtick distance = 100, %Is the distance between major ticks in the x-axis.
-            ytick distance = 0.5, %Is the distance between major ticks in the y-axis.
+            ytick distance = 0.25, %Is the distance between major ticks in the y-axis.
             grid = major, %When this options is set to both the minor and major grid are plotted.
             minor tick num = 1, %Is the number of ticks between major ticks.
             major grid style = {lightgray}, %Changes the color and stroke of the major grid.

@@ -7,7 +7,7 @@
 
 \definecolor{color1}{RGB}{255,158,1}
 \definecolor{color2}{RGB}{255,74,1}
-\definecolor{color3}{RGB}{220,0,0}
+\definecolor{color4}{RGB}{180,0,0}
 
 \begin{document}
     \begin{tikzpicture}
@@ -28,11 +28,11 @@
             \IfStandalone{% options when file is compiled on its own
                 \addplot [thick,smooth,no markers,color1] table {./../Dades/model2-100.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
                 \addplot [thick,smooth,no markers,color2] table {./../Dades/model2-500.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
-                \addplot [thick,smooth,no markers,color3] table {./../Dades/model2-3000.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color4] table {./../Dades/model2-3000.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
             }{% options when file is compiled from main.tex
                 \addplot [thick,smooth,no markers,color1] table {./Dades/model2-100.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
                 \addplot [thick,smooth,no markers,color2] table {./Dades/model2-500.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
-                \addplot [thick,smooth,no markers,color3] table {./Dades/model2-3000.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color4] table {./Dades/model2-3000.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
             }
             \legend{$f_1=100\text{ Hz}$,$f_1=500\text{ Hz}$,$f_1=3000\text{ Hz}$}
         \end{axis}

@@ -11,9 +11,9 @@
     \begin{tikzpicture}
         \begin{axis}[
             xmin = 1, xmax = 2, %
-            ymin = 0, ymax = 3, %
+            ymin = 0, ymax = 2, %
             xtick distance = 0.1, %Is the distance between major ticks in the x-axis.
-            ytick distance = 0.5, %Is the distance between major ticks in the y-axis.
+            ytick distance = 0.25, %Is the distance between major ticks in the y-axis.
             grid = major, %When this options is set to both the minor and major grid are plotted.
             minor tick num = 1, %Is the number of ticks between major ticks.
             major grid style = {lightgray}, %Changes the color and stroke of the major grid.
@@ -29,18 +29,18 @@
                 \addplot [thick,smooth,no markers,red] table {./Dades/complex1760.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
             }
             %%%%%%%%%%%% LA %%%%%%%%%%%%
-            \draw [thin,lessgreen,dashed] (axis cs:1.0595,0) -- node[right,pos=1]{LA\#6} (axis cs:1.0595,1.7028);
-            \filldraw[lessgreen] (1.0595,1.7028) circle [radius=1.5pt];
+            \draw [thin,lessgreen,dashed] (axis cs:1.0595,0) -- node[right,pos=1]{LA\#6} (axis cs:1.0595,1.326);
+            \filldraw[lessgreen] (1.0595,1.326) circle [radius=1.5pt];
             %%%%%%%%%%%% DO %%%%%%%%%%%%
-            \draw [thin,lessgreen,dashed] (axis cs:1.2599,0) -- (axis cs:1.2599,0.5485);
-            \node[lessgreen] at (axis cs:1.28,0.74){DO\#7};
-            \filldraw[lessgreen] (1.2599,0.5485) circle [radius=1.5pt];
+            \draw [thin,lessgreen,dashed] (axis cs:1.2599,0) -- (axis cs:1.2599,0.262);
+            \node[lessgreen] at (axis cs:1.2599 - 0.03,0.35){DO\#7};
+            \filldraw[lessgreen] (1.2599,0.262) circle [radius=1.5pt];
             %%%%%%%%%%%% MI %%%%%%%%%%%%
-            \draw [thin,lessgreen,dashed] (axis cs:1.4983,0) -- node[right,pos=1]{MI7} (axis cs:1.4983,0.1832);
-            \filldraw[lessgreen] (1.4983,0.1832) circle [radius=1.5pt];
+            \draw [thin,lessgreen,dashed] (axis cs:1.4983,0) -- node[right,pos=1]{MI7} (axis cs:1.4983,0.106);
+            \filldraw[lessgreen] (1.4983,0.106) circle [radius=1.5pt];
             %%%%%%%%%%%% FA %%%%%%%%%%%%
-            \draw [thin,lessgreen,dashed] (axis cs:1.6818,0) -- node[left,pos=1.2]{FA\#5} (axis cs:1.6818,0.4842);
-            \filldraw[lessgreen] (1.6818,0.4842) circle [radius=1.5pt];
+            \draw [thin,lessgreen,dashed] (axis cs:1.6818,0) -- node[pos=1.5]{FA\#5} (axis cs:1.6818,0.216);
+            \filldraw[lessgreen] (1.6818,0.216) circle [radius=1.5pt];
             \legend{$f_1=1760\text{ Hz}$ (\textcolor{lessgreen}{LA6})}
         \end{axis}
     \end{tikzpicture}

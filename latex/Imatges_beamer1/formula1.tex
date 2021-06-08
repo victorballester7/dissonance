@@ -7,7 +7,7 @@
 
 \definecolor{color1}{RGB}{255,158,1}
 \definecolor{color2}{RGB}{255,74,1}
-\definecolor{color3}{RGB}{220,0,0}
+\definecolor{color4}{RGB}{180,0,0}
 
 \begin{document}
     \begin{tikzpicture}
@@ -81,21 +81,21 @@
                 samples=200, %This parameter determines the number of point to be plotted for the function, while bigger the number better looks the function.
                 smooth, %f we use this option, the compiler makes an interpolation between the point plotted to get a soft appearance for the function.
                 thick, %Stroke of the function. Options: ultra thin, very thin, thin, semithick, thick, very thick, ultra thick.
-                color3 %Color of the function.
+                color4 %Color of the function.
             ]{exp(0.15*500*(x-1+38/500)};
             \addplot[
                 domain=0.924:1.076, %Domain of the fucntion
                 samples=200, %This parameter determines the number of point to be plotted for the function, while bigger the number better looks the function.
                 smooth, %f we use this option, the compiler makes an interpolation between the point plotted to get a soft appearance for the function.
                 thick, %Stroke of the function. Options: ultra thin, very thin, thin, semithick, thick, very thick, ultra thick.
-                color3 %Color of the function.
+                color4 %Color of the function.
             ]{cosh(228.0052*(x-1)^2)-1};
             \addplot[
                 domain=1.076:2.5, %Domain of the fucntion
                 samples=200, %This parameter determines the number of point to be plotted for the function, while bigger the number better looks the function.
                 smooth, %f we use this option, the compiler makes an interpolation between the point plotted to get a soft appearance for the function.
                 thick, %Stroke of the function. Options: ultra thin, very thin, thin, semithick, thick, very thick, ultra thick.
-                color3 %Color of the function.
+                color4 %Color of the function.
             ]{exp(-0.15*500*(x-1-38/500)};
                                     
             \legend{$f_1=125\text{ Hz}$,,,$f_1=250\text{ Hz}$,,,$f_1=500\text{ Hz}$}
