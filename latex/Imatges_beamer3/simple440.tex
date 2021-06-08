@@ -1,7 +1,8 @@
 \documentclass{standalone}
 \usepackage{tikz}
-\usepackage{mathtools}
+\usepackage{amssymb,mathtools}
 \usepackage{pgfplots, pgfplotstable}
+\usepackage{physics}
 
 \pgfplotsset{compat = newest}
 \definecolor{lessgreen}{RGB}{0,100,0}
@@ -19,7 +20,7 @@
             width = 10cm, %sets the width of the figure
             height = 7.5cm,  %sets the height of the figure
             xlabel = {$f_2/f_1$}, %
-            ylabel = {$\delta(f_1,f_2,1,1)$}, %
+            ylabel = {$\delta((f_1,1),(f_2,1))$}, %
             legend cell align = {left}, %
         ]
             \IfStandalone{% options when file is compiled on its own

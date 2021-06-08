@@ -3,7 +3,7 @@
 dissonance
 second_derivative_check
 *.pdf
-!latex/Dades_i_codi/**
+!latex/Dades/**
 .vscode
 
 # Tex files

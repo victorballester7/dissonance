@@ -17,6 +17,7 @@
 \definecolor{color1}{RGB}{255,158,1}
 \definecolor{color2}{RGB}{255,74,1}
 \definecolor{color3}{RGB}{220,0,0}
+\definecolor{color4}{RGB}{150,0,0}
 \usepackage[hypcap=false]{caption}
 %%%%%%%%% tiks-picture %%%%%%%%%%%
 \usepackage{tikz}
@@ -118,7 +119,7 @@ Per posar la frase
 \newpage
 \section{Introducció}
 L'objectiu principal del treball és donar a entendre matemàticament per què es produeix la dissonància i intentar modelitzar-la quantitativament, per tal de determinar d'entre dos notes musicals quina és la més dissonant. Per això començarem fent una petita introducció de teoria musical on aprofitarem per definir les definicions necessàries i bàsiques per el treball. Seguidament comentarem molt breument certs de conceptes referents a l'oïda humana que necessitarem per deduïr una funció de dissonància. Acabat això, descriurem el model de dissonància que proposem juntament amb un anàlisi dels resultats obtinguts. Finalment compararem aquests valors amb els recollits en un test fet prèviament a un públic general.
-\section{Teoria musical i definicions prèvies}
+\section{Teoria musical i definicions prèvies}\label{teoria_musical}
 Aquest treball està molt estretament relacionat amb la música, en com els humans percebem els sons i, per extensió, en les notes musicals. És per això que ens cal per una petita incursió en la teoria musical per poder entendre correctament el sentit del nostre model.\par
 És ben conegut per a tothom que hi ha combinacions de notes musicals que sonen \textit{bé} i d'altres que sonen \textit{malament}. Ara bé, què volen dir \textit{bé} i \textit{malament} en aquest context? Vegem ara dues definicions que ens ho aclariran:
 \begin{definition}
@@ -183,6 +184,7 @@ Hi ha diversos models que parametritzen l'amplada de banda crítica corresponent
     \text{CBW}(f)=1.72 f^{0.65}
     \label{CBW}
 \end{equation}
+Cal mencionar que perquè aquest fórmula tingui sentit (pel que fa a la dimensionalitat) hem de considerar la freqüència $f$ adimensional. Més formalment, en comptes de considerar $f^{0.65}$, es pot considerar una freqüència \textit{normalitzada} per un valor fixat $f_0=1\Hz$, és a dir, considerar ${\left(\frac{f}{f_0}\right)}^{0.65}$. De tota manera, per simplicitat, al llarg del treball utilitzarem la fórmula \eqref{CBW}. D'altra banda, la funció $\text{CBW}(f)$ retorna una amplada mesurada en Hz i, per tant, deduïm que la constant $k=1.72$ té unitats de Hz. D'aquesta manera resolem el problema de la dimensió de $\text{CBW}$.
 \section{Model per a la mesura de dissonància}\label{model}
 Les demostracions de les proposicions que apareguin en aquesta secció es troben a la secció \ref{demos}.
 \subsection{Operacions definides a \texorpdfstring{$\mathcal{C}$}{C}}
@@ -258,14 +260,17 @@ que mesuri la dissonància d'un so complex. Per això definirem primer una funci
 \end{definition}
 \noindent Amb tals definicions obtenim una sèrie de propietats que seran importants a l'hora de calcular la dissonància entre dos (o més) sons de manera computacional \footnote{Per més informació sobre el codi informàtic en llenguatge C veure \url{https://github.com/carlosala/dissonance}.}.
 \begin{prop}\label{prop_dem2}
-    Siguin $\X,\Y\in\mathcal{C}$ sons complexos i $\lambda\in\RR_{\geq 0}$. Llavors:
+    Siguin $\X,\Y\in\mathcal{C}$ sons complexos i $\lambda\in[0,\infty)$. Llavors:
     \begin{enumerate}[label=$D$\arabic*),ref=$D$\arabic*]
         \item\label{D1} $D(\X\oplus\Y)=D(\X)+D(\Y)+2d(\X,\Y)$.
         \item\label{D2} $D(\lambda\cdot \X)=\lambda^2D(\X)$.
     \end{enumerate}
 \end{prop}
 \begin{corollary}\label{coro_dem3}
-    Siguin $\X_1,\ldots,\X_n\in\mathcal{C}$ sons complexos i $\lambda\in[0,\infty)$ . Aleshores: $$D(\X_1\oplus\cdots\oplus\X_n)=\sum_{i=1}^nD(\X_i)+\sum_{\substack{i,j=1\\i\ne j}}^nd(\X_i,\X_j)=\sum_{i,j=1}^nd(\X_i,\X_j)$$
+    Siguin $\X_1,\ldots,\X_n\in\mathcal{C}$ sons complexos i $\lambda\in[0,\infty)$ . Aleshores: 
+    \begin{equation}\label{eq_final}
+        D(\X_1\oplus\cdots\oplus\X_n)=\sum_{i=1}^nD(\X_i)+\sum_{\substack{i,j=1\\i\ne j}}^nd(\X_i,\X_j)=\sum_{i,j=1}^nd(\X_i,\X_j)
+    \end{equation}
 \end{corollary}
 \noindent Observem que la primera d'aquestes últimes propietats (la propietat \ref{D1}) ens permet expressar el valor de $d(\X,\Y)$ en funció únicament de la funció $D$, de la següent manera: $$d(\X,\Y)=\frac{1}{2}\left[D(\X+\Y)-D(\X)-D(\Y)\right].$$
 Així doncs aquesta relació juntament amb la de la definició de la funció $D$, $D(\X):=d(\X,\X)$, ens permet passar d'una funció a l'altra i viceversa.\par 
@@ -285,7 +290,7 @@ O, equivalentment, si simplifiquem l'expressió i l'escalem de tal forma que la 
     \delta((f_1,a_1),(f_2,a_2))=a_1a_2\frac{|f_2-f_1|}{\text{CBW}(f_m)\cdot 0.25}e^{1-\frac{|f_2-f_1|}{\text{CBW}(f_m)\cdot 0.25}}
     \label{for:dissonancia}
 \end{equation}
-A la figura \ref{main:fig3} es mostra un exemple gràfic d'aquesta fórmula per a diferents sons purs.
+Observem que, pel comentaris fets prèviament en les seccions \ref{teoria_musical} i \ref{teoria_auditiva}, la funció $\delta$ no té unitats. A la figura \ref{main:fig3} es mostra un exemple gràfic d'aquesta fórmula per a diferents sons purs.
 \begin{center}
     \includestandalone[mode=image|tex,width=0.5\linewidth]{Imatges_main/model2}
     \captionof{figure}{Representació de la funció $\delta(s_1,s_2)$, on $s_1=(f_1,1)$ i $s_2=(f_2,1)$ a partir de varies freqüències fixades $f_1$ i fent variar $f_2$ o, més ben dit, fent variar $\frac{f_2}{f_1}$ suposant $f_2\geq f_1$.}
@@ -300,7 +305,12 @@ Amb la implementació de la funció $\delta$ en l'apartat anterior ara ja podem 
     \captionof{figure}{Dissonància entre dos notes musicals $\N_1$ i $\N_2$. Aquí hem fixat la freqüència fonamental de $\N_1$ a 100 Hz, 440 Hz i 1760 Hz, respectivament i hem fet variar la relació $f_2/f_1$, essent $f_2$ la freqüència fonamental de $\N_2$.}
     \label{fig:complex}
 \end{center}
-Observem la peculiar forma dels gràfics. En particular sembla que se satisfà que els punts de màxima consonància es troben quan el quocient de les dues freqüències fonamentals de les notes $\N_1$ i $\N_2$ és una fracció involucrant nombres enters senzills en el numerador i denominador, tal com ja teoritzaven el pitagòrics al segle \MakeUppercase{\romannumeral 6} aC.\par D'altra banda, notem que conforme augmentem la freqüència base $f_1$ la dissonància en general va disminuint. Això és degut a la forma de la funció $\delta$ i també del comportament de la funció $\text{CBW}$ a freqüències altes. Aquest fet explica el per què no se sol produir música amb notes musicals que tenen freqüències fonamentals menors a 100 Hz.
+Observem la peculiar forma dels gràfics. En particular sembla que se satisfà que els punts de màxima consonància es troben quan el quocient de les dues freqüències fonamentals de les notes $\N_1$ i $\N_2$ és una fracció involucrant nombres enters senzills en el numerador i denominador, tal com ja teoritzaven el pitagòrics al segle \MakeUppercase{\romannumeral 6} aC. Això es deu al següent fet: considerem notes musicals $\N_1$ i $\N_2$ amb freqüències fonamentals $f_1$ i $f_2$, respectivament, tals que $\frac{f_2}{f_1}=\frac{p}{q}$, on $p,q\in\NN$ són nombres enters positius i coprimers. És a dir, $pf_1=qf_2$. Això vol dir que la freqüència de l'harmònic $p$-èssim de $f_1$ serà la mateix que la de l'harmònic $q$-èssim de $f_2$, i com a conseqüència $\delta((pf_1,a_1),(qf_2,a_2))=0$, per la definició de la funció $\delta$. De fet, això últim ocorrerà sempre que es comparin dos sons simples de freqüències $kpf_1$ i $kqf_2$, $k\in\NN$. Això comporta que si els valors de $p$ i $q$ són petits, aquestes igualtats entre harmònics s'aniran repetint constantment, el que provocarà un no-creixement en el valor total de la dissonància de $\N_1\oplus\N_2$. En canvi, si $p$ i $q$ són valors grans, la igualtat entre els harmònics ocorrerà quan n'haguem considerat molts i, per tant, a cada sumand de l'equació \eqref{eq_final} sempre anirem aportant petites (però no nu\lgem es) contribucions en la dissonància total, el que provoca que al final de tot el valor de $D(\N_1\oplus\N_2)$ sigui més gran.\par D'altra banda, notem que conforme augmentem la freqüència base $f_1$ la dissonància en general va disminuint. Això és degut a la forma de la funció $\delta$ i també del comportament de la funció $\text{CBW}$ a freqüències altes. Aquest fet explica el per què no se sol produir música amb notes musicals que tenen freqüències fonamentals menors a 100 Hz.\par Fet aquest anàlisis i havent vist que en general la funció dissonància perd magnitud a mesura que considerem sons més aguts, si $\N_1$ i $\N_2$ són dos sons amb freqüències fonamentals $f_1$ i $f_2$, un pot preguntar-se què ocorre quan fixem una fracció $\frac{p}{q}$, on $p,q\in\NN$, i considerem que el quocient de freqüències $\frac{f_1}{f_2}$ sigui igual a $\frac{p}{q}$. És a dir quina dissonància percebem quan fixem $\frac{f_2}{f_1}=\frac{p}{q}$. És clar que la dissonància $D(\N_1\oplus\N_2)$ resultat d'haver combinat aquests dos sons amb la relació de freqüències mencionada variarà de forma decreixent. Per tal de representar gràficament i poder percebre amb més claredat com és aquest decreixement, al següent gràfic hem representat quatre fraccions $\frac{p}{q}$ i hem fet variar $f_1$ en l'interval $[60,1000]$.
+\begin{figure}[ht]
+    \centering
+    \includestandalone[mode=image|tex,width=0.6\linewidth]{Imatges_main/grafic_fraccio_pq}
+    \caption{Variació de la dissonància de les notes musicals $\N_1$ i $\N_2$ amb respectives freqüències fonamentals $f_1$ i $f_2$, imposant que $\frac{f_2}{f_1}=\frac{p}{q}$, per a diferents fraccions $\frac{p}{q}$.}
+\end{figure}
 \section{Anàlisi dels fets empírics}
 Per comprovar que el model és encertat, vam realitzar un test a una mostra d'aproximadament 200 persones. El test consistia en 11 sons diferents, 3 corresponents a combinacions de freqüències baixes $(f \approx 110\Hz)$, 4 corresponents a freqüències mitjanes $(f \approx 440\Hz)$ i 4 corresponents a freqüències altes $(f \approx 1760\Hz)$. L'oient havia qualificar-los amb un número de l'1 al 10, essent 1 el nivell més dissonant i 10 el menys dissonant. El test també demanava a l'enquestat l'edat i, més important encara, la seva formació musical, que podia variar entre 5 nivells diferents (molt baix, baix, intermedi, alt i molt alt). Per tal de verificar que la gent era honesta amb la seva puntuació sobre el nivell de formació musical vam demanar, a més, que descrivissin breument la seva trajectòria musical. \par
 En total vam aconseguir 190 respostes, de les quals 42 eren de nivell molt baix; 69, de nivell baix; 43, de nivell intermedi; 26, de nivell alt, i 10, de nivell alt. Aquesta separació entre grups ens va permetre poder classificar les dades en 3 grups segons el nivell de formació musical: nivell molt baix-baix (111 respostes), nivell intermedi (43 respostes) i nivell alt-molt alt (36 respostes). \par
@@ -352,13 +362,16 @@ Els següent gràfic mostra els resultats obtinguts en el test.\par
     \caption{Resultats del test juntament amb la predicció (reescalada convenientment) dels nostres resultats}
 \end{figure}
 Per a l'anàlisi dels resultats ens hem basat en la mediana dels tots els valors obtinguts. El motiu de no haver inclòs la mitjana o la moda juntament amb la mediana es deu al fet que la primera està molt condicionada pels valors centrals de manera que les puntuacions mitjanes de cada so eren totes relativament similar, i no haurien de ser-ho per l'elecció feta dels sons. Pel que fa a la moda, aquesta ens va condicionar molt els valors extrems ja que molta gent puntuava la dissonància dels sons amb valors molt radicals: o propers a 1, o propers a 10.\par
-Observem que hi ha clares diferències entre els diferents nivells. En particular, deduïm que quan més familiar ens és un so, millor són els resultats predits pel model. Efectivament, en els sons 4, 5, 6 i 7, que són els de freqüències mitjanes (i.e. els més comuns), l'error comès en l'aproximació teòrica és inferior en comparació amb l'aproximació del model dels sons greus (sons 1, 2 i 3) i els sons aguts (sons 8, 9, 10 i 11). Podem concloure, doncs, que els resultats empírics obtinguts verifiquen prou bé els resultats obtinguts al nostre model.
+Observem que hi ha clares diferències entre els diferents nivells. En particular, deduïm que quan més familiar ens és un so, millor són els resultats predits pel model. Efectivament, en els sons 4, 5, 6 i 7, que són els de freqüències mitjanes (i.e. els més comuns), l'error comès en l'aproximació teòrica és inferior en comparació amb l'aproximació del model dels sons greus (sons 1, 2 i 3) i els sons aguts (sons 8, 9, 10 i 11). Podem concloure, doncs, que els resultats empírics obtinguts verifiquen prou bé els resultats obtinguts al nostre model.\par Finalment, cal comentar també que, tot i haver-ho considerat, al final no vam fer cap distinció per rangs d'edat. Això ho vam decidir així perquè no vam posar sons extremadament greus (el mínim va ser d'aproximadament 100 Hz) ni extremadament aguts (el màxim va ser d'aproximadament 3000 Hz), que són els que es deixen d'escoltar abans. Això juntament amb el fet que va haver molt pocs enquestats de més de 60 anys (que és quan l'oïda comença a deteriorar-se substancialment) en comparació amb el resta de rangs d'edat, ens va fer descartar aquesta possibilitat.
 \section{Conclusions i possibles refinaments}
 Malgrat ser aquest tema de la dissonància molt subjectiu, al llarg del treball hem vist que és possible modelar la dissonància partint de fenòmens auditius com és el de la banda crítica.\par
-Una possible extensió és endinsar-nos més en l'estructura algebraica que hi ha darrera el conjunt de sons complexos. Per això caldria, però, redefinir el conjunt de sons simples i incorporar-li un nou factor: la fase del so. Això ens permetria, juntament amb petites modificacions, definir les funcions $d$ i $D$ sobre un espai vectorial de dimensió infinita. D'aquesta manera $d$ seria una forma bilineal i $D$ la seva forma quadràtica associada.\par
-Referent al test, degut a la situació de la pandèmia no vam poder dur-lo a terme amb les condicions idònies que haguéssim volgut. La forma ideal de fer aquest test hagués estat, assegurar-nos que tothom escoltés els sons amb els mateixos altaveus i en un ambient silenciós, per tal d'eliminar possibles factors externs interferint en els resultats.
+Una possible extensió és endinsar-nos més en l'estructura algebraica que hi ha darrera el conjunt de sons complexos. Per això caldria, però, redefinir el conjunt de sons simples i incorporar-li un nou factor: la fase del so. Això ens permetria, juntament amb petites modificacions, definir les funcions $d$ i $D$ sobre un espai vectorial de dimensió infinita\footnote{De fet, seria no només infinit el conjunt, sinó no numerable.}. D'aquesta manera $d$ seria una forma bilineal i $D$ la seva forma quadràtica associada, ambdues sobre l'espai vectorial en qüestió.\par
+Referent al test, degut a la situació de la pandèmia no vam poder dur-lo a terme amb les condicions idònies que haguéssim volgut. La forma ideal de fer aquest test hagués estat assegurar-nos que tothom escoltés els sons amb els mateixos auriculars i en un ambient silenciós, per tal d'eliminar possibles factors externs interferint en els resultats.\par
+També enfocat a una millora del test, podríem haver experimentat amb combinacions de tres o quatre notes musicals tocades simultàniament, que de fet són les que solem sentir quan escoltem una melodia d'un piano, per exemple. \par Para\lgem elament a aquest darrer tema, també podríem haver considerat la possibilitat d'incloure diversos instruments i fer un estudi de com varia la percepció de la dissonància segons la classe d'instrument (de vent, de corda, de percussió...) que estiguem considerant, amb l'objectiu de descobrir quin d'ells és aproximat més satisfactòriament pel nostre model.
 \section{Agraïments}
-
+Primer de tot agraïm a la Natàlia Castellana Vila, tutora del treball, per la seva exigència i el constant suport al llarg de tot el projecte. \par
+D'altra banda, agraïm també al professor de l'assignatura, Xavier Mora Giné, per l'increïble implicació en aquest treball així com la participació en el debat de qüestions formals del treball.\par 
+Finalment, i no menys important, també volem deixar constància de tots aquells professors de l'assignatura que han aportat i compartit les seves crítiques i idees amb el propòsit de millorar i consolidar el treball. 
 \printbibliography[heading=bibintoc]
 \appendix
 \section{Demostracions}\label{demos}

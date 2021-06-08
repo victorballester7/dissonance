@@ -1,0 +1,45 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{amssymb,mathtools}
+\usepackage{pgfplots, pgfplotstable}
+\usepackage{physics}
+
+\pgfplotsset{compat = newest}
+
+\definecolor{color1}{RGB}{255,158,1}
+\definecolor{color2}{RGB}{255,74,1}
+\definecolor{color3}{RGB}{220,0,0}
+\definecolor{color4}{RGB}{150,0,0}
+
+\begin{document}
+    \pgfkeys{/pgf/number format/.cd,1000 sep={\,}}
+    \begin{tikzpicture}
+        \begin{axis}[
+            xmin = 60, xmax = 1000, %
+            ymin = 0, ymax = 5, %
+            xtick distance = 100, %Is the distance between major ticks in the x-axis.
+            ytick distance = 0.5, %Is the distance between major ticks in the y-axis.
+            grid = major, %When this options is set to both the minor and major grid are plotted.
+            minor tick num = 1, %Is the number of ticks between major ticks.
+            major grid style = {lightgray}, %Changes the color and stroke of the major grid.
+            width = 10cm, %sets the width of the figure
+            height = 9cm,  %sets the height of the figure
+            xlabel = {$f_1$}, %
+            ylabel = {$D(\vb{N}_1\oplus\vb{N}_2)$}, %
+            legend cell align = {left}, %
+        ]            
+            \IfStandalone{% options when file is compiled on its own
+                \addplot [thick,smooth,no markers,color1] table {./../Dades/fraccio3-2.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color2] table {./../Dades/fraccio5-4.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color3] table {./../Dades/fraccio9-8.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color4] table {./../Dades/fraccio17-16.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            }{% options when file is compiled from main.tex
+                \addplot [thick,smooth,no markers,color1] table {./Dades/fraccio3-2.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color2] table {./Dades/fraccio5-4.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color3] table {./Dades/fraccio9-8.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+                \addplot [thick,smooth,no markers,color4] table {./Dades/fraccio17-16.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+            }
+            \legend{$\frac{f_2}{f_1}=\frac{3}{2}$,$\frac{f_2}{f_1}=\frac{5}{4}$,$\frac{f_2}{f_1}=\frac{9}{8}$,$\frac{f_2}{f_1}=\frac{17}{16}$}
+        \end{axis}
+    \end{tikzpicture}
+\end{document}
