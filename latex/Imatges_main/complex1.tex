@@ -8,52 +8,52 @@
 \definecolor{darkblue}{RGB}{86, 40, 240}
 
 \begin{document}
-    \begin{tikzpicture}
-        \begin{axis}[
-            xmin = 1, xmax = 2, %
-            ymin = 0, ymax = 2.5, %
-            xtick distance = 0.1, %Is the distance between major ticks in the x-axis.
-            ytick distance = 0.25, %Is the distance between major ticks in the y-axis.
-            grid = major, %When this options is set to both the minor and major grid are plotted.
-            minor tick num = 1, %Is the number of ticks between major ticks.
-            major grid style = {lightgray}, %Changes the color and stroke of the major grid.
-            width = 10cm, %sets the width of the figure
-            height = 8cm,  %sets the height of the figure
-            xlabel = {$f_2/f_1$}, %
-            ylabel = {$D(\vb{N}_1\oplus\vb{N}_2)$}, %
-            legend cell align = {left}, %
-        ]
-            \IfStandalone{% options when file is compiled on its own
-                \addplot [thick,smooth,no markers,red] table {./../Dades/complex110.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
-            }{% options when file is compiled from main.tex
-                \addplot [thick,smooth,no markers,red] table {./Dades/complex110.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
-            }
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1,0.102)};
-            \node[color=darkblue] at (1 + 0.03,0.102) {$\frac{1}{1}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.2,1.651)};
-            \node[color=darkblue] at (1.2,1.651 - 0.13) {$\frac{6}{5}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.25,1.425)};
-            \node[color=darkblue] at (1.25,1.425 - 0.13) {$\frac{5}{4}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.286,1.354)};
-            \node[color=darkblue] at (1.286,1.354 - 0.13) {$\frac{9}{7}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.333,1.128)};
-            \node[color=darkblue] at (1.333,1.128 - 0.13) {$\frac{4}{3}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.4,1.201)};
-            \node[color=darkblue] at (1.4,1.201 - 0.13) {$\frac{7}{5}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.5,0.765)};
-            \node[color=darkblue] at (1.5,0.765 - 0.13) {$\frac{3}{2}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.6,1.131)};
-            \node[color=darkblue] at (1.6,1.131 - 0.13) {$\frac{8}{5}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.667,1.084)};
-            \node[color=darkblue] at (1.667,1.084 - 0.13) {$\frac{5}{3}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.75,1.199)};
-            \node[color=darkblue] at (1.75,1.199 - 0.13) {$\frac{7}{4}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.8,1.294)};
-            \node[color=darkblue] at (1.8,1.294 - 0.13) {$\frac{9}{5}$};
-            \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(2,0.346)};
-            \node[color=darkblue] at (2 - 0.03,0.346) {$\frac{2}{1}$};
+\begin{tikzpicture}
+  \begin{axis}[
+      xmin = 1, xmax = 2, %
+      ymin = 0, ymax = 2.5, %
+      xtick distance = 0.1, %Is the distance between major ticks in the x-axis.
+      ytick distance = 0.25, %Is the distance between major ticks in the y-axis.
+      grid = major, %When this options is set to both the minor and major grid are plotted.
+      minor tick num = 1, %Is the number of ticks between major ticks.
+      major grid style = {lightgray}, %Changes the color and stroke of the major grid.
+      width = 10cm, %sets the width of the figure
+      height = 8cm,  %sets the height of the figure
+      xlabel = {$f_2/f_1$}, %
+      ylabel = {$D(\vb{N}_1\oplus\vb{N}_2)$}, %
+      legend cell align = {left}, %
+    ]
+    \IfStandalone{% options when file is compiled on its own
+      \addplot [thick,smooth,no markers,red] table {./../Dades/complex110.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+    }{% options when file is compiled from main.tex
+      \addplot [thick,smooth,no markers,red] table {./Dades/complex110.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+    }
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1,0.102)};
+    \node[color=darkblue] at (1 + 0.03,0.102) {$\frac{1}{1}$};
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.2,1.651)};
+    \node[color=darkblue] at (1.2,1.651 - 0.13) {$\frac{6}{5}$};
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.25,1.425)};
+    \node[color=darkblue] at (1.25,1.425 - 0.13) {$\frac{5}{4}$};
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.286,1.354)};
+    \node[color=darkblue] at (1.286,1.354 - 0.13) {$\frac{9}{7}$};
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.333,1.128)};
+    \node[color=darkblue] at (1.333,1.128 - 0.13) {$\frac{4}{3}$};
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.4,1.201)};
+    \node[color=darkblue] at (1.4,1.201 - 0.13) {$\frac{7}{5}$};
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.5,0.765)};
+    \node[color=darkblue] at (1.5,0.765 - 0.13) {$\frac{3}{2}$};
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.6,1.131)};
+    \node[color=darkblue] at (1.6,1.131 - 0.13) {$\frac{8}{5}$};
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.667,1.084)};
+    \node[color=darkblue] at (1.667,1.084 - 0.13) {$\frac{5}{3}$};
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.75,1.199)};
+    \node[color=darkblue] at (1.75,1.199 - 0.13) {$\frac{7}{4}$};
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(1.8,1.294)};
+    \node[color=darkblue] at (1.8,1.294 - 0.13) {$\frac{9}{5}$};
+    \addplot [mark=oplus*,mark size=1.25pt,darkblue] coordinates {(2,0.346)};
+    \node[color=darkblue] at (2 - 0.03,0.346) {$\frac{2}{1}$};
 
-            \legend{$f_1=110\text{ Hz}$}
-        \end{axis}
-    \end{tikzpicture}
+    \legend{$f_1=110\text{ Hz}$}
+  \end{axis}
+\end{tikzpicture}
 \end{document}

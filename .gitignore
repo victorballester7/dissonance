@@ -2,7 +2,6 @@
 *.ipynb
 dissonance
 second_derivative_check
-*.pdf
 !latex/Dades/**
 .vscode
 

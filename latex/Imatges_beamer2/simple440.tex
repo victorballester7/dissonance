@@ -7,36 +7,36 @@
 \definecolor{lessgreen}{RGB}{0,100,0}
 
 \begin{document}
-    \begin{tikzpicture}
-        \begin{axis}[
-            xmin = 1, xmax = 2, %
-            ymin = 0, ymax = 1, %
-            xtick distance = 0.1, %Is the distance between major ticks in the x-axis.
-            ytick distance = 0.1, %Is the distance between major ticks in the y-axis.
-            grid = major, %When this options is set to both the minor and major grid are plotted.
-            minor tick num = 1, %Is the number of ticks between major ticks.
-            major grid style = {lightgray}, %Changes the color and stroke of the major grid.
-            width = 10cm, %sets the width of the figure
-            height = 7.5cm,  %sets the height of the figure
-            xlabel = {$f_2/f_1$}, %
-            ylabel = {$\delta(f_1,f_2,1,1)$}, %
-            legend cell align = {left}, %
-        ]
-            \IfStandalone{% options when file is compiled on its own
-                \addplot [thick,smooth,no markers,red] table {./../Dades/model2-440.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
-            }{% options when file is compiled from main.tex
-                \addplot [thick,smooth,no markers,red] table {./Dades/model2-440.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
-            }
-            %%%%%%%% nota3 %%%%%%%% 
-            \draw [thin,lessgreen,dashed] (axis cs:1.0595,0) -- node[right,pos=0.97]{466.16 Hz} (axis cs:1.0595,0.9895);
-            \filldraw[lessgreen] (1.0595,0.9895) circle [radius=1.5pt];
-            %%%%%%%% nota1 %%%%%%%% 
-            \addplot [mark=oplus*,mark size=1.5pt,lessgreen] coordinates { (1.4983,0.004968)};
-            \node [anchor=west,color=lessgreen] (source) at (axis cs:1.4983,0.05){659.26 Hz};
-            %%%%%%%% nota2 %%%%%%%% 
-            \addplot [mark=oplus*,mark size=1.5pt,lessgreen] coordinates {(1.925,0)};
-            \node [anchor=east,color=lessgreen] (source) at (axis cs:1.925,0.05){847 Hz};
-            \legend{$f_1=440\text{ Hz}$}
-        \end{axis}
-    \end{tikzpicture}
+\begin{tikzpicture}
+  \begin{axis}[
+      xmin = 1, xmax = 2, %
+      ymin = 0, ymax = 1, %
+      xtick distance = 0.1, %Is the distance between major ticks in the x-axis.
+      ytick distance = 0.1, %Is the distance between major ticks in the y-axis.
+      grid = major, %When this options is set to both the minor and major grid are plotted.
+      minor tick num = 1, %Is the number of ticks between major ticks.
+      major grid style = {lightgray}, %Changes the color and stroke of the major grid.
+      width = 10cm, %sets the width of the figure
+      height = 7.5cm,  %sets the height of the figure
+      xlabel = {$f_2/f_1$}, %
+      ylabel = {$\delta(f_1,f_2,1,1)$}, %
+      legend cell align = {left}, %
+    ]
+    \IfStandalone{% options when file is compiled on its own
+      \addplot [thick,smooth,no markers,red] table {./../Dades/model2-440.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+    }{% options when file is compiled from main.tex
+      \addplot [thick,smooth,no markers,red] table {./Dades/model2-440.txt}; % other options to pass in options on []: col sep=comma,only marks, mark=oplus*,mark size=1pt
+    }
+    %%%%%%%% nota3 %%%%%%%% 
+    \draw [thin,lessgreen,dashed] (axis cs:1.0595,0) -- node[right,pos=0.97]{466.16 Hz} (axis cs:1.0595,0.9895);
+    \filldraw[lessgreen] (1.0595,0.9895) circle [radius=1.5pt];
+    %%%%%%%% nota1 %%%%%%%% 
+    \addplot [mark=oplus*,mark size=1.5pt,lessgreen] coordinates { (1.4983,0.004968)};
+    \node [anchor=west,color=lessgreen] (source) at (axis cs:1.4983,0.05){659.26 Hz};
+    %%%%%%%% nota2 %%%%%%%% 
+    \addplot [mark=oplus*,mark size=1.5pt,lessgreen] coordinates {(1.925,0)};
+    \node [anchor=east,color=lessgreen] (source) at (axis cs:1.925,0.05){847 Hz};
+    \legend{$f_1=440\text{ Hz}$}
+  \end{axis}
+\end{tikzpicture}
 \end{document}
